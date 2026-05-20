@@ -78,7 +78,7 @@
                 &kp TAB   &kp N1       &kp N2          &kp N3       &kp N4       &kp N5       &kp LCTRL &kp RCTRL &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
                 &kp LCTRL &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &kp LALT  &kp RALT  &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT &trans
                 &kp LSHFT &bt BT_CLR   &rgb_ug RGB_TOG &sys_reset   &bootloader  &studio_unlock                   &trans   &trans   &trans &trans    &trans &trans
-                                                       &kp LGUI     &trans       &kp SPACE                        &kp LGUI &trans   &kp SPACE
+                                                       &trans       &trans       &trans                           &trans   &trans   &trans
             >;
         };
 
@@ -93,7 +93,7 @@
                 &kp  TAB  &kp DA_EXCL &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_PRCNT &kp LCTRL &kp RCTRL &kp DA_CARET &kp DA_AMPS  &kp DA_ASTRK &kp DA_LPAR &kp DA_RPAR &kp BSPC
                 &kp LCTRL &trans      &trans    &trans      &trans      &trans       &kp LALT  &kp RALT  &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
                 &kp LSHFT &trans      &trans    &trans      &trans      &trans                           &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &kp DA_TILDE
-                                                &kp LGUI    &trans      &kp SPACE                        &kp RET      &trans       &kp RALT
+                                                &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
 
