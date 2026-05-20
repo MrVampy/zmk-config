@@ -44,27 +44,6 @@
             bindings = <&kp DA_MINUS>, <&kp DA_QMARK>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-
-        // Hold-tap for ESC/RSHFT on the right-outer-pinky bottom row.
-        //
-        //   tap   → ESC    (modal-app mode switch, dismiss dialogs)
-        //   hold  → RSHFT  (capitalise left-hand letters with the right hand,
-        //                   filling the canonical-pinky-bottom Shift role
-        //                   without giving up the dedicated ESC position)
-        //
-        // balanced flavor + 200ms term + 175ms quick-tap: interrupt-order
-        // heuristics correctly resolve "press-key-then-letter-then-release"
-        // as Shift+letter, while quick repeated taps of ESC stay tap-only.
-        // ESC tap fires after release detection — ~200ms latency, acceptable
-        // for ESC's bursty usage profile (not hot-path during typing).
-        esc_sft: esc_shift {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <175>;
-            flavor = "balanced";
-            bindings = <&kp>, <&kp>;
-        };
     };
 };
 
@@ -81,9 +60,9 @@
             //                    | GUI | LWR | SPC |               | ENT | RSE  | ALT |
             bindings = <
                 &kp TAB   &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE &kp C_PP &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
-                &kp LCTRL &kp A &kp S &kp D &kp F &kp G &kp LALT   &kp BSPC &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
-                &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                     &kp N &kp M  &kp COMMA &kp DOT &hyp_qm  &esc_sft RSHFT ESC
-                                      &kp LGUI &mo 1 &kp SPACE              &kp RET &mo 2 &kp RALT
+                &kp LCTRL &kp A &kp S &kp D &kp F &kp G &kp LALT   &kp ESC  &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
+                &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                     &kp N &kp M  &kp COMMA &kp DOT &hyp_qm  &kp RSHFT
+                                      &kp LGUI &mo 1 &kp SPACE              &kp RET &mo 2 &kp BSPC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
