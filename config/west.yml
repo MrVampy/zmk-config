@@ -2,6 +2,8 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: joelspadin
+      url-base: https://github.com/joelspadin
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
@@ -9,5 +11,12 @@ manifest:
       remote: zmkfirmware
       revision: v0.3
       import: app/west.yml
+    # ZMK locale headers — provides DA_* macros (and many other locales) for
+    # writing keymaps in dk OS layout where bare US scancodes don't produce
+    # the intended characters. Module is consumed via `#include <locale/keys_da.h>`
+    # at the top of the keymap.
+    - name: zmk-locales
+      remote: joelspadin
+      revision: main
   self:
     path: config
