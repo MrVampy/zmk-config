@@ -8,6 +8,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/modifiers.h>
 #include <locale/keys_da.h>
 
 // dk OS layout reinterprets US scancodes — most symbols on the SYMBOL layer
@@ -25,6 +26,28 @@
 };
 
 / {
+    behaviors {
+        // Mod-morph for the QWERTY hyphen-key (position 38, FSLH scancode).
+        //
+        //   tap          → DA_MINUS  → `-` on dk
+        //   tap + Shift  → DA_QMARK  → `?` on dk
+        //
+        // Recovers the canonical "Shift+/ = ?" muscle memory from US/dk
+        // physical keyboards, made to work on dk OS layout. Without this
+        // morph, Shift+FSLH on dk produces `_` (underscore), which is the
+        // dk default but not what most people reach for when wanting `?`.
+        //
+        // `_` is still accessible via DA_UNDER on SYMBOL layer position 34.
+        hyp_qm: hyphen_qmark {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp DA_MINUS>, <&kp DA_QMARK>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+    };
+};
+
+/ {
     keymap {
         compatible = "zmk,keymap";
 
@@ -38,7 +61,7 @@
             bindings = <
                 &kp TAB   &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE &kp C_PP &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
                 &kp LCTRL &kp A &kp S &kp D &kp F &kp G &kp LALT   &kp BSPC &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
-                &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                     &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
+                &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                     &kp N &kp M  &kp COMMA &kp DOT &hyp_qm  &kp ESC
                                       &kp LGUI &mo 1 &kp SPACE              &kp RET &mo 2 &kp RALT
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
@@ -69,7 +92,7 @@
             bindings = <
                 &kp  TAB  &kp DA_EXCL &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_PRCNT &kp LCTRL &kp RCTRL &kp DA_CARET &kp DA_AMPS  &kp DA_ASTRK &kp DA_LPAR &kp DA_RPAR &kp BSPC
                 &kp LCTRL &trans      &trans    &trans      &trans      &trans       &kp LALT  &kp RALT  &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
-                &kp LSHFT &trans      &trans    &trans      &trans      &trans                           &kp DA_QMARK &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &kp DA_TILDE
+                &kp LSHFT &trans      &trans    &trans      &trans      &trans                           &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &kp DA_TILDE
                                                 &kp LGUI    &trans      &kp SPACE                        &kp RET      &trans       &kp RALT
             >;
         };
