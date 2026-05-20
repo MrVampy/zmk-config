@@ -8,7 +8,16 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
-#include <locale/keys_da.h>
+
+// Danish characters: the OS runs the dk xkb layout, so ZMK sends US scancodes
+// that the OS interprets as Danish letters. Mapping reference:
+//   US scancode    OS produces with dk layout
+//   LBKT  ([)      å
+//   SEMI  (;)      æ
+//   SQT   (')      ø
+// We use the raw US keycodes (keebart's stock keymap does the same for ; ' / etc.)
+// rather than a locale header, because <locale/keys_da.h> isn't in ZMK's default
+// include path and the indirection earns nothing here.
 
 / {
     chosen {
@@ -28,7 +37,7 @@
             // | SHFT |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  |  /  | ESC  |
             //                    | GUI | LWR | SPC |               | ENT | RSE  | ALT |
             bindings = <
-                &kp TAB   &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE &kp C_PP &kp Y &kp U  &kp I     &kp O   &kp P    &kp DK_ARING
+                &kp TAB   &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE &kp C_PP &kp Y &kp U  &kp I     &kp O   &kp P    &kp LBKT
                 &kp LCTRL &kp A &kp S &kp D &kp F &kp G &kp LALT   &kp BSPC &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
                 &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                     &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
                                       &kp LGUI &mo 1 &kp SPACE              &kp RET &mo 2 &kp RALT
