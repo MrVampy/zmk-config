@@ -68,7 +68,7 @@
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &kp  TAB  &kp DA_EXCL &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_PRCNT &kp LCTRL &kp RCTRL &kp DA_CARET &kp DA_AMPS  &kp DA_ASTRK &kp DA_LPAR &kp DA_RPAR &kp BSPC
-                &kp LCTRL &trans      &trans    &trans      &trans      &trans       &kp LALT  &kp RALT  &kp DA_MINUS &kp DA_EQUAL &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
+                &kp LCTRL &trans      &trans    &trans      &trans      &trans       &kp LALT  &kp RALT  &kp DA_SLASH &kp DA_EQUAL &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
                 &kp LSHFT &trans      &trans    &trans      &trans      &trans                           &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &kp DA_TILDE
                                                 &kp LGUI    &trans      &kp SPACE                        &kp RET      &trans       &kp RALT
             >;
