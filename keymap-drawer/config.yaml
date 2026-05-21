@@ -1,0 +1,65 @@
+# keymap-drawer configuration for the Corne Choc Pro keymap.
+#
+# Maps the joelspadin/zmk-locales DA_* macros and our custom mod-morph /
+# macro behaviors to their natural rendered characters, so the generated
+# SVG/PNG shows `!` not `DA_EXCL`, `'/"` not the macro reference, etc.
+#
+# Applied via `keymap -c keymap-drawer/config.yaml parse ...` during the
+# parse step (NOT at draw time — the labels need to be set before the
+# parser writes the YAML).
+
+parse_config:
+  zmk_keycode_map:
+    # Number-row shifted symbols
+    DA_EXCL: "!"
+    DA_AT: "@"
+    DA_HASH: "#"
+    DA_DLLR: "$"
+    DA_PRCNT: "%"
+    DA_CARET: "^"
+    DA_AMPS: "&"
+    DA_ASTRK: "*"
+    DA_LPAR: "("
+    DA_RPAR: ")"
+
+    # Math / punctuation
+    DA_EQUAL: "="
+    DA_PLUS: "+"
+    DA_MINUS: "-"
+    DA_UNDER: "_"
+    DA_SLASH: "/"
+    DA_QMARK: "?"
+    DA_BSLH: "\\"
+    DA_PIPE: "|"
+
+    # Brackets / braces
+    DA_LBKT: "["
+    DA_RBKT: "]"
+    DA_LBRC: "{"
+    DA_RBRC: "}"
+
+    # Quotes / accents
+    DA_APOS: "'"
+    DA_DQT: '"'
+    DA_GRAVE: "`"
+    DA_TILDE: "~"
+    DA_ACUTE: "´"
+    DA_UMLAUT: "¨"
+
+    # Currency
+    DA_EURO: "€"
+    DA_POUND_SIGN: "£"
+
+    # Danish letters
+    DA_AE: "æ"
+    DA_O_SLASH: "ø"
+    DA_A_RING: "å"
+
+  # Custom behaviors — mod-morph and macros defined in the keymap.
+  # raw_binding_map applies at parse-time and overrides whatever the
+  # parser would have written for these &-prefixed identifiers.
+  raw_binding_map:
+    "&apos_dqt": {t: "'", s: '"'}
+    "&hyp_qm": {t: "-", s: "?"}
+    "&inv_excl": "¡"
+    "&inv_ques": "¿"

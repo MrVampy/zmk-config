@@ -34,13 +34,17 @@ jobs:
       - name: Generate SVG + PNG
         run: |
           mkdir -p keymap-drawer
-          keymap parse -z config/corne_choc_pro.keymap > keymap-drawer/corne_choc_pro.yaml
-          # patch layout to use our DTS file (default zmk_keyboard lookup fails for custom Keebart board)
+          # `-c keymap-drawer/config.yaml` maps zmk-locales DA_* macros and our
+          # custom behaviors (apos_dqt, hyp_qm, inv_excl, inv_ques) to their
+          # natural rendered characters — so the diagram shows `!` not `DA_EXCL`.
+          keymap -c keymap-drawer/config.yaml parse -z config/corne_choc_pro.keymap > keymap-drawer/corne_choc_pro.yaml
+          # parser writes a placeholder layout line that doesn't know about
+          # Keebart's custom 46-key board; patch it to point at our DTS layout.
           sed -i 's|^layout:.*|layout: {dts_layout: boards/arm/corne_choc_pro/corne_choc_pro-layouts.dtsi, layout_name: default_layout}|' keymap-drawer/corne_choc_pro.yaml
           # -s limits rendering to the three real layers, dropping the unused
-          # extra_layer_1..6 templates that are all &trans and would render as
-          # blank pages otherwise. Positional yaml must come BEFORE -s to avoid
-          # argparse treating the yaml path as another layer name.
+          # extra_layer_1..6 templates (all &trans, would render as blank pages).
+          # Positional yaml must come BEFORE -s to avoid argparse treating the
+          # yaml path as another layer name.
           keymap draw keymap-drawer/corne_choc_pro.yaml -s QWERTY NUMBER SYMBOL > keymap-drawer/corne_choc_pro.svg
           rsvg-convert -w 2400 keymap-drawer/corne_choc_pro.svg -o keymap-drawer/corne_choc_pro.png
 

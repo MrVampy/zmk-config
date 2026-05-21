@@ -1,4 +1,4 @@
-layout: {dts_layout: /home/mrvamp/Projects/zmk-config/boards/arm/corne_choc_pro/corne_choc_pro-layouts.dtsi, layout_name: default_layout}
+layout: {dts_layout: boards/arm/corne_choc_pro/corne_choc_pro-layouts.dtsi, layout_name: default_layout}
 layers:
   QWERTY:
   - TAB
@@ -14,7 +14,7 @@ layers:
   - I
   - O
   - P
-  - DA A RING
+  - å
   - LCTRL
   - A
   - S
@@ -27,8 +27,8 @@ layers:
   - J
   - K
   - L
-  - DA AE
-  - DA O SLASH
+  - æ
+  - ø
   - LSHFT
   - Z
   - X
@@ -37,9 +37,9 @@ layers:
   - B
   - N
   - M
-  - ','
-  - .
-  - {t: DA MINUS, s: DA QMARK}
+  - COMMA
+  - DOT
+  - {t: '-', s: '?'}
   - RSHFT
   - LGUI
   - NUMBER
@@ -96,44 +96,44 @@ layers:
   - {t: ▽, type: trans}
   SYMBOL:
   - TAB
-  - DA EXCL
-  - DA AT
-  - DA HASH
-  - DA DLLR
-  - DA PRCNT
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - DA CARET
-  - DA AMPS
-  - DA ASTRK
-  - DA LPAR
-  - DA RPAR
+  - ^
+  - '&'
+  - '*'
+  - (
+  - )
   - BSPC
   - LCTRL
-  - {t: DA APOS, s: DA DQT}
-  - '&inv_excl'
-  - '&inv_ques'
-  - DA EURO
-  - DA POUND SIGN
+  - {t: '''', s: '"'}
+  - ¡
+  - ¿
+  - €
+  - £
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - DA EQUAL
-  - DA SLASH
-  - DA LBKT
-  - DA RBKT
-  - DA BSLH
-  - DA GRAVE
+  - '='
+  - /
+  - '['
+  - ']'
+  - \
+  - '`'
   - LSHFT
-  - DA ACUTE
-  - DA TILDE
-  - DA UMLAUT
+  - ´
+  - '~'
+  - ¨
   - ''
   - ''
-  - DA UNDER
-  - DA PLUS
-  - DA LBRC
-  - DA RBRC
-  - DA PIPE
+  - _
+  - +
+  - '{'
+  - '}'
+  - '|'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
