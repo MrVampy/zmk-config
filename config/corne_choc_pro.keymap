@@ -44,6 +44,17 @@
             bindings = <&kp DA_MINUS>, <&kp DA_QMARK>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
+
+        // SYMBOL+A — apostrophe / double-quote pair via the dk `' *` keysym
+        // family. tap = ' (DA_APOS), shift = " (DA_DQT). Lives on the
+        // left-pinky home row so SYMBOL (right thumb hold) + A (left pinky)
+        // is a clean cross-hand chord. Mnemonic: A → Apostrophe.
+        apos_dqt: apostrophe_dquote {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp DA_APOS>, <&kp DA_DQT>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
     };
 };
 
@@ -91,7 +102,7 @@
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &kp  TAB  &kp DA_EXCL &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_PRCNT &trans    &trans    &kp DA_CARET &kp DA_AMPS  &kp DA_ASTRK &kp DA_LPAR &kp DA_RPAR &kp BSPC
-                &kp LCTRL &none       &none     &none       &none       &none        &trans    &trans    &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
+                &kp LCTRL &apos_dqt   &none     &none       &none       &none        &trans    &trans    &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
                 &kp LSHFT &none       &none     &none       &none       &none                            &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &kp DA_TILDE
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
