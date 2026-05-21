@@ -106,8 +106,8 @@
             // | SHFT |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  |  /  | ESC  |
             //                    | GUI | LWR | SPC |               | ENT | RSE  | ALT |
             bindings = <
-                &kp ESC   &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE &kp C_PP &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
-                &kp LCTRL &kp A &kp S &kp D &kp F &kp G &kp LALT   &kp TAB  &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
+                &kp TAB   &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE &kp C_PP &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
+                &kp LCTRL &kp A &kp S &kp D &kp F &kp G &kp LALT   &kp ESC  &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
                 &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                     &kp N &kp M  &kp COMMA &kp DOT &hyp_qm  &kp RSHFT
                                       &kp LGUI &mo 1 &kp SPACE              &kp RET &mo 2 &kp BSPC
             >;
