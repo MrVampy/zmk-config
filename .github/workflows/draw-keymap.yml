@@ -49,8 +49,5 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "auto: regenerate keymap diagram
-
-[skip ci]
-"
+          git commit -m "auto: regenerate keymap diagram [skip ci]"
           git push
