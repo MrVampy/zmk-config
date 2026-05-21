@@ -1,7 +1,7 @@
 layout: {dts_layout: boards/arm/corne_choc_pro/corne_choc_pro-layouts.dtsi, layout_name: default_layout}
 layers:
   QWERTY:
-  - TAB
+  - ESC
   - Q
   - W
   - E
@@ -22,7 +22,7 @@ layers:
   - F
   - G
   - LALT
-  - ESC
+  - TAB
   - H
   - J
   - K
