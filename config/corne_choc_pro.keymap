@@ -69,8 +69,8 @@
         lt_bspc: layer_tap_bspc_100ms {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <100>;
-            quick-tap-ms = <200>;
+            tapping-term-ms = <50>;
+            quick-tap-ms = <0>;
             flavor = "tap-preferred";
             retro-tap;
             bindings = <&mo>, <&kp>;
