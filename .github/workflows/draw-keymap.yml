@@ -2,12 +2,13 @@ name: Draw keymap
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - 'config/*.keymap'
       - 'boards/arm/corne_choc_pro/**'
       - '.github/workflows/draw-keymap.yml'
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 permissions:
   contents: write
