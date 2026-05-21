@@ -139,7 +139,7 @@
             bindings = <
                 &kp  TAB  &kp DA_EXCL &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_PRCNT &trans    &trans    &kp DA_CARET &kp DA_AMPS  &kp DA_ASTRK &kp DA_LPAR &kp DA_RPAR &kp BSPC
                 &kp LCTRL &apos_dqt   &inv_excl &inv_ques   &kp DA_EURO &kp DA_POUND_SIGN &trans &trans &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
-                &kp LSHFT &kp DA_ACUTE &kp DA_TILDE &kp DA_UMLAUT &none  &none                            &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &none
+                &kp LSHFT &kp DA_ACUTE &kp DA_TILDE &kp DA_UMLAUT &none  &none                            &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &trans
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
