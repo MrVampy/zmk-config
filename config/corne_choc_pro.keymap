@@ -58,12 +58,12 @@
     };
 
     // ------------------------------------------------------------------------
-    // Macros for Spanish ¡ and ¿ via the custom dk-es xkb layout. The host
-    // xkb maps AltGr+1 → ¡ and AltGr+, → ¿ (see hosts/tuxedo/configuration.nix
-    // services.xserver.xkb.extraLayouts.dk-es). These macros just fire the
-    // AltGr+key combinations; the actual character production happens at the
-    // host's xkb layer, which means they work everywhere — terminals, helix,
-    // Qt, GTK — not just GTK Unicode-input apps.
+    // Macros for Spanish ¡ and ¿. Standard dk(basic) (inherited by all dk
+    // variants including winkeys) already has both:
+    //   AltGr+1            → ¡  (latin(type2) AE01 level 3)
+    //   AltGr+Shift+(+key) → ¿  (dk AE11 level 4: [plus, question, plusminus, questiondown])
+    // So these macros just fire the canonical key combinations — no custom
+    // xkb variant needed.
     // ------------------------------------------------------------------------
     macros {
         inv_excl: inverted_exclamation {
@@ -86,9 +86,9 @@
             wait-ms = <10>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT
-                &macro_tap &kp COMMA
-                &macro_release &kp RALT
+                &macro_press &kp RALT &kp LSHFT
+                &macro_tap &kp MINUS
+                &macro_release &kp LSHFT &kp RALT
             >;
         };
     };
