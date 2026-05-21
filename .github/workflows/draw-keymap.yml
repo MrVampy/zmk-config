@@ -46,6 +46,8 @@ jobs:
           # Positional yaml must come BEFORE -s to avoid argparse treating the
           # yaml path as another layer name.
           keymap draw keymap-drawer/corne_choc_pro.yaml -s QWERTY NUMBER SYMBOL > keymap-drawer/corne_choc_pro.svg
+          # No --background-color: keep the PNG alpha-channel transparent so
+          # the viewer (imv, browser, etc.) supplies the surrounding color.
           rsvg-convert -w 2400 keymap-drawer/corne_choc_pro.svg -o keymap-drawer/corne_choc_pro.png
 
       - name: Commit + push if changed
