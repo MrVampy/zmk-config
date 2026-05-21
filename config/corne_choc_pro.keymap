@@ -56,6 +56,42 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
     };
+
+    // ------------------------------------------------------------------------
+    // Macros for Spanish ¡ and ¿ via the custom dk-es xkb layout. The host
+    // xkb maps AltGr+1 → ¡ and AltGr+, → ¿ (see hosts/tuxedo/configuration.nix
+    // services.xserver.xkb.extraLayouts.dk-es). These macros just fire the
+    // AltGr+key combinations; the actual character production happens at the
+    // host's xkb layer, which means they work everywhere — terminals, helix,
+    // Qt, GTK — not just GTK Unicode-input apps.
+    // ------------------------------------------------------------------------
+    macros {
+        inv_excl: inverted_exclamation {
+            label = "INV_EXCL";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp RALT
+                &macro_tap &kp N1
+                &macro_release &kp RALT
+            >;
+        };
+
+        inv_ques: inverted_question {
+            label = "INV_QUES";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp RALT
+                &macro_tap &kp COMMA
+                &macro_release &kp RALT
+            >;
+        };
+    };
 };
 
 / {
@@ -102,8 +138,8 @@
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &kp  TAB  &kp DA_EXCL &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_PRCNT &trans    &trans    &kp DA_CARET &kp DA_AMPS  &kp DA_ASTRK &kp DA_LPAR &kp DA_RPAR &kp BSPC
-                &kp LCTRL &apos_dqt   &none     &none       &none       &none        &trans    &trans    &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
-                &kp LSHFT &none       &none     &none       &none       &none                            &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &kp DA_TILDE
+                &kp LCTRL &apos_dqt   &inv_excl &inv_ques   &kp DA_EURO &kp DA_POUND_SIGN &trans &trans &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
+                &kp LSHFT &kp DA_ACUTE &kp DA_TILDE &kp DA_UMLAUT &none  &none                            &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &kp DA_TILDE
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
