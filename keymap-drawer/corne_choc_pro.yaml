@@ -42,10 +42,10 @@ layers:
   - {t: '-', s: '?'}
   - RSHFT
   - LGUI
-  - NUMBER
+  - {t: BSPC, h: NUMBER}
   - SPACE
   - RET
-  - SYMBOL
+  - {t: BSPC, h: SYMBOL}
   - BSPC
   NUMBER:
   - {t: ▽, type: trans}
