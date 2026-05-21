@@ -1,0 +1,55 @@
+name: Draw keymap
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'config/*.keymap'
+      - 'boards/arm/corne_choc_pro/**'
+      - '.github/workflows/draw-keymap.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install keymap-drawer + librsvg
+        run: |
+          pip install --quiet keymap-drawer
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq librsvg2-bin
+
+      - name: Generate SVG + PNG
+        run: |
+          mkdir -p keymap-drawer
+          keymap parse -z config/corne_choc_pro.keymap > keymap-drawer/corne_choc_pro.yaml
+          # patch layout to use our DTS file (default zmk_keyboard lookup fails for custom Keebart board)
+          sed -i 's|^layout:.*|layout: {dts_layout: boards/arm/corne_choc_pro/corne_choc_pro-layouts.dtsi, layout_name: default_layout}|' keymap-drawer/corne_choc_pro.yaml
+          keymap draw keymap-drawer/corne_choc_pro.yaml > keymap-drawer/corne_choc_pro.svg
+          rsvg-convert -w 2400 keymap-drawer/corne_choc_pro.svg -o keymap-drawer/corne_choc_pro.png
+
+      - name: Commit + push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add keymap-drawer/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "auto: regenerate keymap diagram
+
+[skip ci]
+"
+          git push
