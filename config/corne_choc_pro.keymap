@@ -178,6 +178,19 @@
 };
 
 / {
+    // Tri-layer: NUMBER (1) + SYMBOL (2) held together → SETTINGS (3).
+    // Lifts the destructive BT/sys/RGB cluster off the NUMBER layer where
+    // accidental BSPC + adjacent-letter chords were firing them. Activation
+    // is a deliberate two-thumb chord (inner + outer thumb, either hand or
+    // cross-hand), which doesn't occur in normal typing.
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        tri_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -204,13 +217,20 @@
             display-name = "NUMBER";
             // -----------------------------------------------------------------------------------------
             // |  TAB |  1  |  2  |  3  |  4  |  5    |  LCTRL | RCTRL |  6  |  7  |  8  |  9  |  0  | BSPC |
-            // | CTRL | BT1 | BT2 | BT3 | BT4 | BT5   |  LALT  | RALT  | LFT | DWN |  UP | RGT |     |      |
-            // | SHFT | BTCR| RGB | RST | BOOT| Unlock|        |       |     |     |     |     |     |      |
+            // | CTRL |     |     |     |     |       |  LALT  | RALT  | LFT | DWN |  UP | RGT |     |      |
+            // | SHFT |     |     |     |     |       |        |       |     |     |     |     |     |      |
             //                    | GUI |     | SPC   |        | ENT   |     | ALT |
+            //
+            // Settings cluster (BT_SEL 0..4, BT_CLR, RGB_TOG, sys_reset,
+            // bootloader, studio_unlock) used to live on positions 15-19
+            // (row 2) and 29-33 (row 3) but was firing accidentally during
+            // BSPC-mashing. Moved to the SETTINGS sub-layer (layer 3,
+            // settings_layer) accessed via tri-layer chord NUMBER + SYMBOL.
+            // Those positions now &none so a stray brush is harmless.
             bindings = <
                 &trans    &kp N1       &kp N2          &kp N3       &kp N4       &kp N5       &trans    &trans    &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &none
-                &trans    &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &trans    &trans    &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT &none
-                &trans    &bt BT_CLR   &rgb_ug RGB_TOG &sys_reset   &bootloader  &studio_unlock                   &none    &none    &none  &none     &none  &trans
+                &trans    &none        &none           &none        &none        &none        &trans    &trans    &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT &none
+                &trans    &none        &none           &none        &none        &none                          &none    &none    &none  &none     &none  &trans
                                                        &trans       &trans       &trans                           &trans   &trans   &trans
             >;
         };
@@ -230,13 +250,23 @@
             >;
         };
 
-        extra_layer_1 {
-            display-name = "EXTRA 1";
+        settings_layer {
+            display-name = "SETTINGS";
+            // -----------------------------------------------------------------------------------------
+            // |      |     |     |     |     |       |       |       |     |     |     |     |     |      |
+            // |      | BT1 | BT2 | BT3 | BT4 | BT5   |       |       |     |     |     |     |     |      |
+            // |      | BTCR| RGB | RST | BOOT| Unlock|       |       |     |     |     |     |     |      |
+            //                    |     |     |       |       |       |     |     |
+            //
+            // Activated by the tri-layer rule: hold NUMBER (inner thumb) and
+            // SYMBOL (outer thumb) together — either same hand or cross-hand.
+            // Every non-settings position is &none so accidental brushes
+            // while the sub-layer is open don't leak keystrokes.
             bindings = <
-                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans &trans               &trans &trans &trans &trans &trans &trans
-                                     &trans &trans &trans               &trans &trans &trans       
+                &none &none        &none           &none        &none        &none          &none &none &none &none &none &none &none &none
+                &none &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &none &none &none &none &none &none &none &none
+                &none &bt BT_CLR   &rgb_ug RGB_TOG &sys_reset   &bootloader  &studio_unlock              &none &none &none &none &none &none
+                                                   &none        &none        &none                       &none &none &none
             >;
         };
 
