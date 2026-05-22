@@ -1,7 +1,7 @@
 layout: {dts_layout: boards/arm/corne_choc_pro/corne_choc_pro-layouts.dtsi, layout_name: default_layout}
 layers:
   QWERTY:
-  - ESC
+  - '&caps_word'
   - Q
   - W
   - E
@@ -40,7 +40,7 @@ layers:
   - COMMA
   - DOT
   - {t: '-', s: '?'}
-  - {t: TAB, h: RSHFT}
+  - {t: TAB, h: RSHFT, s: '!'}
   - {t: ESC, h: SYMBOL}
   - {t: BSPC, h: NUMBER}
   - {t: SPACE, h: LGUI}
