@@ -203,12 +203,18 @@
             // | LSFT/ |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  | -/? | RSFT/ |
             // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB   |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
-            //              | HOME   |  BSPC    | SPACE  |   |  RET   |  BSPC    | END    |
+            //              | ESC    |  BSPC    | SPACE  |   |  RET   |  BSPC    | ESC    |
+            //
+            // Outer thumbs: tap = ESC on both halves (mirrored). Replaces
+            // the earlier HOME/END taps now that those are reachable via
+            // NUMBER+A/F on the left half. Esc is high-frequency (vim/acme/
+            // terminal/modal apps) and the original pos 0 ESC is a pinky
+            // stretch; either thumb is a one-keypress escape.
             bindings = <
                 &kp ESC                &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
                 &mt_thumb LCTRL DEL    &kp A &kp S &kp D &kp F &kp G &mt_thumb LALT C_VOL_DN &mt_thumb RALT C_VOL_UP &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &mt_thumb RSHFT TAB
-                                  &lt_bspc 2 HOME    &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 END
+                                  &lt_bspc 2 ESC     &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
@@ -222,7 +228,7 @@
             // | SFT/ | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | SFT/ |
             // | F1   |     |     |     |     |     |               |     |     |     |     |     | F12  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
-            //              | HOME   |  BSPC    | SPACE  |   |  RET   |  BSPC    | END    |
+            //              | ESC    |  BSPC    | SPACE  |   |  RET   |  BSPC    | ESC    |
             //
             // Layout notes:
             //   * Settings cluster (BT_SEL 0..4, BT_CLR, RGB_TOG, sys_reset,
