@@ -15,8 +15,8 @@ layers:
   - O
   - P
   - å
-  - {t: DEL, h: LCTRL}
-  - A
+  - DEL
+  - {t: A, h: LSHFT}
   - S
   - D
   - F
@@ -27,9 +27,9 @@ layers:
   - J
   - K
   - L
-  - æ
+  - {t: æ, h: RSHFT}
   - ø
-  - {t: Sft+TAB, h: LSHFT}
+  - {t: Sft+TAB, h: LCTRL}
   - Z
   - X
   - C
@@ -40,7 +40,7 @@ layers:
   - COMMA
   - DOT
   - {t: '-', s: '?'}
-  - {t: TAB, h: RSHFT, s: '!'}
+  - {t: TAB, h: RCTRL, s: '!'}
   - {t: ESC, h: SYMBOL}
   - {t: BSPC, h: NUMBER}
   - {t: SPACE, h: LGUI}
