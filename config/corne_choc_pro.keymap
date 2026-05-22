@@ -235,8 +235,7 @@
             // | ESC  |  1  |  2  |  3  |  4  |  5  | MUTE  |  PP   |  6  |  7  |  8  |  9  |  0  |  ··  |
             // | CTL/ | HOME| PgDn| PgUp| END | ··  | LALT/ | RALT/ | ··  | LFT | DWN |  UP | RGT |  ··  |
             // | DEL  |     |     |     |     |     | Vol-  | Vol+  |     |     |     |     |     |      |
-            // | SFT/ | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | SFT/ |
-            // | F1   |     |     |     |     |     |               |     |     |     |     |     | F12  |
+            // | F1   | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | F12  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
             //              | ESC    |  BSPC    | SPACE  |   |  RET   |  BSPC    | ESC    |
             //
@@ -250,13 +249,16 @@
             //     arrows finger-for-finger: Home/PgDn/PgUp/End at positions
             //     15-18 (LEFT/DOWN/UP/RIGHT live at 23-26 on the right).
             //   * Row 3 = F1..F12 spread across both halves. Outer-pinky
-            //     positions (28, 39) keep their LSHFT/RSHFT on hold via
-            //     mt_thumb so Shift-chording still works mid-NUMBER.
+            //     positions (28, 39) are plain &kp F1 / F12 — the earlier
+            //     mt_thumb mod-tap added LSHFT-on-hold for Shift+F-key /
+            //     Shift+arrow combos, but those aren't used in practice
+            //     and the mod-tap delay slows the F-key tap, so simplified
+            //     to direct &kp.
             bindings = <
-                &trans                  &kp N1   &kp N2   &kp N3   &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &none
-                &trans                  &kp HOME &kp PG_DN &kp PG_UP &kp END &none   &trans    &trans    &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT &none
-                &mt_thumb LSHFT F1      &kp F2   &kp F3   &kp F4   &kp F5   &kp F6                       &kp F7   &kp F8   &kp F9   &kp F10   &kp F11   &mt_thumb RSHFT F12
-                                                          &trans   &trans   &trans                       &trans   &trans   &trans
+                &trans   &kp N1   &kp N2    &kp N3    &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &none
+                &trans   &kp HOME &kp PG_DN &kp PG_UP &kp END  &none    &trans    &trans    &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT &none
+                &kp F1   &kp F2   &kp F3    &kp F4    &kp F5   &kp F6                       &kp F7   &kp F8   &kp F9   &kp F10   &kp F11   &kp F12
+                                            &trans    &trans   &trans                       &trans   &trans   &trans
             >;
         };
 
