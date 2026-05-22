@@ -48,7 +48,7 @@ layers:
   - {t: BSPC, h: NUMBER}
   - {t: ESC, h: SYMBOL}
   NUMBER:
-  - {t: ▽, type: trans}
+  - ''
   - '1'
   - '2'
   - '3'
@@ -62,7 +62,7 @@ layers:
   - '9'
   - '0'
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - HOME
   - PG DN
   - PG UP
@@ -95,7 +95,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   SYMBOL:
-  - {t: ▽, type: trans}
+  - ''
   - '!'
   - '@'
   - '#'
@@ -109,7 +109,7 @@ layers:
   - )
   - '*'
   - ''
-  - {t: ▽, type: trans}
+  - ''
   - {t: '''', s: '"'}
   - ¡
   - ¿
@@ -123,7 +123,7 @@ layers:
   - ']'
   - \
   - '`'
-  - {t: ▽, type: trans}
+  - ''
   - ´
   - '~'
   - ¨
@@ -134,7 +134,7 @@ layers:
   - '{'
   - '}'
   - '|'
-  - {t: ▽, type: trans}
+  - ''
   - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
