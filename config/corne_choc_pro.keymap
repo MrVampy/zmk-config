@@ -216,22 +216,31 @@
         lower_layer {
             display-name = "NUMBER";
             // -----------------------------------------------------------------------------------------
-            // |  TAB |  1  |  2  |  3  |  4  |  5    |  LCTRL | RCTRL |  6  |  7  |  8  |  9  |  0  | BSPC |
-            // | CTRL |     |     |     |     |       |  LALT  | RALT  | LFT | DWN |  UP | RGT |     |      |
-            // | SHFT |     |     |     |     |       |        |       |     |     |     |     |     |      |
-            //                    | GUI |     | SPC   |        | ENT   |     | ALT |
+            // | ESC  |  1  |  2  |  3  |  4  |  5  | MUTE  |  PP   |  6  |  7  |  8  |  9  |  0  |  ··  |
+            // | CTL/ | HOME| PgDn| PgUp| END | ··  | LALT/ | RALT/ | ··  | LFT | DWN |  UP | RGT |  ··  |
+            // | DEL  |     |     |     |     |     | Vol-  | Vol+  |     |     |     |     |     |      |
+            // | SFT/ | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | SFT/ |
+            // | F1   |     |     |     |     |     |               |     |     |     |     |     | F12  |
+            //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
+            //              | HOME   |  BSPC    | SPACE  |   |  RET   |  BSPC    | END    |
             //
-            // Settings cluster (BT_SEL 0..4, BT_CLR, RGB_TOG, sys_reset,
-            // bootloader, studio_unlock) used to live on positions 15-19
-            // (row 2) and 29-33 (row 3) but was firing accidentally during
-            // BSPC-mashing. Moved to the SETTINGS sub-layer (layer 3,
-            // settings_layer) accessed via tri-layer chord NUMBER + SYMBOL.
-            // Those positions now &none so a stray brush is harmless.
+            // Layout notes:
+            //   * Settings cluster (BT_SEL 0..4, BT_CLR, RGB_TOG, sys_reset,
+            //     bootloader, studio_unlock) moved off this layer to the
+            //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3)
+            //     because BSPC-adjacent chords were firing the destructive
+            //     ones (sys_reset / bootloader / BT_CLR).
+            //   * Row 2 left = big-jump navigation mirroring right-side
+            //     arrows finger-for-finger: Home/PgDn/PgUp/End at positions
+            //     15-18 (LEFT/DOWN/UP/RIGHT live at 23-26 on the right).
+            //   * Row 3 = F1..F12 spread across both halves. Outer-pinky
+            //     positions (28, 39) keep their LSHFT/RSHFT on hold via
+            //     mt_thumb so Shift-chording still works mid-NUMBER.
             bindings = <
-                &trans    &kp N1       &kp N2          &kp N3       &kp N4       &kp N5       &trans    &trans    &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &none
-                &trans    &none        &none           &none        &none        &none        &trans    &trans    &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT &none
-                &trans    &none        &none           &none        &none        &none                          &none    &none    &none  &none     &none  &trans
-                                                       &trans       &trans       &trans                           &trans   &trans   &trans
+                &trans                  &kp N1   &kp N2   &kp N3   &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &none
+                &trans                  &kp HOME &kp PG_DN &kp PG_UP &kp END &none   &trans    &trans    &none    &kp LEFT &kp DOWN &kp UP    &kp RIGHT &none
+                &mt_thumb LSHFT F1      &kp F2   &kp F3   &kp F4   &kp F5   &kp F6                       &kp F7   &kp F8   &kp F9   &kp F10   &kp F11   &mt_thumb RSHFT F12
+                                                          &trans   &trans   &trans                       &trans   &trans   &trans
             >;
         };
 
