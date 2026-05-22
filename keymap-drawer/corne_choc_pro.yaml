@@ -40,7 +40,7 @@ layers:
   - COMMA
   - DOT
   - {t: '-', s: '?'}
-  - RSHFT
+  - {t: RSHFT, s: '!'}
   - {t: Sft+TAB, h: SYMBOL}
   - {t: BSPC, h: NUMBER}
   - {t: SPACE, h: LGUI}
