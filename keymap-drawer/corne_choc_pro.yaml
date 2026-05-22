@@ -1,7 +1,7 @@
 layout: {dts_layout: boards/arm/corne_choc_pro/corne_choc_pro-layouts.dtsi, layout_name: default_layout}
 layers:
   QWERTY:
-  - TAB
+  - ESC
   - Q
   - W
   - E
@@ -15,21 +15,21 @@ layers:
   - O
   - P
   - å
-  - LCTRL
+  - LALT
   - A
   - S
   - D
   - F
   - G
-  - LALT
-  - ESC
+  - VOL DN
+  - VOL UP
   - H
   - J
   - K
   - L
   - æ
   - ø
-  - LSHFT
+  - LCTRL
   - Z
   - X
   - C
@@ -40,13 +40,13 @@ layers:
   - COMMA
   - DOT
   - {t: '-', s: '?'}
-  - RSHFT
-  - LGUI
+  - {t: +, s: '!'}
+  - {t: Sft+TAB, h: LSHFT}
   - {t: BSPC, h: NUMBER}
-  - SPACE
-  - RET
+  - {t: SPACE, h: LGUI}
+  - {t: RET, h: RGUI}
   - {t: BSPC, h: SYMBOL}
-  - RGUI
+  - {t: TAB, h: RSHFT}
   NUMBER:
   - {t: ▽, type: trans}
   - '1'
