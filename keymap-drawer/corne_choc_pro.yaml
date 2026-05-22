@@ -15,7 +15,7 @@ layers:
   - O
   - P
   - å
-  - LALT
+  - LCTRL
   - A
   - S
   - D
@@ -29,7 +29,7 @@ layers:
   - L
   - æ
   - ø
-  - LCTRL
+  - LSHFT
   - Z
   - X
   - C
@@ -40,13 +40,13 @@ layers:
   - COMMA
   - DOT
   - {t: '-', s: '?'}
-  - {t: +, s: '!'}
-  - {t: Sft+TAB, h: LSHFT}
+  - RSHFT
+  - {t: Sft+TAB, h: LALT}
   - {t: BSPC, h: NUMBER}
   - {t: SPACE, h: LGUI}
   - {t: RET, h: RGUI}
   - {t: BSPC, h: SYMBOL}
-  - {t: TAB, h: RSHFT}
+  - {t: TAB, h: RALT}
   NUMBER:
   - {t: ▽, type: trans}
   - '1'
