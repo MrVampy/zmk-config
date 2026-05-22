@@ -15,7 +15,7 @@ layers:
   - O
   - P
   - å
-  - LCTRL
+  - {t: DEL, h: LCTRL}
   - A
   - S
   - D
@@ -29,7 +29,7 @@ layers:
   - L
   - æ
   - ø
-  - {t: LSHFT, s: '&caps_word'}
+  - {t: HOME, h: LSHFT}
   - Z
   - X
   - C
@@ -40,7 +40,7 @@ layers:
   - COMMA
   - DOT
   - {t: '-', s: '?'}
-  - {t: RSHFT, s: '!'}
+  - {t: END, h: RSHFT}
   - {t: Sft+TAB, h: SYMBOL}
   - {t: BSPC, h: NUMBER}
   - {t: SPACE, h: LGUI}
