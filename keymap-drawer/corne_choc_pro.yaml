@@ -46,7 +46,7 @@ layers:
   - SPACE
   - RET
   - {t: BSPC, h: SYMBOL}
-  - BSPC
+  - RGUI
   NUMBER:
   - {t: ▽, type: trans}
   - '1'
