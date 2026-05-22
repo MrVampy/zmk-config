@@ -56,30 +56,31 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
-        // RShift with LShift-held morph to `!`. Default is normal RSHIFT, so
-        // capitalising letters with the right pinky still works. Only when
-        // LShift is *also* held does this key produce `!` — gives a `!` next
-        // to `?` (which sits on the hyp_qm position to its left), matching the
-        // US/dk keyboard `Shift+1` / `Shift+/` symmetry without sacrificing
-        // RShift's normal role.
+        // Composite for the right-pinky position: wraps the mt_thumb
+        // mod-tap (hold = RSHFT, tap = TAB) and morphs the whole thing to
+        // DA_EXCL when LSHFT is held. So pos 39 supports three gestures
+        // from one binding:
+        //   * tap alone                     → TAB
+        //   * hold alone (or hold+chord)    → RSHFT
+        //   * hold LShift + tap pos 39      → ! (DA_EXCL)
+        //
+        // The mod-morph runs FIRST: at press time, if LSFT is in the
+        // modifier state, the morphed binding (&kp DA_EXCL) fires and the
+        // inner mt_thumb is never consulted. If LSFT is not held, the
+        // inner mt_thumb takes over with its normal tap/hold mechanics.
+        //
+        // For the gesture to land, LShift must already be held when pos 39
+        // is pressed. Pos 28 (LSHFT mod-tap) reaches that state via its
+        // own hold-trigger-key-positions: pressing pos 39 while pos 28 is
+        // held immediately fires pos 28's hold (LSHFT), then pos 39's
+        // mod-morph sees LSHFT and fires DA_EXCL. That ordering is what
+        // makes "hold LShift, tap RShift → !" work without losing TAB on
+        // a plain tap of pos 39.
         ls_excl: lshift_excl {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp RSHFT>, <&kp DA_EXCL>;
+            bindings = <&mt_thumb RSHFT TAB>, <&kp DA_EXCL>;
             mods = <(MOD_LSFT)>;
-        };
-
-        // Symmetric to ls_excl on the other shift: hold RShift, tap LShift
-        // position → caps_word toggles on. Caps_word shifts the next word's
-        // alphanumeric/underscore/minus keys and auto-deactivates on space or
-        // punctuation. Great for HTTP, URL, MAX_FOO style constants.
-        // Default behavior is unchanged: tapping/holding LShift alone still
-        // acts as LSHIFT.
-        rs_caps: rshift_capsword {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp LSHFT>, <&caps_word>;
-            mods = <(MOD_RSFT)>;
         };
 
         // Layer-tap with 100ms tapping-term, used on both layer-toggle thumb
@@ -197,23 +198,32 @@
         default_layer {
             display-name = "QWERTY";
             // --------------------------------------------------------------------------------
-            // | ESC   |  Q  |  W  |  E  |  R  |  T  | MUTE  | PP    |  Y  |  U   |  I  |  O  |  P  |  Å    |
+            // | CAPS  |  Q  |  W  |  E  |  R  |  T  | MUTE  | PP    |  Y  |  U   |  I  |  O  |  P  |  Å    |
+            // | WORD  |     |     |     |     |     |       |       |     |      |     |     |     |       |
             // | LCTL/ |  A  |  S  |  D  |  F  |  G  | LALT/ | RALT/ |  H  |  J   |  K  |  L  |  Æ  |  Ø    |
             // | DEL   |     |     |     |     |     | Vol-  | Vol+  |     |      |     |     |     |       |
             // | LSFT/ |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  | -/? | RSFT/ |
-            // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB   |
+            // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB / |
+            // |       |     |     |     |     |     |               |     |      |     |     |     | ls_!  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
             //              | ESC    |  BSPC    | SPACE  |   |  RET   |  BSPC    | ESC    |
             //
-            // Outer thumbs: tap = ESC on both halves (mirrored). Replaces
-            // the earlier HOME/END taps now that those are reachable via
-            // NUMBER+A/F on the left half. Esc is high-frequency (vim/acme/
-            // terminal/modal apps) and the original pos 0 ESC is a pinky
-            // stretch; either thumb is a one-keypress escape.
+            // Notes:
+            //   * pos 0: &caps_word (built-in). Tap → next word's
+            //     alphanumeric/_/-/BSPC keys are shifted; auto-ends on
+            //     space/punctuation. Replaces ESC, which moved to both
+            //     outer thumb taps in the previous commit.
+            //   * pos 39: &ls_excl. Composite mod-morph wrapping
+            //     &mt_thumb RSHFT TAB so the pinky still does TAB on tap
+            //     and RSHFT on hold/chord; ALSO sends `!` (DA_EXCL) when
+            //     LShift is held when this key is pressed. The earlier
+            //     "we lost ! to the nav swap" was wrong — nesting fixes
+            //     it without giving up the tap action.
+            //   * Outer thumbs: tap = ESC on both halves (mirrored).
             bindings = <
-                &kp ESC                &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
+                &caps_word              &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
                 &mt_thumb LCTRL DEL    &kp A &kp S &kp D &kp F &kp G &mt_thumb LALT C_VOL_DN &mt_thumb RALT C_VOL_UP &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
-                &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &mt_thumb RSHFT TAB
+                &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &ls_excl
                                   &lt_bspc 2 ESC     &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
