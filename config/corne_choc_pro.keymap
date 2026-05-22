@@ -56,18 +56,6 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
-        // Mod-morph for position 39 (right pinky, row 3, formerly RSHFT —
-        // RSHFT moved to thumb 45 in the 2026-05-22 thumb-cluster reorg).
-        // tap = + (DA_PLUS), shift = ! (DA_EXCL). Mirrors hyp_qm at
-        // position 38 in shape: both are dual-symbol mod-morphs on the
-        // rightmost row 3 columns.
-        plus_excl: plus_exclamation {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp DA_PLUS>, <&kp DA_EXCL>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
         // Layer-tap with 100ms tapping-term, used on both layer-toggle thumb
         // keys (mo 1 / mo 2). Held alone for >100ms → layer activates. Chorded
         // with any other key (hold-preferred flavor) → layer activates
@@ -171,15 +159,15 @@
             display-name = "QWERTY";
             // --------------------------------------------------------------------------------
             // | ESC  |  Q  |  W  |  E  |  R  |  T  | MUTE | PP   |  Y  |  U   |  I  |  O  |  P  |  Å   |
-            // | LALT |  A  |  S  |  D  |  F  |  G  | Vol- | Vol+ |  H  |  J   |  K  |  L  |  Æ  |  Ø   |
-            // | LCTRL|  Z  |  X  |  C  |  V  |  B  |             |  N  |  M   |  ,  |  .  | -/? | +/!  |
-            //              | LSFT/  | lt_bspc1 | LGUI/  |   | RGUI/  | lt_bspc2 | RSFT/  |
+            // | LCTRL|  A  |  S  |  D  |  F  |  G  | Vol- | Vol+ |  H  |  J   |  K  |  L  |  Æ  |  Ø   |
+            // | LSHFT|  Z  |  X  |  C  |  V  |  B  |             |  N  |  M   |  ,  |  .  | -/? | RSHFT|
+            //              | LALT/  | lt_bspc1 | LGUI/  |   | RGUI/  | lt_bspc2 | RALT/  |
             //              | S+Tab  |  BSPC    | SPACE  |   |  RET   |  BSPC    |  TAB   |
             bindings = <
                 &kp ESC   &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE   &kp C_PP    &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
-                &kp LALT  &kp A &kp S &kp D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
-                &kp LCTRL &kp Z &kp X &kp C &kp V &kp B                          &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &plus_excl
-                                  &mt_thumb LSHFT LS(TAB) &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 2 BSPC &mt_thumb RSHFT TAB
+                &kp LCTRL &kp A &kp S &kp D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
+                &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                          &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &kp RSHFT
+                                  &mt_thumb LALT LS(TAB) &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 2 BSPC &mt_thumb RALT TAB
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
