@@ -29,7 +29,7 @@ layers:
   - L
   - æ
   - ø
-  - LSHFT
+  - {t: LSHFT, s: '&caps_word'}
   - Z
   - X
   - C
