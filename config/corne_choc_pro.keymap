@@ -188,14 +188,14 @@
             // | LCTL/ |  A  |  S  |  D  |  F  |  G  | LALT/ | RALT/ |  H  |  J   |  K  |  L  |  Æ  |  Ø    |
             // | DEL   |     |     |     |     |     | Vol-  | Vol+  |     |      |     |     |     |       |
             // | LSFT/ |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  | -/? | RSFT/ |
-            // | HOME  |     |     |     |     |     |               |     |      |     |     |     | END   |
+            // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB   |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
-            //              | S+Tab  |  BSPC    | SPACE  |   |  RET   |  BSPC    |  TAB   |
+            //              | HOME   |  BSPC    | SPACE  |   |  RET   |  BSPC    | END    |
             bindings = <
                 &kp ESC                &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
                 &mt_thumb LCTRL DEL    &kp A &kp S &kp D &kp F &kp G &mt_thumb LALT C_VOL_DN &mt_thumb RALT C_VOL_UP &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
-                &mt_thumb LSHFT HOME   &kp Z &kp X &kp C &kp V &kp B                                                &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &mt_thumb RSHFT END
-                                  &lt_bspc 2 LS(TAB) &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 TAB
+                &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &mt_thumb RSHFT TAB
+                                  &lt_bspc 2 HOME    &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 END
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
