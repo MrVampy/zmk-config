@@ -29,7 +29,7 @@ layers:
   - L
   - æ
   - ø
-  - {t: HOME, h: LSHFT}
+  - {t: Sft+TAB, h: LSHFT}
   - Z
   - X
   - C
@@ -40,13 +40,13 @@ layers:
   - COMMA
   - DOT
   - {t: '-', s: '?'}
-  - {t: END, h: RSHFT}
-  - {t: Sft+TAB, h: SYMBOL}
+  - {t: TAB, h: RSHFT}
+  - {t: HOME, h: SYMBOL}
   - {t: BSPC, h: NUMBER}
   - {t: SPACE, h: LGUI}
   - {t: RET, h: RGUI}
   - {t: BSPC, h: NUMBER}
-  - {t: TAB, h: SYMBOL}
+  - {t: END, h: SYMBOL}
   NUMBER:
   - {t: ▽, type: trans}
   - '1'
