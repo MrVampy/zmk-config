@@ -70,7 +70,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <0>;
-            quick-tap-ms = <200>;
+            quick-tap-ms = <300>;
             flavor = "tap-preferred";
             retro-tap;
             // Only main-field positions (0-39) chord-trigger the layer hold.
