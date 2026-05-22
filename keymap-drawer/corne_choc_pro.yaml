@@ -63,10 +63,10 @@ layers:
   - '0'
   - ''
   - {t: ▽, type: trans}
-  - ''
-  - ''
-  - ''
-  - ''
+  - HOME
+  - PG DN
+  - PG UP
+  - END
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -76,18 +76,18 @@ layers:
   - UP
   - RIGHT
   - ''
-  - {t: ▽, type: trans}
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - ''
-  - {t: ▽, type: trans}
+  - {t: F1, h: LSHFT}
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - F11
+  - {t: F12, h: RSHFT}
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
