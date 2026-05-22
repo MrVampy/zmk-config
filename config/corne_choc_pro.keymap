@@ -56,6 +56,19 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
+        // RShift with LShift-held morph to `!`. Default is normal RSHIFT, so
+        // capitalising letters with the right pinky still works. Only when
+        // LShift is *also* held does this key produce `!` — gives a `!` next
+        // to `?` (which sits on the hyp_qm position to its left), matching the
+        // US/dk keyboard `Shift+1` / `Shift+/` symmetry without sacrificing
+        // RShift's normal role.
+        ls_excl: lshift_excl {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp RSHFT>, <&kp DA_EXCL>;
+            mods = <(MOD_LSFT)>;
+        };
+
         // Layer-tap with 100ms tapping-term, used on both layer-toggle thumb
         // keys (mo 1 / mo 2). Held alone for >100ms → layer activates. Chorded
         // with any other key (hold-preferred flavor) → layer activates
@@ -167,7 +180,7 @@
             bindings = <
                 &kp ESC   &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
                 &kp LCTRL &kp A &kp S &kp D &kp F &kp G &mt_thumb LALT C_VOL_DN &mt_thumb RALT C_VOL_UP &kp H &kp J  &kp K     &kp L   &kp DA_AE &kp DA_O_SLASH
-                &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                                                &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &kp RSHFT
+                &kp LSHFT &kp Z &kp X &kp C &kp V &kp B                                                &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &ls_excl
                                   &lt_bspc 2 LS(TAB) &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 TAB
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
