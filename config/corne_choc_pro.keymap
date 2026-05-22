@@ -136,28 +136,40 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // Home-row mods for Shift on A / Æ pinkies. Same timing as
-        // mt_thumb (tapping-term=0, quick-tap=300, tap-preferred,
-        // retro-tap), but with hold-trigger-key-positions restricted to
-        // the OPPOSITE half. With tap-preferred, a chord with a key not
-        // in the trigger list resolves as TAP regardless of release
-        // timing, so same-hand rolls (as, an, ag, aw) stay clean — A is
-        // typed, not Shift. Only cross-hand chords trigger LSHFT.
+        // Home-row mods for Shift on A / Æ pinkies. Same tap-resolution
+        // timing as mt_thumb (term=0, quick-tap=300, tap-preferred)
+        // PLUS two additions that make "same-half key disables shift"
+        // actually work:
         //
-        // Retro-tap caveat with term=0: deliberate solo holds of A fire
-        // LSHFT after the (zero-length) term elapses, which can shift
-        // the *next* keypress after a pause. Try it as-is; if pauses
-        // become a problem, bump tapping-term-ms to ~180 to add grace
-        // before retro-tap kicks in.
+        //   1. hold-trigger-on-release. Defers the positional-list
+        //      check to the OTHER key's release. A non-list key
+        //      (same-hand letter) resolves this hold-tap as TAP at
+        //      release time regardless of timing. A list-key
+        //      (opposite-hand letter) resolves as HOLD. This is the
+        //      semantic the user described: "shift doesn't function
+        //      when combined with a key on the same half".
+        //
+        //   2. No retro-tap. retro-tap is independent of the trigger
+        //      list — it fires HOLD on solo-hold past term. With term=0
+        //      that's instant, so any brief solo-hold of A (e.g., the
+        //      microseconds between A press and the next letter press
+        //      in fast typing) pre-fires LSHFT before the positional
+        //      check ever runs. Removing it means LSHFT only fires via
+        //      the chord-and-release path that the trigger list governs.
+        //
+        // Result with term=0 + hold-trigger-on-release + no retro-tap:
+        //   * Tap A, release           → 'a'
+        //   * Hold A, press J, release → 'J'   (cross-hand → HOLD via list)
+        //   * Hold A, press S, release → 'as'  (same-hand → TAP via list)
+        //   * Hold A alone, no chord, release → 'a'  (no retro-tap path)
 
-        // Left HRM — trigger list = right-half key positions only.
         hrm_l: home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <0>;
             quick-tap-ms = <300>;
             flavor = "tap-preferred";
-            retro-tap;
+            hold-trigger-on-release;
             hold-trigger-key-positions = <
                                     7  8  9 10 11 12 13
                                    21 22 23 24 25 26 27
@@ -167,14 +179,13 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // Right HRM — trigger list = left-half key positions only.
         hrm_r: home_row_mod_right {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <0>;
             quick-tap-ms = <300>;
             flavor = "tap-preferred";
-            retro-tap;
+            hold-trigger-on-release;
             hold-trigger-key-positions = <
                  0  1  2  3  4  5  6
                 14 15 16 17 18 19 20
