@@ -76,7 +76,7 @@ layers:
   - UP
   - RIGHT
   - ''
-  - {t: F1, h: LSHFT}
+  - F1
   - F2
   - F3
   - F4
@@ -87,7 +87,7 @@ layers:
   - F9
   - F10
   - F11
-  - {t: F12, h: RSHFT}
+  - F12
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
