@@ -83,17 +83,13 @@
             mods = <(MOD_LSFT)>;
         };
 
-        // Layer-tap with 100ms tapping-term, used on both layer-toggle thumb
-        // keys (mo 1 / mo 2). Held alone for >100ms → layer activates. Chorded
-        // with any other key (hold-preferred flavor) → layer activates
-        // immediately so symbol/number layer chords feel snappy. Released
-        // alone within 100ms → BSPC fires.
+        // Layer-entry thumb hold-tap for ESC/SYMBOL and RET/NUMBER.
         //
-        // 100ms is aggressive — most ergo setups use 175-225ms. The short
-        // window means "hold" triggers easily (good for chord-heavy usage)
-        // but "tap" requires deliberate, fast release. Tune up if accidental
-        // layer activations happen on intended BSPC taps.
-        lt_bspc: layer_tap_bspc_100ms {
+        // This intentionally keeps the aggressive utility-thumb timing:
+        // chording with a main-field key opens the layer immediately, while
+        // thumb-thumb chords do not trigger the hold. Released alone, retro-tap
+        // preserves the tap side even after a longer press.
+        layer_thumb: layer_thumb_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <0>;
@@ -101,9 +97,10 @@
             flavor = "tap-preferred";
             retro-tap;
             // Only main-field positions (0-39) chord-trigger the layer hold.
-            // Pressing another thumb-cluster key while lt_bspc is held does
-            // NOT activate the layer — useful when tapping both lt_bspc keys
-            // simultaneously (both fire BSPC, no accidental layer activation).
+            // Pressing another thumb-cluster key while layer_thumb is held does
+            // NOT activate the layer — useful when tapping both layer thumbs
+            // simultaneously (both fire their tap side, no accidental layer
+            // activation).
             // Also covers chord-with-SPACE/RET/LGUI/RGUI which have no
             // meaningful layer bindings anyway.
             hold-trigger-key-positions = <
@@ -114,10 +111,10 @@
             bindings = <&mo>, <&kp>;
         };
 
-        // General-purpose utility mod-tap. Same aggressive timing as lt_bspc,
-        // but hold gives a modifier instead of a layer.
+        // General-purpose utility mod-tap. Same aggressive timing as
+        // layer_thumb, but hold gives a modifier instead of a layer.
         //
-        // hold-trigger-key-positions matches lt_bspc: only main-field
+        // hold-trigger-key-positions matches layer_thumb: only main-field
         // positions (0-39) chord-trigger the hold, so thumb-thumb chords
         // (e.g., simultaneous SPACE+RET tap) don't accidentally fire either
         // modifier.
@@ -343,7 +340,7 @@
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &core_hrm_r RALT DA_A_RING
                 &outer_ctrl_l LCTRL DEL &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &outer_ctrl_r RCTRL DA_O_SLASH
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &ls_excl
-                                  &lt_bspc 2 ESC     &lt_bspc 1 RET &text_thumb LGUI BSPC              &text_thumb RGUI SPACE &lt_bspc 1 RET &lt_bspc 2 ESC
+                                  &layer_thumb 2 ESC &layer_thumb 1 RET &text_thumb LGUI BSPC        &text_thumb RGUI SPACE &layer_thumb 1 RET &layer_thumb 2 ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
