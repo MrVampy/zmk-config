@@ -193,7 +193,10 @@
 
         // Outer-right Ctrl mirror. Tap is Ø, a real typing letter, so this uses
         // the same release-deferred positional timing as the core home-row mods
-        // rather than the instant utility-key behavior above.
+        // rather than the instant utility-key behavior above. Trigger covers
+        // both halves so RCTRL+right-hand-key chords work (e.g., RCTRL+J);
+        // require-prior-idle-ms guards against false triggers from rolling
+        // typing into Ø.
         outer_ctrl_r: outer_ctrl_right {
             compatible = "zmk,behavior-hold-tap";
             label = "OUTER_CTRL_R";
@@ -204,9 +207,9 @@
             require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <
-                 0  1  2  3  4  5
-                14 15 16 17 18 19
-                28 29 30 31 32 33
+                 0  1  2  3  4  5  6  7  8  9 10 11 12 13
+                14 15 16 17 18 19 20 21 22 23 24 25 26 27
+                28 29 30 31 32 33       34 35 36 37 38 39
             >;
             hold-trigger-on-release;
         };
