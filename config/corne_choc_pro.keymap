@@ -114,12 +114,8 @@
             bindings = <&mo>, <&kp>;
         };
 
-        // Mod-tap variant of lt_bspc — same aggressive timing (tap-instant,
-        // tap-preferred, retro-tap), but hold gives a modifier (LSHFT / LGUI /
-        // RGUI / RSHFT) instead of a layer. Used on all four "outer" thumb
-        // positions (40, 42, 43, 45) so that every thumb key has a hold-tap
-        // dual purpose: high-frequency tap target + modifier on hold for
-        // chord-style shortcuts.
+        // General-purpose utility mod-tap. Same aggressive timing as lt_bspc,
+        // but hold gives a modifier instead of a layer.
         //
         // hold-trigger-key-positions matches lt_bspc: only main-field
         // positions (0-39) chord-trigger the hold, so thumb-thumb chords
@@ -130,6 +126,25 @@
             #binding-cells = <2>;
             tapping-term-ms = <0>;
             quick-tap-ms = <300>;
+            flavor = "tap-preferred";
+            retro-tap;
+            hold-trigger-key-positions = <
+                 0  1  2  3  4  5  6  7  8  9 10 11 12 13
+                14 15 16 17 18 19 20 21 22 23 24 25 26 27
+                28 29 30 31 32 33       34 35 36 37 38 39
+            >;
+            bindings = <&kp>, <&kp>;
+        };
+
+        // Text thumb mod-tap for SPACE/RET. If it follows a normal keypress
+        // during fast typing, force the tap path immediately so "r<space>" and
+        // similar rolls cannot get stuck behind hold-tap resolution.
+        mt_text_thumb: mod_tap_text_thumb {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <0>;
+            quick-tap-ms = <300>;
+            require-prior-idle-ms = <125>;
             flavor = "tap-preferred";
             retro-tap;
             hold-trigger-key-positions = <
@@ -325,7 +340,7 @@
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &core_hrm_r RALT DA_A_RING
                 &outer_ctrl_l LCTRL DEL &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &outer_ctrl_r RCTRL DA_O_SLASH
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &ls_excl
-                                  &lt_bspc 2 ESC     &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 ESC
+                                  &lt_bspc 2 ESC     &lt_bspc 1 BSPC &mt_text_thumb LGUI SPACE              &mt_text_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
