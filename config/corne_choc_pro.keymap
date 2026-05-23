@@ -136,23 +136,26 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // Text thumb mod-tap for BSPC/SPACE. If it follows a normal keypress
-        // during fast typing, force the tap path immediately so "r<space>" and
-        // similar rolls cannot get stuck behind hold-tap resolution.
-        mt_text_thumb: mod_tap_text_thumb {
+        // Text thumb mod-tap for BSPC/SPACE. These are real text-flow keys,
+        // so they use the same release-deferred timing as the letter HRMs.
+        // Unlike the half-specific HRMs, either thumb can chord with typing
+        // keys on both halves. A recent prior key still forces tap so fast
+        // rolls like "r<space>" cannot get stuck behind hold-tap resolution.
+        text_thumb: text_thumb_mod {
             compatible = "zmk,behavior-hold-tap";
+            label = "TEXT_THUMB";
             #binding-cells = <2>;
-            tapping-term-ms = <0>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
             quick-tap-ms = <300>;
             require-prior-idle-ms = <125>;
-            flavor = "tap-preferred";
-            retro-tap;
+            bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <
-                 0  1  2  3  4  5  6  7  8  9 10 11 12 13
-                14 15 16 17 18 19 20 21 22 23 24 25 26 27
+                 0  1  2  3  4  5        8  9 10 11 12 13
+                14 15 16 17 18 19       22 23 24 25 26 27
                 28 29 30 31 32 33       34 35 36 37 38 39
             >;
-            bindings = <&kp>, <&kp>;
+            hold-trigger-on-release;
         };
 
         // Top-left Alt mirror. Same instant/retro-tap utility-key behavior as
@@ -340,7 +343,7 @@
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &core_hrm_r RALT DA_A_RING
                 &outer_ctrl_l LCTRL DEL &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &outer_ctrl_r RCTRL DA_O_SLASH
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &ls_excl
-                                  &lt_bspc 2 ESC     &lt_bspc 1 RET &mt_text_thumb LGUI BSPC              &mt_text_thumb RGUI SPACE &lt_bspc 1 RET &lt_bspc 2 ESC
+                                  &lt_bspc 2 ESC     &lt_bspc 1 RET &text_thumb LGUI BSPC              &text_thumb RGUI SPACE &lt_bspc 1 RET &lt_bspc 2 ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
