@@ -11,6 +11,8 @@
 parse_config:
   zmk_keycode_map:
     # Number-row shifted symbols
+    DA_ONE_HALF: "½"
+    DA_FRAC_1_2: "½"
     DA_EXCL: "!"
     DA_AT: "@"
     DA_HASH: "#"
@@ -59,6 +61,7 @@ parse_config:
   # raw_binding_map applies at parse-time and overrides whatever the
   # parser would have written for these &-prefixed identifiers.
   raw_binding_map:
+    "&top_alt_l": {t: "Caps Word", h: LALT}
     "&apos_dqt": {t: "'", s: '"'}
     "&hyp_qm": {t: "-", s: "?"}
     "&inv_excl": "¡"

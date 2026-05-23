@@ -1,7 +1,7 @@
 layout: {dts_layout: boards/arm/corne_choc_pro/corne_choc_pro-layouts.dtsi, layout_name: default_layout}
 layers:
   QWERTY:
-  - '&caps_word'
+  - {t: Caps Word, h: LALT}
   - Q
   - W
   - E
@@ -14,20 +14,20 @@ layers:
   - I
   - O
   - P
-  - å
+  - {t: å, h: RALT}
   - {t: DEL, h: LCTRL}
-  - A
+  - {t: A, h: LALT}
   - {t: S, h: LCTRL}
   - {t: D, h: LSHFT}
   - F
   - G
-  - {t: VOL DN, h: LALT}
-  - {t: VOL UP, h: RALT}
+  - VOL DN
+  - VOL UP
   - H
   - J
   - {t: K, h: RSHFT}
   - {t: L, h: RCTRL}
-  - æ
+  - {t: æ, h: RALT}
   - {t: ø, h: RCTRL}
   - {t: Sft+TAB, h: LSHFT}
   - Z
@@ -48,7 +48,7 @@ layers:
   - {t: BSPC, h: NUMBER}
   - {t: ESC, h: SYMBOL}
   NUMBER:
-  - ''
+  - {t: ½, h: LALT}
   - '1'
   - '2'
   - '3'
@@ -61,9 +61,9 @@ layers:
   - '8'
   - '9'
   - '0'
+  - {t: +, h: RALT}
   - ''
-  - ''
-  - HOME
+  - {t: HOME, h: LALT}
   - {t: PG DN, h: LCTRL}
   - {t: PG UP, h: LSHFT}
   - END
@@ -74,7 +74,7 @@ layers:
   - LEFT
   - {t: DOWN, h: RSHFT}
   - {t: UP, h: RCTRL}
-  - RIGHT
+  - {t: RIGHT, h: RALT}
   - ''
   - F1
   - F2
