@@ -136,7 +136,7 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // Text thumb mod-tap for SPACE/RET. If it follows a normal keypress
+        // Text thumb mod-tap for BSPC/SPACE. If it follows a normal keypress
         // during fast typing, force the tap path immediately so "r<space>" and
         // similar rolls cannot get stuck behind hold-tap resolution.
         mt_text_thumb: mod_tap_text_thumb {
@@ -321,7 +321,7 @@
             // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB / |
             // |       |     |     |     |     |     |               |     |      |     |     |     | ls_!  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
-            //              | ESC    |  BSPC    | SPACE  |   |  RET   |  BSPC    | ESC    |
+            //              | ESC    |  RET     | BSPC   |   | SPACE  |  RET     | ESC    |
             //
             // Notes:
             //   * pos 0: &top_alt_l LALT 0. Hold/chord → LAlt using the
@@ -340,7 +340,7 @@
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &core_hrm_r RALT DA_A_RING
                 &outer_ctrl_l LCTRL DEL &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &outer_ctrl_r RCTRL DA_O_SLASH
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &ls_excl
-                                  &lt_bspc 2 ESC     &lt_bspc 1 BSPC &mt_text_thumb LGUI SPACE              &mt_text_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 ESC
+                                  &lt_bspc 2 ESC     &lt_bspc 1 RET &mt_text_thumb LGUI BSPC              &mt_text_thumb RGUI SPACE &lt_bspc 1 RET &lt_bspc 2 ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
         };
@@ -354,7 +354,7 @@
             // | DEL  | HOME| PgDn | PgUp|     |     |       |       |     |     | DWN | UP  | RGT |      |
             // | F1   | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | F12  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
-            //              | ESC    |  BSPC    | SPACE  |   |  RET   |  BSPC    | ESC    |
+            //              | ESC    |  RET     | BSPC   |   | SPACE  |  RET     | ESC    |
             //
             // Layout notes:
             //   * Settings cluster (BT_SEL 0..4, BT_CLR, RGB_TOG, sys_reset,
