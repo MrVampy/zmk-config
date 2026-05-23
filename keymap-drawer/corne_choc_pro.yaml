@@ -16,18 +16,18 @@ layers:
   - P
   - å
   - {t: DEL, h: LCTRL}
-  - {t: A, h: LSHFT}
-  - S
-  - D
+  - A
+  - {t: S, h: LCTRL}
+  - {t: D, h: LSHFT}
   - F
   - G
   - {t: VOL DN, h: LALT}
   - {t: VOL UP, h: RALT}
   - H
   - J
-  - K
-  - L
-  - {t: æ, h: RSHFT}
+  - {t: K, h: RSHFT}
+  - {t: L, h: RCTRL}
+  - æ
   - {t: ø, h: RCTRL}
   - {t: Sft+TAB, h: LSHFT}
   - Z

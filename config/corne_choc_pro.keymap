@@ -159,8 +159,8 @@
         };
 
         // Outer-right Ctrl mirror. Tap is Ø, a real typing letter, so this uses
-        // the release-deferred positional behavior from the A/Æ home-row Shift
-        // experiment rather than the instant utility-key behavior above.
+        // the same release-deferred positional timing as the core home-row mods
+        // rather than the instant utility-key behavior above.
         outer_ctrl_r: outer_ctrl_right {
             compatible = "zmk,behavior-hold-tap";
             label = "OUTER_CTRL_R";
@@ -178,17 +178,17 @@
             hold-trigger-on-release;
         };
 
-        // A/Æ home-row Shift experiment. These are intentionally different
-        // from mt_thumb: letter keys participate in normal rolling typing, so
-        // they use release-deferred positional hold-tap and no retro-tap.
+        // Core home-row mods. These are intentionally different from mt_thumb:
+        // letter keys participate in normal rolling typing, so they use
+        // release-deferred positional hold-tap and no retro-tap.
         //
-        // Left A can resolve early as Shift through a tapped right-hand
+        // Left-hand core HRMs can resolve early through a tapped right-hand
         // main-field key. Same-hand keys, thumbs, and center utility keys do not
-        // trigger early hold; if A is held past the tapping term, it becomes
-        // normal Shift for any later chord.
-        hrm_shift_l: home_row_shift_left {
+        // trigger early hold; if the HRM is held past the tapping term, it
+        // becomes a normal modifier for any later chord.
+        core_hrm_l: core_home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
-            label = "HRM_SHIFT_L";
+            label = "CORE_HRM_L";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
@@ -203,10 +203,11 @@
             hold-trigger-on-release;
         };
 
-        // Right Æ mirrors A: only left-hand main-field keys trigger the hold.
-        hrm_shift_r: home_row_shift_right {
+        // Right-hand core HRMs mirror the left: only left-hand main-field keys
+        // trigger early hold.
+        core_hrm_r: core_home_row_mod_right {
             compatible = "zmk,behavior-hold-tap";
-            label = "HRM_SHIFT_R";
+            label = "CORE_HRM_R";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
@@ -281,8 +282,8 @@
             // --------------------------------------------------------------------------------
             // | CAPS  |  Q  |  W  |  E  |  R  |  T  | MUTE  | PP    |  Y  |  U   |  I  |  O  |  P  |  Å    |
             // | WORD  |     |     |     |     |     |       |       |     |      |     |     |     |       |
-            // | LCTL/ | LSFT/|  S  |  D  |  F  |  G  | LALT/ | RALT/ |  H  |  J   |  K  |  L  |RSFT/| RCTL/ |
-            // | DEL   |  A   |     |     |     |     | Vol-  | Vol+  |     |      |     |     | Æ   |  Ø    |
+            // | LCTL/ |  A  | LCTL/|LSFT/|  F  |  G  | LALT/ | RALT/ |  H  |  J   |RSFT/|RCTL/|  Æ  | RCTL/ |
+            // | DEL   |     |  S   | D   |     |     | Vol-  | Vol+  |     |      | K   | L   |     |  Ø    |
             // | LSFT/ |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  | -/? | RSFT/ |
             // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB / |
             // |       |     |     |     |     |     |               |     |      |     |     |     | ls_!  |
@@ -303,7 +304,7 @@
             //   * Outer thumbs: tap = ESC on both halves (mirrored).
             bindings = <
                 &caps_word              &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &kp DA_A_RING
-                &outer_ctrl_l LCTRL DEL &hrm_shift_l LSHFT A &kp S &kp D &kp F &kp G &mt_thumb LALT C_VOL_DN &mt_thumb RALT C_VOL_UP &kp H &kp J  &kp K     &kp L   &hrm_shift_r RSHFT DA_AE &outer_ctrl_r RCTRL DA_O_SLASH
+                &outer_ctrl_l LCTRL DEL &kp A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &mt_thumb LALT C_VOL_DN &mt_thumb RALT C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &kp DA_AE &outer_ctrl_r RCTRL DA_O_SLASH
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &ls_excl
                                   &lt_bspc 2 ESC     &lt_bspc 1 BSPC &mt_thumb LGUI SPACE              &mt_thumb RGUI RET &lt_bspc 1 BSPC &lt_bspc 2 ESC
             >;
