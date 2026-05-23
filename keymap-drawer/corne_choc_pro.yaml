@@ -28,7 +28,7 @@ layers:
   - K
   - L
   - {t: æ, h: RSHFT}
-  - ø
+  - {t: ø, h: RCTRL}
   - {t: Sft+TAB, h: LSHFT}
   - Z
   - X
