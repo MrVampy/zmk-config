@@ -1,7 +1,0 @@
-config CORNE_BLE_DEBUG
-    bool "Corne BLE debug probe"
-    default n
-    depends on ZMK_BLE
-    help
-      Build a temporary logging probe for debugging BLE profile state,
-      profile selection/clear input positions, and layer activation.
