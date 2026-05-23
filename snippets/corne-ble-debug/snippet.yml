@@ -1,0 +1,4 @@
+name: corne-ble-debug
+append:
+  EXTRA_CONF_FILE: corne-ble-debug.conf
+  EXTRA_DTC_OVERLAY_FILE: corne-ble-debug.overlay

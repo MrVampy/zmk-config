@@ -1,3 +1,7 @@
+name: zmk-config-corne
 build:
+  cmake: .
+  kconfig: Kconfig
   settings:
     board_root: .
+    snippet_root: .
