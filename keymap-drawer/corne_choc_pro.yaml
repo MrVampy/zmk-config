@@ -42,10 +42,10 @@ layers:
   - {t: '-', s: '?'}
   - {t: TAB, h: RSHFT, s: '!'}
   - {t: ESC, h: SYMBOL}
-  - {t: BSPC, h: NUMBER}
-  - {t: SPACE, h: LGUI}
-  - {t: RET, h: RGUI}
-  - {t: BSPC, h: NUMBER}
+  - {t: RET, h: NUMBER}
+  - {t: BSPC, h: LGUI}
+  - {t: SPACE, h: RGUI}
+  - {t: RET, h: NUMBER}
   - {t: ESC, h: SYMBOL}
   NUMBER:
   - {t: ½, h: LALT}
