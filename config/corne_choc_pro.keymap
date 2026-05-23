@@ -294,6 +294,26 @@
 };
 
 / {
+    combos {
+        compatible = "zmk,combos";
+
+        // Ergonomic alternate Danish-letter paths. Direct æ/ø/å keys stay on
+        // QWERTY; these are just lower-reach options for the two pinkier ones.
+        combo_aa {
+            timeout-ms = <30>;
+            key-positions = <15 2>; // A + W
+            bindings = <&kp DA_A_RING>;
+            layers = <0>;
+        };
+
+        combo_oe {
+            timeout-ms = <30>;
+            key-positions = <26 11>; // Æ + O
+            bindings = <&kp DA_O_SLASH>;
+            layers = <0>;
+        };
+    };
+
     // Tri-layer: NUMBER (1) + SYMBOL (2) held together → SETTINGS (3).
     // Lifts the destructive BT/sys/RGB cluster off the NUMBER layer where
     // accidental BSPC + adjacent-letter chords were firing them. Activation
