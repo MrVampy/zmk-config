@@ -64,16 +64,16 @@ layers:
   - ''
   - ''
   - HOME
-  - PG DN
-  - PG UP
+  - {t: PG DN, h: LCTRL}
+  - {t: PG UP, h: LSHFT}
   - END
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ''
   - LEFT
-  - DOWN
-  - UP
+  - {t: DOWN, h: RSHFT}
+  - {t: UP, h: RCTRL}
   - RIGHT
   - ''
   - F1
