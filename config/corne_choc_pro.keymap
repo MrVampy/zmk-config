@@ -300,14 +300,14 @@
         // Ergonomic alternate Danish-letter paths. Direct æ/ø/å keys stay on
         // QWERTY; these are just lower-reach options for the two pinkier ones.
         combo_aa {
-            timeout-ms = <30>;
+            timeout-ms = <50>;
             key-positions = <15 2>; // A + W
             bindings = <&kp DA_A_RING>;
             layers = <0>;
         };
 
         combo_oe {
-            timeout-ms = <30>;
+            timeout-ms = <50>;
             key-positions = <26 11>; // Æ + O
             bindings = <&kp DA_O_SLASH>;
             layers = <0>;
