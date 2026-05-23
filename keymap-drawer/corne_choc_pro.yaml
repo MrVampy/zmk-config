@@ -16,7 +16,7 @@ layers:
   - P
   - å
   - {t: DEL, h: LCTRL}
-  - A
+  - {t: A, h: LSHFT}
   - S
   - D
   - F
@@ -27,7 +27,7 @@ layers:
   - J
   - K
   - L
-  - æ
+  - {t: æ, h: RSHFT}
   - ø
   - {t: Sft+TAB, h: LSHFT}
   - Z
