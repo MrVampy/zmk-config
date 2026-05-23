@@ -423,3 +423,10 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+combos:
+- p: [15, 2]
+  k: å
+  l: [QWERTY]
+- p: [26, 11]
+  k: ø
+  l: [QWERTY]

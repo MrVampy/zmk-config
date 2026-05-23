@@ -341,6 +341,14 @@ path.combo {
 <a href="#SYMBOL">
 <text x="0" y="24" class="key hold layer-activator">SYMBOL</text>
 </a></g>
+<g class="combo combopos-0">
+<rect rx="6" ry="6" x="98" y="57" width="28" height="26" class="combo"/>
+<text x="112" y="70" class="combo tap">å</text>
+</g>
+<g class="combo combopos-1">
+<rect rx="6" ry="6" x="714" y="57" width="28" height="26" class="combo"/>
+<text x="728" y="70" class="combo tap">ø</text>
+</g>
 </g>
 </g>
 <g transform="translate(30, 321)" class="layer-NUMBER">
