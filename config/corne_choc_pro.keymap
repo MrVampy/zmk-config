@@ -378,12 +378,12 @@
             display-name = "SYMBOL";
             // -----------------------------------------------------------------------------------------
             // | ··   |  &  |  @  |  #  |  $  |  £  | LCTRL | RCTRL |  ^  |  ü  |  (  |  )  |  *  | BSPC |
-            // | ··   |  /  |  \  |     |  ´  |  €  |  LALT | RALT  |  -  |  ´  |  [  |  ]  | '/" |  `   |
+            // | ··   |  /  |  \  |     |  ´  |  €  |  LALT | RALT  |  -  |  ´  |  [  |  ]  | '/" | ··   |
             // | ··   | "|" |     |     |     |     |               |  ñ  |  +  |  {  |  }  |¿/¡ |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &none     &kp DA_AMPS &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_POUND_SIGN &trans    &trans    &kp DA_CARET &umlaut_u  &kp DA_LPAR  &kp DA_RPAR &kp DA_ASTRK &none
-                &none     &kp DA_SLASH &kp DA_BSLH &none   &kp DA_ACUTE &kp DA_EURO &trans &trans &kp DA_EQUAL &kp DA_ACUTE &kp DA_LBKT  &kp DA_RBKT &apos_dqt   &kp DA_GRAVE
+                &none     &kp DA_SLASH &kp DA_BSLH &none   &kp DA_ACUTE &kp DA_EURO &trans &trans &kp DA_EQUAL &kp DA_ACUTE &kp DA_LBKT  &kp DA_RBKT &apos_dqt   &none
                 &none     &kp DA_PIPE &none &none &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_qmark_excl &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
