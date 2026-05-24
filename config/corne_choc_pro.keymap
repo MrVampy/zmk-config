@@ -205,18 +205,18 @@
     combos {
         compatible = "zmk,combos";
 
-        // Ergonomic alternate Danish-letter paths. Direct æ/ø/å keys stay on
-        // QWERTY; these are just lower-reach options for the two pinkier ones.
+        // Ergonomic alternate Danish-letter paths. Direct æ stays on QWERTY;
+        // ø and å are typed as local combos around æ.
         combo_aa {
             timeout-ms = <50>;
-            key-positions = <15 2>; // A + W
+            key-positions = <26 11>; // Æ + O
             bindings = <&kp DA_A_RING>;
             layers = <0>;
         };
 
         combo_oe {
             timeout-ms = <50>;
-            key-positions = <26 11>; // Æ + O
+            key-positions = <25 26>; // L + Æ
             bindings = <&kp DA_O_SLASH>;
             layers = <0>;
         };
@@ -253,7 +253,7 @@
             //
             // Notes:
             //   * Å and Ø removed from base layer; accessible only via combos
-            //     (A+W → Å, Æ+O → Ø). The freed outer-pinky positions now
+            //     (Æ+O → Å, L+Æ → Ø). The freed outer-pinky positions now
             //     carry utility taps while keeping their modifier holds.
             //   * pos 0: &top_alt_l LALT 0. Hold/chord → LAlt; tap → Caps Word.
             //   * pos 13: &mt_thumb RALT DEL. Hold → RAlt (AltGr); tap → forward

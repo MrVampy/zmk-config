@@ -424,9 +424,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
 combos:
-- p: [15, 2]
+- p: [26, 11]
   k: å
   l: [QWERTY]
-- p: [26, 11]
+- p: [25, 26]
   k: ø
   l: [QWERTY]
