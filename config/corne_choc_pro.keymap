@@ -27,6 +27,12 @@
 
 / {
     behaviors {
+        rrgb: reactive_rgb {
+            compatible = "zmk,behavior-reactive-rgb";
+            #binding-cells = <2>;
+            display-name = "Reactive RGB";
+        };
+
         // Mod-morph for the QWERTY hyphen-key (position 38, FSLH scancode).
         //
         //   tap          → DA_MINUS  → `-` on dk
@@ -392,7 +398,7 @@
             bindings = <
                 &none &none        &none           &none        &none        &none          &none &none &none &none &none &none &none &none
                 &none &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &none &none &none &none &none &none &none &none
-                &none &bt BT_CLR   &rgb_ug RGB_TOG &sys_reset   &bootloader  &studio_unlock              &none &none &none &none &none &none
+                &none &bt BT_CLR   &rrgb RGB_TOG   &sys_reset   &bootloader  &studio_unlock              &none &none &none &none &none &none
                                                    &none        &none        &none                       &none &none &none
             >;
         };

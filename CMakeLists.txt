@@ -1,0 +1,1 @@
+target_sources_ifdef(CONFIG_CORNE_REACTIVE_RGB app PRIVATE src/corne_reactive_rgb.c)
