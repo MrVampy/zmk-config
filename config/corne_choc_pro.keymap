@@ -300,6 +300,20 @@
             layers = <0>;
         };
 
+        combo_tab {
+            timeout-ms = <50>;
+            key-positions = <15 16>; // A + S
+            bindings = <&kp TAB>;
+            layers = <0>;
+        };
+
+        combo_minus {
+            timeout-ms = <50>;
+            key-positions = <36 37>; // , + .
+            bindings = <&kp DA_MINUS>;
+            layers = <0>;
+        };
+
         combo_excl {
             timeout-ms = <50>;
             key-positions = <37 38>; // . + ?
