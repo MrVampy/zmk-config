@@ -40,6 +40,18 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
+        // SYMBOL on the same physical punctuation key mirrors the base
+        // question/exclamation pair into Spanish inverted punctuation:
+        //
+        //   SYMBOL + tap         -> ¿
+        //   SYMBOL + Shift + tap -> ¡
+        inv_qmark_excl: inverted_question_exclamation {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&inv_ques>, <&inv_excl>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
         // SYMBOL+A — apostrophe / double-quote pair via the dk `' *` keysym
         // family. tap = ' (DA_APOS), shift = " (DA_DQT). Lives on the
         // left-pinky home row so SYMBOL (right thumb hold) + A (left pinky)
@@ -221,6 +233,17 @@
             >;
         };
 
+        umlaut_u: u_umlaut {
+            label = "U_UMLAUT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_tap &kp DA_UMLAUT &kp U
+            >;
+        };
+
         rgb_red_tog: rgb_red_toggle {
             label = "RGB_RED_TOG";
             compatible = "zmk,behavior-macro";
@@ -343,14 +366,14 @@
         raise_layer {
             display-name = "SYMBOL";
             // -----------------------------------------------------------------------------------------
-            // | ··   |  !  |  @  |  #  |  $  |  %  | LCTRL | RCTRL |  ^  |  &  |  (  |  )  |  *  | BSPC |
+            // | ··   |  &  |  @  |  #  |  $  | "|" | LCTRL | RCTRL |  ^  |  ü  |  (  |  )  |  *  | BSPC |
             // | ··   |     |     |     |     |     |  LALT | RALT  |  -  |  =  |  [  |  ]  |  \  |  `   |
-            // | ··   |     |     |     |     |     |               |  _  |  +  |  {  |  }  | "|" |  ··  |
+            // | ··   |     |     |     |     |     |               |  _  |  +  |  {  |  }  |¿/¡ |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
-                &none     &kp DA_EXCL &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_PRCNT &trans    &trans    &kp DA_CARET &kp DA_AMPS  &kp DA_LPAR  &kp DA_RPAR &kp DA_ASTRK &none
-                &none     &apos_dqt   &inv_excl &inv_ques   &kp DA_EURO &kp DA_POUND_SIGN &trans &trans &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
-                &none     &kp DA_ACUTE &kp DA_TILDE &kp DA_UMLAUT &none  &none                            &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp DA_PIPE &none
+                &none     &kp DA_AMPS &kp DA_AT &kp DA_HASH &kp DA_DLLR &kp DA_PIPE &trans    &trans    &kp DA_CARET &umlaut_u  &kp DA_LPAR  &kp DA_RPAR &kp DA_ASTRK &none
+                &none     &apos_dqt   &none &none   &kp DA_EURO &kp DA_POUND_SIGN &trans &trans &kp DA_EQUAL &kp DA_SLASH &kp DA_LBKT  &kp DA_RBKT &kp DA_BSLH &kp DA_GRAVE
+                &none     &kp DA_ACUTE &kp DA_TILDE &kp DA_UMLAUT &none  &none                            &kp DA_UNDER &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_qmark_excl &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
