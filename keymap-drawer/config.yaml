@@ -71,10 +71,13 @@ parse_config:
     "&inv_ques": "¿"
     "&n_tilde": "ñ"
     "&c_cedilla": "ç"
+    "&c_cedilla_morph": "ç/Ç"
     "&oe_ligature": "œ"
+    "&oe_ligature_morph": "œ/Œ"
+    "&s_sharp_morph": "ß/ẞ"
     "&sym_s_umlaut_ss":
       t: |-
         ¨
-        ß
+        ß/ẞ
       h: LCTRL
     "&rgb_red_tog": "RGB"

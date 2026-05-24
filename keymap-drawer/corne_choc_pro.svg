@@ -620,7 +620,7 @@ path.combo {
 <g transform="translate(140, 91)" class="key keypos-16">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.9em">¨</tspan><tspan x="0" dy="1.2em">ß</tspan>
+<tspan x="0" dy="-0.9em">¨</tspan><tspan x="0" dy="1.2em">ß/ẞ</tspan>
 </text>
 <text x="0" y="24" class="key hold">LCTRL</text>
 </g>
@@ -684,8 +684,7 @@ path.combo {
 </g>
 <g transform="translate(196, 140)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">ç</text>
-<text x="0" y="-24" class="key shifted"><tspan style="font-size: 64%">&amp;c_cedilla…</tspan></text>
+<text x="0" y="0" class="key tap">ç/Ç</text>
 </g>
 <g transform="translate(252, 147)" class="key keypos-32">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -745,8 +744,7 @@ path.combo {
 </g>
 <g class="combo combopos-1">
 <rect rx="6" ry="6" x="210" y="18" width="28" height="26" class="combo"/>
-<text x="224" y="31" class="combo tap">œ</text>
-<text x="224" y="20" class="combo shifted"><tspan style="font-size: 64%">&amp;oe_ligatu…</tspan></text>
+<text x="224" y="31" class="combo tap">œ/Œ</text>
 </g>
 <g class="combo combopos-2">
 <rect rx="6" ry="6" x="714" y="141" width="28" height="26" class="combo"/>

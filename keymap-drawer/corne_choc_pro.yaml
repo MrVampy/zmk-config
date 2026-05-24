@@ -113,7 +113,7 @@ layers:
   - {t: ^, h: LALT}
   - {t: '¨
 
-      ß', h: LCTRL}
+      ß/ẞ', h: LCTRL}
   - {t: '`', h: LSHFT}
   - ´
   - '['
@@ -128,7 +128,7 @@ layers:
   - ''
   - '|'
   - '#'
-  - {t: ç, s: '&c_cedilla_upper'}
+  - ç/Ç
   - ''
   - ''
   - ñ
@@ -439,7 +439,7 @@ combos:
   k: '"'
   l: [SYMBOL]
 - p: [3, 4]
-  k: {t: œ, s: '&oe_ligature_upper'}
+  k: œ/Œ
   l: [SYMBOL]
 - p: [37, 38]
   k: ¡
