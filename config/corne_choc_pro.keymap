@@ -328,12 +328,12 @@
             // |  \   |  &  |  @  |  €  |  $  |  «  | LCTRL | RCTRL |  »  |  '  |  (  |  )  |  ~  | BSPC |
             // | ··   |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ··   |
             // |      |  ^  | ¨/ß |  `  |     |     |       |       |     |     |  `  |  ¨  |  ^  |      |
-            // | ··   | "|" |  #  |  ¸  |  £  |  _  |               |  ~  |  +  |  {  |  }  |  ¿  |  ··  |
+            // | ··   | "|" |  #  |  ¡  |  £  |  _  |               |  ~  |  +  |  {  |  }  |  ¿  |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
                 &none     &core_hrm_l LALT DA_CARET &sym_s_umlaut_ss &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UMLAUT &core_hrm_r RALT DA_CARET &none
-                &none     &kp DA_PIPE &kp DA_HASH &kp RA(COMMA) &kp DA_POUND_SIGN &kp DA_UNDER          &kp DA_TILDE &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &none
+                &none     &kp DA_PIPE &kp DA_HASH &kp RA(N1) &kp DA_POUND_SIGN &kp DA_UNDER          &kp DA_TILDE &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };

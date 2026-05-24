@@ -63,7 +63,6 @@ parse_config:
     DA_A_RING: "å"
 
     # Native AltGr chords from Linux/XKB Danish.
-    RA(COMMA): "¸"
     RA(N1): "¡"
     RA(LS(MINUS)): "¿"
     RA(LS(N8)): "«"
@@ -74,7 +73,6 @@ parse_config:
   # parser would have written for these &-prefixed identifiers.
   raw_binding_map:
     "&top_alt_l": {t: "Caps Word", h: LALT}
-    "&kp RA(COMMA)": "¸"
     "&kp RA(N1)": "¡"
     "&kp RA(LS(MINUS))": "¿"
     "&kp RA(LS(N8))": "«"
