@@ -39,7 +39,7 @@ layers:
   - M
   - COMMA
   - DOT
-  - {t: '?', s: '!'}
+  - '?'
   - {t: TAB, h: RSHFT}
   - {t: ESC, h: SYMBOL}
   - {t: RET, h: NUMBER}
@@ -121,7 +121,7 @@ layers:
   - ´
   - {t: '`', h: RSHFT}
   - {t: _, h: RCTRL}
-  - {t: '''', h: RALT, s: '"'}
+  - {t: '''', h: RALT}
   - ''
   - ''
   - '|'
@@ -133,7 +133,7 @@ layers:
   - +
   - '{'
   - '}'
-  - {t: ¿, s: ¡}
+  - ¿
   - ''
   - {type: held}
   - {t: ▽, type: trans}
@@ -430,3 +430,12 @@ combos:
 - p: [25, 26]
   k: ø
   l: [QWERTY]
+- p: [37, 38]
+  k: '!'
+  l: [QWERTY]
+- p: [25, 26]
+  k: '"'
+  l: [SYMBOL]
+- p: [37, 38]
+  k: ¡
+  l: [SYMBOL]

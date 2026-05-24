@@ -67,10 +67,6 @@ parse_config:
   # parser would have written for these &-prefixed identifiers.
   raw_binding_map:
     "&top_alt_l": {t: "Caps Word", h: LALT}
-    "&sym_apos_hrm_r": {t: "'", h: RALT, s: '"'}
-    "&apos_dqt": {t: "'", s: '"'}
-    "&qmark_excl": {t: "?", s: "!"}
-    "&inv_qmark_excl": {t: "¿", s: "¡"}
     "&inv_excl": "¡"
     "&inv_ques": "¿"
     "&umlaut_u": "ü"

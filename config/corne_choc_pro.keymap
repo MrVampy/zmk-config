@@ -27,42 +27,6 @@
 
 / {
     behaviors {
-        // Mod-morph for the QWERTY punctuation key (position 38).
-        //
-        //   tap          → DA_QMARK  → `?` on dk
-        //   tap + Shift  → DA_EXCL   → `!` on dk
-        //
-        // `-` moved to NUMBER layer position 14.
-        qmark_excl: question_exclamation {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp DA_QMARK>, <&kp DA_EXCL>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // SYMBOL on the same physical punctuation key mirrors the base
-        // question/exclamation pair into Spanish inverted punctuation:
-        //
-        //   SYMBOL + tap         -> ¿
-        //   SYMBOL + Shift + tap -> ¡
-        inv_qmark_excl: inverted_question_exclamation {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&inv_ques>, <&inv_excl>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        // SYMBOL+A — apostrophe / double-quote pair via the dk `' *` keysym
-        // family. tap = ' (DA_APOS), shift = " (DA_DQT). Lives on the
-        // left-pinky home row so SYMBOL (right thumb hold) + A (left pinky)
-        // is a clean cross-hand chord. Mnemonic: A → Apostrophe.
-        apos_dqt: apostrophe_dquote {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp DA_APOS>, <&kp DA_DQT>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
         // Layer-entry thumb hold-tap for ESC/SYMBOL and RET/NUMBER.
         //
         // This intentionally keeps the aggressive utility-thumb timing:
@@ -197,24 +161,6 @@
             hold-trigger-on-release;
         };
 
-        // Symbol-layer right Alt HRM whose tap side is the apostrophe/quote
-        // mod-morph instead of a plain keycode. Same timing as core_hrm_r.
-        sym_apos_hrm_r: symbol_apostrophe_home_row_mod_right {
-            compatible = "zmk,behavior-hold-tap";
-            label = "SYM_APOS_HRM_R";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <125>;
-            bindings = <&kp>, <&apos_dqt>;
-            hold-trigger-key-positions = <
-                 0  1  2  3  4  5
-                14 15 16 17 18 19
-                28 29 30 31 32 33
-            >;
-            hold-trigger-on-release;
-        };
     };
 
     macros {
@@ -307,6 +253,27 @@
             bindings = <&kp DA_O_SLASH>;
             layers = <0>;
         };
+
+        combo_excl {
+            timeout-ms = <50>;
+            key-positions = <37 38>; // . + ?
+            bindings = <&kp DA_EXCL>;
+            layers = <0>;
+        };
+
+        combo_dqt {
+            timeout-ms = <50>;
+            key-positions = <25 26>; // SYMBOL _ + '
+            bindings = <&kp DA_DQT>;
+            layers = <2>;
+        };
+
+        combo_inv_excl {
+            timeout-ms = <50>;
+            key-positions = <37 38>; // SYMBOL } + ¿
+            bindings = <&inv_excl>;
+            layers = <2>;
+        };
     };
 
     // Tri-layer: NUMBER (1) + SYMBOL (2) held together → SETTINGS (3).
@@ -348,13 +315,14 @@
             //   * pos 14: &mt_thumb LCTRL HOME. Hold → LCtrl; tap → HOME.
             //   * pos 27: &mt_thumb RCTRL END. Hold → RCtrl; tap → END. Pairs
             //     with HOME on pos 14 for line-jump navigation on base layer.
-            //   * pos 38: tap `?`, Shift+tap `!`; `-` moved to NUMBER pos 14.
+            //   * pos 38: tap `?`; .+? combo gives `!`. `-` moved to NUMBER
+            //     pos 14.
             //   * pos 39: normal RShift/Tab utility mod-tap.
             //   * Outer thumbs: tap = ESC on both halves (mirrored).
             bindings = <
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &mt_thumb RALT DEL
                 &mt_thumb LCTRL HOME    &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &mt_thumb RCTRL END
-                &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &qmark_excl &mt_thumb RSHFT TAB
+                &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &kp DA_QMARK &mt_thumb RSHFT TAB
                                   &layer_thumb 2 ESC &layer_thumb 1 RET &text_thumb LGUI BSPC        &text_thumb RGUI SPACE &layer_thumb 1 RET &layer_thumb 2 ESC
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp PG_UP PG_DN &inc_dec_kp C_PREV C_NEXT &inc_dec_kp C_BRI_DN C_BRI_UP>;
@@ -398,13 +366,13 @@
             // -----------------------------------------------------------------------------------------
             // | ··   |  &  |  @  |  €  |  $  |  £  | LCTRL | RCTRL |  ^  |  ü  |  (  |  )  |  ~  | BSPC |
             // | ··   |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ··   |
-            // |      |  /  |  \  |  `  |     |     |       |       |     |     |  `  |  _  | '/" |      |
-            // | ··   | "|" |  #  |     |     |     |               |  ñ  |  +  |  {  |  }  |¿/¡ |  ··  |
+            // |      |  /  |  \  |  `  |     |     |       |       |     |     |  `  |  _  |  '  |      |
+            // | ··   | "|" |  #  |     |     |     |               |  ñ  |  +  |  {  |  }  |  ¿  |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &none     &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp DA_POUND_SIGN &trans    &trans    &kp DA_CARET &umlaut_u  &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
-                &none     &core_hrm_l LALT DA_SLASH &core_hrm_l LCTRL DA_BSLH &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UNDER &sym_apos_hrm_r RALT 0 &none
-                &none     &kp DA_PIPE &kp DA_HASH &none &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_qmark_excl &none
+                &none     &core_hrm_l LALT DA_SLASH &core_hrm_l LCTRL DA_BSLH &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UNDER &core_hrm_r RALT DA_APOS &none
+                &none     &kp DA_PIPE &kp DA_HASH &none &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
