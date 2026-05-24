@@ -380,8 +380,8 @@
             >;
         };
 
-        // OS profile selectors. The keyboard owns the convention:
-        // BT0 = Linux, BT1 = Windows, BT2 = macOS.
+        // OS mode selectors. Pairing slots stay transport-only; these buttons
+        // select keyboard-side character semantics.
         os_linux: os_linux {
             label = "OS_LINUX";
             compatible = "zmk,behavior-macro";
@@ -389,7 +389,7 @@
             wait-ms = <0>;
             tap-ms = <0>;
             bindings = <
-                &macro_tap &bt BT_SEL 0
+                &macro_tap &to 4
             >;
         };
 
@@ -400,7 +400,7 @@
             wait-ms = <0>;
             tap-ms = <0>;
             bindings = <
-                &macro_tap &bt BT_SEL 1
+                &macro_tap &to 5
             >;
         };
 
@@ -411,7 +411,7 @@
             wait-ms = <0>;
             tap-ms = <0>;
             bindings = <
-                &macro_tap &bt BT_SEL 2
+                &macro_tap &to 6
             >;
         };
 
@@ -599,8 +599,11 @@
             >;
         };
 
-        extra_layer_2 {
-            display-name = "EXTRA 2";
+        // Transparent OS mode layers selected from SETTINGS. Future
+        // OS-specific SYMBOL/NUMBER routing can hang off these layers without
+        // coupling character behavior to BT pairing slots.
+        linux_mode_layer {
+            display-name = "LINUX";
             bindings = <
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
@@ -609,8 +612,8 @@
             >;
         };
 
-        extra_layer_3 {
-            display-name = "EXTRA 3";
+        windows_mode_layer {
+            display-name = "WINDOWS";
             bindings = <
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
@@ -619,8 +622,8 @@
             >;
         };
 
-        extra_layer_4 {
-            display-name = "EXTRA 4";
+        macos_mode_layer {
+            display-name = "MACOS";
             bindings = <
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
