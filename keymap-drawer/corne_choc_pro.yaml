@@ -103,15 +103,15 @@ layers:
   - £
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - ^
-  - ü
+  - _
+  - ''
   - (
   - )
   - '~'
   - ''
   - ''
-  - {t: /, h: LALT}
-  - {t: '\
+  - {t: \, h: LALT}
+  - {t: '¨
 
       ß', h: LCTRL}
   - {t: '`', h: LSHFT}
@@ -122,7 +122,7 @@ layers:
   - ']'
   - ´
   - {t: '`', h: RSHFT}
-  - {t: _, h: RCTRL}
+  - {t: ^, h: RCTRL}
   - {t: '''', h: RALT}
   - ''
   - ''
