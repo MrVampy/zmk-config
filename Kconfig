@@ -4,6 +4,8 @@ config CORNE_REACTIVE_RGB
     bool "Reactive per-key RGB lighting"
     default y
     select LED_STRIP
+    select SPI
+    select WS2812_STRIP
     select ZMK_EXT_POWER
     select ZMK_LOW_PRIORITY_WORK_QUEUE
     help
