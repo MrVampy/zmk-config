@@ -109,12 +109,14 @@ layers:
   - )
   - '~'
   - ''
-  - ''
+  - ˇ
   - {t: ^, h: LALT}
   - {t: '¨
 
       ß/ẞ', h: LCTRL}
-  - {t: '`', h: LSHFT}
+  - {t: '`
+
+      đ', h: LSHFT}
   - ´
   - '['
   - {t: ▽, type: trans}
@@ -124,7 +126,7 @@ layers:
   - {t: '`', h: RSHFT}
   - {t: ¨, h: RCTRL}
   - {t: ^, h: RALT}
-  - ''
+  - ˇ
   - ''
   - '|'
   - '#'
