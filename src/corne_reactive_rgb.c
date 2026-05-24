@@ -46,33 +46,23 @@ static bool reactive_rgb_enabled;
 
 static K_MUTEX_DEFINE(reactive_rgb_lock);
 
+/*
+ * Keebart Corne Choc Pro WS2812 order from the vendor QMK/Vial hardware
+ * definition, translated to ZMK physical positions. Both halves use the same
+ * local LED indices, mirrored through their global ZMK position numbers.
+ */
+static const int position_to_pixel_map[] = {
+    18, 17, 12, 11, 4,  3,  21, 21, 3,  4,  11, 12, 17, 18, 19, 16,
+    13, 10, 5,  2,  22, 22, 2,  5,  10, 13, 16, 19, 20, 15, 14, 9,
+    6,  1,  1,  6,  9,  14, 15, 20, 8,  7,  0,  0,  7,  8,
+};
+
 static int position_to_pixel(uint32_t position) {
-    if (position <= 6) {
-        return position;
-    }
-    if (position >= 7 && position <= 13) {
-        return position - 7;
-    }
-    if (position >= 14 && position <= 20) {
-        return 7 + (position - 14);
-    }
-    if (position >= 21 && position <= 27) {
-        return 7 + (position - 21);
-    }
-    if (position >= 28 && position <= 33) {
-        return 14 + (position - 28);
-    }
-    if (position >= 34 && position <= 39) {
-        return 14 + (position - 34);
-    }
-    if (position >= 40 && position <= 42) {
-        return 20 + (position - 40);
-    }
-    if (position >= 43 && position <= 45) {
-        return 20 + (position - 43);
+    if (position >= ARRAY_SIZE(position_to_pixel_map)) {
+        return -EINVAL;
     }
 
-    return -EINVAL;
+    return position_to_pixel_map[position];
 }
 
 static void clear_active_pixels(void) {
