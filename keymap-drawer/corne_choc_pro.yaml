@@ -172,7 +172,7 @@ layers:
   - ''
   - ''
   - BT CLR
-  - RGB TOG
+  - '&rrgb RGB_TOG'
   - '&sys_reset'
   - '&bootloader'
   - '&studio_unlock'
