@@ -334,8 +334,8 @@
             // -----------------------------------------------------------------------------------------
             // | LALT/|  1  |  2  |  3  |  4  |  5  | MUTE  |  PP   |  6  |  7  |  8  |  9  |  0  | RALT/|
             // |  ½   |     |     |     |     |     |       |       |     |     |     |     |     |  +   |
-            // | ··   | LALT/| LCTL/|LSFT/| END | ··  | Vol-  | Vol+  | ··  | LFT |RSFT/|RCTL/| RALT/|  ··  |
-            // | DEL  | HOME| PgDn | PgUp|     |     |       |       |     |     | DWN | UP  | RGT |      |
+            // | ··   |LALT/| LCTL/|LSFT/| ··  | ··  | Vol-  | Vol+  | ··  | LFT |RSFT/|RCTL/| RALT/|  ··  |
+            // |      | ··  | PgDn | PgUp|     |     |       |       |     |     | DWN | UP  | RGT |      |
             // | F1   | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | F12  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
             //              | ESC    |  RET     | BSPC   |   | SPACE  |  RET     | ESC    |
@@ -343,21 +343,20 @@
             // Layout notes:
             //   * Settings cluster (BT_SEL 0..4, BT_CLR, RGB_TOG, sys_reset,
             //     bootloader, studio_unlock) moved off this layer to the
-            //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3)
-            //     because BSPC-adjacent chords were firing the destructive
-            //     ones (sys_reset / bootloader / BT_CLR).
-            //   * Row 2 left = big-jump navigation mirroring right-side
-            //     arrows finger-for-finger: Home/PgDn/PgUp/End at positions
-            //     15-18 (LEFT/DOWN/UP/RIGHT live at 23-26 on the right).
-            //   * Row 3 = F1..F12 spread across both halves. Outer-pinky
-            //     positions (28, 39) are plain &kp F1 / F12 — the earlier
-            //     mt_thumb mod-tap added LSHFT-on-hold for Shift+F-key /
-            //     Shift+arrow combos, but those aren't used in practice
-            //     and the mod-tap delay slows the F-key tap, so simplified
-            //     to direct &kp.
+            //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3).
+            //   * Pos 15 (A): keeps LALT HRM (cross-hand trigger preserved for
+            //     LALT+right-hand chords on this layer); HOME tap removed
+            //     since HOME is now on base layer (pos 14). Tap target is LALT
+            //     keysym = no-op visible character. Slot reserved for a future
+            //     tap action (macro / utility) — but the HRM stays.
+            //   * Pos 18 (F): END removed — now on base layer (pos 27 RCTRL/END).
+            //     Position is &none pending replacement.
+            //   * Row 1 right = arrow cluster on J/K/L/Æ with HRMs for
+            //     Shift/Ctrl/Alt chording on arrow keys.
+            //   * Row 3 = F1..F12 spread across both halves.
             bindings = <
                 &mt_thumb LALT DA_ONE_HALF &kp N1   &kp N2    &kp N3    &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &mt_thumb RALT DA_PLUS
-                &none    &core_hrm_l LALT HOME &core_hrm_l LCTRL PG_DN &core_hrm_l LSHFT PG_UP &kp END &none &trans &trans &none &kp LEFT &core_hrm_r RSHFT DOWN &core_hrm_r RCTRL UP &core_hrm_r RALT RIGHT &none
+                &none    &core_hrm_l LALT LALT &core_hrm_l LCTRL PG_DN &core_hrm_l LSHFT PG_UP &none &none &trans &trans &none &kp LEFT &core_hrm_r RSHFT DOWN &core_hrm_r RCTRL UP &core_hrm_r RALT RIGHT &none
                 &kp F1   &kp F2   &kp F3    &kp F4    &kp F5   &kp F6                       &kp F7   &kp F8   &kp F9   &kp F10   &kp F11   &kp F12
                                             &trans    &trans   &trans                       &trans   &trans   &trans
             >;
