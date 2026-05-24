@@ -69,4 +69,6 @@ parse_config:
     "&top_alt_l": {t: "Caps Word", h: LALT}
     "&apos_dqt": {t: "'", s: '"'}
     "&qmark_excl": {t: "?", s: "!"}
+    "&inv_excl": "¡"
+    "&inv_ques": "¿"
     "&rgb_red_tog": "RGB"
