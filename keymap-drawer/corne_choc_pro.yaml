@@ -110,18 +110,18 @@ layers:
   - '~'
   - ''
   - ''
-  - /
-  - \
-  - '`'
+  - {t: /, h: LALT}
+  - {t: \, h: LCTRL}
+  - {t: '`', h: LSHFT}
   - ´
   - '['
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ']'
   - ´
-  - '`'
-  - _
-  - {t: '''', s: '"'}
+  - {t: '`', h: RSHFT}
+  - {t: _, h: RCTRL}
+  - {t: '''', h: RALT, s: '"'}
   - ''
   - ''
   - '|'

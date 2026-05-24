@@ -196,6 +196,25 @@
             >;
             hold-trigger-on-release;
         };
+
+        // Symbol-layer right Alt HRM whose tap side is the apostrophe/quote
+        // mod-morph instead of a plain keycode. Same timing as core_hrm_r.
+        sym_apos_hrm_r: symbol_apostrophe_home_row_mod_right {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SYM_APOS_HRM_R";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&apos_dqt>;
+            hold-trigger-key-positions = <
+                 0  1  2  3  4  5
+                14 15 16 17 18 19
+                28 29 30 31 32 33
+            >;
+            hold-trigger-on-release;
+        };
     };
 
     macros {
@@ -378,12 +397,13 @@
             display-name = "SYMBOL";
             // -----------------------------------------------------------------------------------------
             // | ··   |  &  |  @  |  €  |  $  |  £  | LCTRL | RCTRL |  ^  |  ü  |  (  |  )  |  ~  | BSPC |
-            // | ··   |  /  |  \  |  `  |  ´  |  [  |  LALT | RALT  |  ]  |  ´  |  `  |  _  | '/" | ··   |
+            // | ··   |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ··   |
+            // |      |  /  |  \  |  `  |     |     |       |       |     |     |  `  |  _  | '/" |      |
             // | ··   | "|" |  #  |     |     |     |               |  ñ  |  +  |  {  |  }  |¿/¡ |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &none     &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp DA_POUND_SIGN &trans    &trans    &kp DA_CARET &umlaut_u  &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
-                &none     &kp DA_SLASH &kp DA_BSLH &kp DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &kp DA_GRAVE &kp DA_UNDER &apos_dqt   &none
+                &none     &core_hrm_l LALT DA_SLASH &core_hrm_l LCTRL DA_BSLH &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UNDER &sym_apos_hrm_r RALT 0 &none
                 &none     &kp DA_PIPE &kp DA_HASH &none &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_qmark_excl &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
