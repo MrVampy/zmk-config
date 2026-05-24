@@ -204,14 +204,29 @@
     };
 
     macros {
-        // Linux/XKB Danish-only Spanish punctuation helpers.
+        // Linux/XKB Danish-only language helpers.
         //
-        // These intentionally rely on xkeyboard-config's Danish layout:
+        // These intentionally stay self-contained in firmware: they send
+        // ordinary HID chords/dead keys to the host's existing Danish layout.
+        // Do not replace them with Unicode-input sequences such as
+        // Ctrl+Shift+U; terminal/app handling makes those fragile.
+        //
+        // Shift-aware helpers are selected through mod-morph. Their shifted
+        // branch must use implicit modified keycodes like LS(C) or RA(LS(S)),
+        // not explicit &kp LSHFT, because mod-morph masks the triggering
+        // explicit Shift while the morph branch runs.
+        //
+        // The non-Danish special characters below currently rely on
+        // xkeyboard-config's Danish layout:
         //   AltGr+1            -> ¡
         //   AltGr+Shift+(+key) -> ¿
+        //   AltGr+comma + C    -> ç / Ç
+        //   AltGr+S            -> ß / ẞ
+        //   AltGr+O            -> œ / Œ
+        //   AltGr+Shift+8/9    -> « / »
         //
-        // Windows Danish does not assign those characters to the same
-        // key sequences; Windows users need Alt codes or symbol input.
+        // Windows/macOS layers are present as OS selectors, but host-specific
+        // replacements for those specials have not been implemented yet.
         inv_excl: inverted_exclamation {
             label = "INV_EXCL";
             compatible = "zmk,behavior-macro";
@@ -219,9 +234,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT
-                &macro_tap &kp N1
-                &macro_release &kp RALT
+                &macro_tap &kp RA(N1)
             >;
         };
 
@@ -232,9 +245,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT &kp LSHFT
-                &macro_tap &kp MINUS
-                &macro_release &kp LSHFT &kp RALT
+                &macro_tap &kp RA(LS(MINUS))
             >;
         };
 
@@ -269,16 +280,12 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT
-                &macro_tap &kp COMMA
-                &macro_release &kp RALT
+                &macro_tap &kp RA(COMMA)
                 &macro_tap &kp C
             >;
         };
 
         // Linux/XKB Danish: AltGr+comma is dead cedilla, then Shift+c -> Ç.
-        // Use LS(C) rather than explicit LSHFT so the shift survives the
-        // surrounding mod-morph's explicit-modifier mask.
         c_cedilla_upper: c_cedilla_upper {
             label = "C_CEDILLA_UPPER";
             compatible = "zmk,behavior-macro";
@@ -286,9 +293,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT
-                &macro_tap &kp COMMA
-                &macro_release &kp RALT
+                &macro_tap &kp RA(COMMA)
                 &macro_tap &kp LS(C)
             >;
         };
@@ -302,9 +307,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT
-                &macro_tap &kp S
-                &macro_release &kp RALT
+                &macro_tap &kp RA(S)
             >;
         };
 
@@ -316,9 +319,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT
-                &macro_tap &kp LS(S)
-                &macro_release &kp RALT
+                &macro_tap &kp RA(LS(S))
             >;
         };
 
@@ -330,9 +331,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT
-                &macro_tap &kp O
-                &macro_release &kp RALT
+                &macro_tap &kp RA(O)
             >;
         };
 
@@ -344,9 +343,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT
-                &macro_tap &kp LS(O)
-                &macro_release &kp RALT
+                &macro_tap &kp RA(LS(O))
             >;
         };
 
@@ -358,9 +355,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT &kp LSHFT
-                &macro_tap &kp N8
-                &macro_release &kp LSHFT &kp RALT
+                &macro_tap &kp RA(LS(N8))
             >;
         };
 
@@ -372,9 +367,7 @@
             wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp RALT &kp LSHFT
-                &macro_tap &kp N9
-                &macro_release &kp LSHFT &kp RALT
+                &macro_tap &kp RA(LS(N9))
             >;
         };
 
@@ -597,9 +590,11 @@
             >;
         };
 
-        // Transparent OS mode overlays selected from SETTINGS. Future
-        // OS-specific SYMBOL/NUMBER routing can hang off these layers without
-        // coupling character behavior to BT pairing slots.
+        // Transparent OS mode overlays selected from SETTINGS. They are
+        // semantic selectors only, not BT profile selectors. Today they leave
+        // the Linux/Danish keymap active; future host-specific replacements
+        // for the Linux/XKB-only specials can hang off these layers without
+        // coupling character behavior to pairing slots.
         windows_mode_layer {
             display-name = "WINDOWS";
             bindings = <
