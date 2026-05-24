@@ -18,6 +18,7 @@ parse_config:
     DA_HASH: "#"
     DA_DLLR: "$"
     DA_PRCNT: "%"
+    DA_PERCENT: "%"
     DA_CARET: "^"
     DA_AMPS: "&"
     DA_ASTRK: "*"
@@ -28,6 +29,10 @@ parse_config:
     DA_EQUAL: "="
     DA_PLUS: "+"
     DA_MINUS: "-"
+    DA_LESS_THAN: "<"
+    DA_LT: "<"
+    DA_GREATER_THAN: ">"
+    DA_GT: ">"
     DA_UNDER: "_"
     DA_SLASH: "/"
     DA_QMARK: "?"
@@ -63,7 +68,5 @@ parse_config:
   raw_binding_map:
     "&top_alt_l": {t: "Caps Word", h: LALT}
     "&apos_dqt": {t: "'", s: '"'}
-    "&hyp_qm": {t: "-", s: "?"}
-    "&inv_excl": "¡"
-    "&inv_ques": "¿"
+    "&qmark_excl": {t: "?", s: "!"}
     "&rgb_red_tog": "RGB"

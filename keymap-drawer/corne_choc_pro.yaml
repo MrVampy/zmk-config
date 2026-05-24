@@ -39,8 +39,8 @@ layers:
   - M
   - COMMA
   - DOT
-  - {t: '-', s: '?'}
-  - {t: TAB, h: RSHFT, s: '!'}
+  - {t: '?', s: '!'}
+  - {t: TAB, h: RSHFT}
   - {t: ESC, h: SYMBOL}
   - {t: RET, h: NUMBER}
   - {t: BSPC, h: LGUI}
@@ -48,7 +48,7 @@ layers:
   - {t: RET, h: NUMBER}
   - {t: ESC, h: SYMBOL}
   NUMBER:
-  - {t: ½, h: LALT}
+  - {t: /, h: LALT}
   - '1'
   - '2'
   - '3'
@@ -61,21 +61,21 @@ layers:
   - '8'
   - '9'
   - '0'
-  - {t: +, h: RALT}
-  - ''
-  - {t: LALT, h: LALT}
+  - {t: '*', h: RALT}
+  - '-'
+  - {t: '%', h: LALT}
   - {t: PG DN, h: LCTRL}
   - {t: PG UP, h: LSHFT}
-  - ''
-  - ''
+  - '='
+  - <
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - ''
+  - '>'
   - LEFT
   - {t: DOWN, h: RSHFT}
   - {t: UP, h: RCTRL}
   - {t: RIGHT, h: RALT}
-  - ''
+  - +
   - F1
   - F2
   - F3
@@ -111,8 +111,8 @@ layers:
   - ''
   - ''
   - {t: '''', s: '"'}
-  - ¡
-  - ¿
+  - ''
+  - ''
   - €
   - £
   - {t: ▽, type: trans}
