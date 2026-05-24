@@ -193,6 +193,14 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
+        n_tilde_morph: n_tilde_morph {
+            compatible = "zmk,behavior-mod-morph";
+            label = "N_TILDE_MORPH";
+            #binding-cells = <0>;
+            bindings = <&n_tilde>, <&n_tilde_upper>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
     };
 
     macros {
@@ -208,7 +216,7 @@
             label = "INV_EXCL";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
                 &macro_press &kp RALT
@@ -221,7 +229,7 @@
             label = "INV_QUES";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
                 &macro_press &kp RALT &kp LSHFT
@@ -234,42 +242,56 @@
             label = "N_TILDE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
                 &macro_tap &kp DA_TILDE &kp N
             >;
         };
 
-        // Linux/XKB Danish-only: Ctrl+Shift+U 00e7 Space -> ç.
-        // Danish XKB exposes cedilla as a standalone symbol, not a dead
-        // cedilla suitable for composing c/ç.
+        n_tilde_upper: n_tilde_upper {
+            label = "N_TILDE_UPPER";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_tap &kp DA_TILDE
+                &macro_press &kp LSHFT
+                &macro_tap &kp N
+                &macro_release &kp LSHFT
+            >;
+        };
+
+        // Linux/XKB Danish: AltGr+comma is dead cedilla, then c -> ç.
         c_cedilla: c_cedilla {
             label = "C_CEDILLA";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp LCTRL &kp LSHFT
-                &macro_tap &kp U
-                &macro_release &kp LSHFT &kp LCTRL
-                &macro_tap &kp N0 &kp N0 &kp E &kp N7 &kp SPACE
+                &macro_press &kp RALT
+                &macro_tap &kp COMMA
+                &macro_release &kp RALT
+                &macro_tap &kp C
             >;
         };
 
-        // Linux Unicode input: Ctrl+Shift+U 00c7 Space -> Ç.
+        // Linux/XKB Danish: AltGr+comma is dead cedilla, then Shift+c -> Ç.
         c_cedilla_upper: c_cedilla_upper {
             label = "C_CEDILLA_UPPER";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp LCTRL &kp LSHFT
-                &macro_tap &kp U
-                &macro_release &kp LSHFT &kp LCTRL
-                &macro_tap &kp N0 &kp N0 &kp C &kp N7 &kp SPACE
+                &macro_press &kp RALT
+                &macro_tap &kp COMMA
+                &macro_release &kp RALT
+                &macro_press &kp LSHFT
+                &macro_tap &kp C
+                &macro_release &kp LSHFT
             >;
         };
 
@@ -279,7 +301,7 @@
             label = "S_SHARP";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
                 &macro_press &kp RALT
@@ -288,18 +310,17 @@
             >;
         };
 
-        // Linux Unicode input: Ctrl+Shift+U 1e9e Space -> ẞ.
+        // Linux/XKB Danish: AltGr+Shift+S -> ẞ through latin(type2).
         s_sharp_upper: s_sharp_upper {
             label = "S_SHARP_UPPER";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp LCTRL &kp LSHFT
-                &macro_tap &kp U
-                &macro_release &kp LSHFT &kp LCTRL
-                &macro_tap &kp N1 &kp E &kp N9 &kp E &kp SPACE
+                &macro_press &kp RALT &kp LSHFT
+                &macro_tap &kp S
+                &macro_release &kp LSHFT &kp RALT
             >;
         };
 
@@ -308,7 +329,7 @@
             label = "OE_LIGATURE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
                 &macro_press &kp RALT
@@ -322,7 +343,7 @@
             label = "OE_LIGATURE_UPPER";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
                 &macro_press &kp RALT &kp LSHFT
@@ -331,33 +352,66 @@
             >;
         };
 
-        // Linux Unicode input: Ctrl+Shift+U 00ab Space -> «.
+        // Linux/XKB Danish: AltGr+Shift+8 -> « through latin(type2).
         guillemet_left: guillemet_left {
             label = "GUILLEMET_LEFT";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp LCTRL &kp LSHFT
-                &macro_tap &kp U
-                &macro_release &kp LSHFT &kp LCTRL
-                &macro_tap &kp N0 &kp N0 &kp A &kp B &kp SPACE
+                &macro_press &kp RALT &kp LSHFT
+                &macro_tap &kp N8
+                &macro_release &kp LSHFT &kp RALT
             >;
         };
 
-        // Linux Unicode input: Ctrl+Shift+U 00bb Space -> ».
+        // Linux/XKB Danish: AltGr+Shift+9 -> » through latin(type2).
         guillemet_right: guillemet_right {
             label = "GUILLEMET_RIGHT";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <10>;
+            wait-ms = <0>;
             tap-ms = <10>;
             bindings = <
-                &macro_press &kp LCTRL &kp LSHFT
-                &macro_tap &kp U
-                &macro_release &kp LSHFT &kp LCTRL
-                &macro_tap &kp N0 &kp N0 &kp B &kp B &kp SPACE
+                &macro_press &kp RALT &kp LSHFT
+                &macro_tap &kp N9
+                &macro_release &kp LSHFT &kp RALT
+            >;
+        };
+
+        // OS profile selectors. The keyboard owns the convention:
+        // BT0 = Linux, BT1 = Windows, BT2 = macOS.
+        os_linux: os_linux {
+            label = "OS_LINUX";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <
+                &macro_tap &bt BT_SEL 0
+            >;
+        };
+
+        os_windows: os_windows {
+            label = "OS_WINDOWS";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <
+                &macro_tap &bt BT_SEL 1
+            >;
+        };
+
+        os_macos: os_macos {
+            label = "OS_MACOS";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <
+                &macro_tap &bt BT_SEL 2
             >;
         };
 
@@ -520,7 +574,7 @@
             bindings = <
                 &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &guillemet_left &trans    &trans    &guillemet_right &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
                 &none     &core_hrm_l LALT DA_CARET &sym_s_umlaut_ss &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UMLAUT &core_hrm_r RALT DA_CARET &none
-                &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
+                &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde_morph &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
@@ -528,7 +582,7 @@
         settings_layer {
             display-name = "SETTINGS";
             // -----------------------------------------------------------------------------------------
-            // |      |     |     |     |     |       |       |       |     |     |     |     |     |      |
+            // |      | LIN | WIN | MAC |     |       |       |       |     |     |     |     |     |      |
             // |      | BT1 | BT2 | BT3 | BT4 | BT5   |       |       |     |     |     |     |     |      |
             // |      | BTCR| RGB | RST | BOOT| Unlock|       |       |     |     |     |     |     |      |
             //                    |     |     |       |       |       |     |     |
@@ -538,7 +592,7 @@
             // Every non-settings position is &none so accidental brushes
             // while the sub-layer is open don't leak keystrokes.
             bindings = <
-                &none &none        &none           &none        &none        &none          &none &none &none &none &none &none &none &none
+                &none &os_linux    &os_windows     &os_macos    &none        &none          &none &none &none &none &none &none &none &none
                 &none &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &none &none &none &none &none &none &none &none
                 &none &bt BT_CLR   &rgb_red_tog    &sys_reset   &bootloader  &studio_unlock              &none &none &none &none &none &none
                                                    &none        &none        &none                       &none &none &none

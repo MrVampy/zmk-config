@@ -74,9 +74,13 @@ parse_config:
     "&c_cedilla_morph": "ç/Ç"
     "&oe_ligature": "œ"
     "&oe_ligature_morph": "œ/Œ"
+    "&n_tilde_morph": "ñ/Ñ"
     "&guillemet_left": "«"
     "&guillemet_right": "»"
     "&s_sharp_morph": "ß/ẞ"
+    "&os_linux": "LIN"
+    "&os_windows": "WIN"
+    "&os_macos": "MAC"
     "&sym_s_umlaut_ss":
       t: |-
         ¨
