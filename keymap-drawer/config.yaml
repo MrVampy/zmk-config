@@ -65,6 +65,7 @@ parse_config:
     # Native AltGr chords from Linux/XKB Danish.
     RA(COMMA): "ç"
     RA(N1): "¡"
+    RA(LS(SQT)): "ˇ"
     RA(LS(MINUS)): "¿"
     RA(LS(N8)): "«"
     RA(LS(N9)): "»"
@@ -76,10 +77,12 @@ parse_config:
     "&top_alt_l": {t: "Caps Word", h: LALT}
     "&kp RA(COMMA)": "ç"
     "&kp RA(N1)": "¡"
+    "&kp RA(LS(SQT))": "ˇ"
     "&kp RA(LS(MINUS))": "¿"
     "&kp RA(LS(N8))": "«"
     "&kp RA(LS(N9))": "»"
     "&c_cedilla_morph": "ç/Ç"
+    "&caron_morph": "ˇ"
     "&oe_ligature_morph": "œ/Œ"
     "&n_tilde_morph": "ñ/Ñ"
     "&s_sharp_morph": "ß/ẞ"
@@ -91,4 +94,9 @@ parse_config:
         ¨
         ß/ẞ
       h: LCTRL
+    "&sym_d_grave_dstroke":
+      t: |-
+        `
+        đ
+      h: LSHFT
     "&rgb_ug RGB_TOG": "RGB"

@@ -169,14 +169,31 @@
             bindings = <&core_hrm_l LCTRL DA_UMLAUT>, <&s_sharp_morph>;
         };
 
+        sym_d_grave_dstroke: symbol_d_grave_dstroke {
+            compatible = "zmk,behavior-tap-dance";
+            label = "SYM_D_GRAVE_DSTROKE";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&core_hrm_l LSHFT DA_GRAVE>, <&kp RA(F)>;
+        };
+
         // Native dead-key entries. These are intentionally not macros:
         // the key emits the host-layout dead key, and the next user keypress
-        // completes the composed character (e.g. ç/Ç or ñ/Ñ).
+        // completes the composed character (e.g. ç/Ç, ñ/Ñ, or č/Č).
         c_cedilla_morph: c_cedilla_morph {
             compatible = "zmk,behavior-mod-morph";
             label = "C_CEDILLA_MORPH";
             #binding-cells = <0>;
             bindings = <&kp RA(COMMA)>, <&kp RA(COMMA)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        caron_morph: caron_morph {
+            compatible = "zmk,behavior-mod-morph";
+            label = "CARON_MORPH";
+            #binding-cells = <0>;
+            // Linux/XKB Danish: AltGr+Shift+ø is dead caron.
+            bindings = <&kp RA(LS(SQT))>, <&kp RA(LS(SQT))>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
@@ -345,13 +362,13 @@
             display-name = "SYMBOL";
             // -----------------------------------------------------------------------------------------
             // |  \   |  &  |  @  |  €  |  $  |  «  | LCTRL | RCTRL |  »  |  '  |  (  |  )  |  ~  | BSPC |
-            // | ··   |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ··   |
-            // |      |  ^  | ¨/ß |  `  |     |     |       |       |     |     |  `  |  ¨  |  ^  |      |
+            // | ˇ    |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ˇ    |
+            // |      |  ^  | ¨/ß | `/đ |     |     |       |       |     |     |  `  |  ¨  |  ^  |      |
             // | ··   | "|" |  #  |  ç  |  £  |  _  |               |  ~  |  +  |  {  |  }  |  ¿  |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
-                &none     &core_hrm_l LALT DA_CARET &sym_s_umlaut_ss &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UMLAUT &core_hrm_r RALT DA_CARET &none
+                &caron_morph &core_hrm_l LALT DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UMLAUT &core_hrm_r RALT DA_CARET &caron_morph
                 &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde_morph &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
