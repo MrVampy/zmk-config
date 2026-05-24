@@ -276,8 +276,8 @@
         lower_layer {
             display-name = "NUMBER";
             // -----------------------------------------------------------------------------------------
-            // | LALT/|  1  |  2  |  3  |  4  |  5  | MUTE  |  PP   |  6  |  7  |  8  |  9  |  0  | RALT/|
-            // |  /   |     |     |     |     |     |       |       |     |     |     |     |     |  *   |
+            // |  /   |  1  |  2  |  3  |  4  |  5  | MUTE  |  PP   |  6  |  7  |  8  |  9  |  0  |  *   |
+            // |      |     |     |     |     |     |       |       |     |     |     |     |     |      |
             // |  -   |LALT/| LCTL/|LSFT/|  =  |  <  | Vol-  | Vol+  |  >  | LFT |RSFT/|RCTL/| RALT/|  +   |
             // |      |  %  | PgDn | PgUp|     |     |       |       |     |     | DWN | UP  | RGT |      |
             // | F1   | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | F12  |
@@ -293,12 +293,13 @@
             //     nav HRM cluster: -/%/=/</> on the left/inner side and + on the
             //     right outer edge.
             //   * Top row keeps cross-platform Danish-layout keycodes only:
-            //     `/` and `*`, not OS-specific Unicode division/multiply signs.
+            //     `/` and `*`, not OS-specific Unicode division/multiply signs
+            //     and not dual-role modifiers.
             //   * Row 1 right = arrow cluster on J/K/L/Æ with HRMs for
             //     Shift/Ctrl/Alt chording on arrow keys.
             //   * Row 3 = F1..F12 spread across both halves.
             bindings = <
-                &mt_thumb LALT DA_SLASH &kp N1   &kp N2    &kp N3    &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &mt_thumb RALT DA_ASTRK
+                &kp DA_SLASH &kp N1   &kp N2    &kp N3    &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &kp DA_ASTRK
                 &kp DA_MINUS    &core_hrm_l LALT DA_PRCNT &core_hrm_l LCTRL PG_DN &core_hrm_l LSHFT PG_UP &kp DA_EQUAL &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RSHFT DOWN &core_hrm_r RCTRL UP &core_hrm_r RALT RIGHT &kp DA_PLUS
                 &kp F1   &kp F2   &kp F3    &kp F4    &kp F5   &kp F6                       &kp F7   &kp F8   &kp F9   &kp F10   &kp F11   &kp F12
                                             &trans    &trans   &trans                       &trans   &trans   &trans
