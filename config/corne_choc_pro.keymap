@@ -166,7 +166,31 @@
             label = "SYM_S_UMLAUT_SS";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&core_hrm_l LCTRL DA_UMLAUT>, <&s_sharp>;
+            bindings = <&core_hrm_l LCTRL DA_UMLAUT>, <&s_sharp_morph>;
+        };
+
+        c_cedilla_morph: c_cedilla_morph {
+            compatible = "zmk,behavior-mod-morph";
+            label = "C_CEDILLA_MORPH";
+            #binding-cells = <0>;
+            bindings = <&c_cedilla>, <&c_cedilla_upper>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        s_sharp_morph: s_sharp_morph {
+            compatible = "zmk,behavior-mod-morph";
+            label = "S_SHARP_MORPH";
+            #binding-cells = <0>;
+            bindings = <&s_sharp>, <&s_sharp_upper>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        oe_ligature_morph: oe_ligature_morph {
+            compatible = "zmk,behavior-mod-morph";
+            label = "OE_LIGATURE_MORPH";
+            #binding-cells = <0>;
+            bindings = <&oe_ligature>, <&oe_ligature_upper>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
     };
@@ -234,6 +258,21 @@
             >;
         };
 
+        // Linux Unicode input: Ctrl+Shift+U 00c7 Space -> Ç.
+        c_cedilla_upper: c_cedilla_upper {
+            label = "C_CEDILLA_UPPER";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp LCTRL &kp LSHFT
+                &macro_tap &kp U
+                &macro_release &kp LSHFT &kp LCTRL
+                &macro_tap &kp N0 &kp N0 &kp C &kp N7 &kp SPACE
+            >;
+        };
+
         // Linux/XKB Danish: AltGr+S -> ß. Windows Danish does not expose
         // this on the standard KBDDA layout.
         s_sharp: s_sharp {
@@ -249,6 +288,21 @@
             >;
         };
 
+        // Linux Unicode input: Ctrl+Shift+U 1e9e Space -> ẞ.
+        s_sharp_upper: s_sharp_upper {
+            label = "S_SHARP_UPPER";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp LCTRL &kp LSHFT
+                &macro_tap &kp U
+                &macro_release &kp LSHFT &kp LCTRL
+                &macro_tap &kp N1 &kp E &kp N9 &kp E &kp SPACE
+            >;
+        };
+
         // Linux/XKB Danish: AltGr+O -> œ through latin(type2).
         oe_ligature: oe_ligature {
             label = "OE_LIGATURE";
@@ -260,6 +314,20 @@
                 &macro_press &kp RALT
                 &macro_tap &kp O
                 &macro_release &kp RALT
+            >;
+        };
+
+        // Linux/XKB Danish: AltGr+Shift+O -> Œ through latin(type2).
+        oe_ligature_upper: oe_ligature_upper {
+            label = "OE_LIGATURE_UPPER";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp RALT &kp LSHFT
+                &macro_tap &kp O
+                &macro_release &kp LSHFT &kp RALT
             >;
         };
 
@@ -314,7 +382,7 @@
         combo_oe_ligature {
             timeout-ms = <50>;
             key-positions = <3 4>; // SYMBOL E + R
-            bindings = <&oe_ligature>;
+            bindings = <&oe_ligature_morph>;
             layers = <2>;
         };
 
@@ -422,7 +490,7 @@
             bindings = <
                 &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp DA_POUND_SIGN &trans    &trans    &kp DA_UNDER &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
                 &none     &core_hrm_l LALT DA_CARET &sym_s_umlaut_ss &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UMLAUT &core_hrm_r RALT DA_CARET &none
-                &none     &kp DA_PIPE &kp DA_HASH &c_cedilla &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
+                &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
