@@ -331,6 +331,36 @@
             >;
         };
 
+        // Linux Unicode input: Ctrl+Shift+U 00ab Space -> «.
+        guillemet_left: guillemet_left {
+            label = "GUILLEMET_LEFT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp LCTRL &kp LSHFT
+                &macro_tap &kp U
+                &macro_release &kp LSHFT &kp LCTRL
+                &macro_tap &kp N0 &kp N0 &kp A &kp B &kp SPACE
+            >;
+        };
+
+        // Linux Unicode input: Ctrl+Shift+U 00bb Space -> ».
+        guillemet_right: guillemet_right {
+            label = "GUILLEMET_RIGHT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp LCTRL &kp LSHFT
+                &macro_tap &kp U
+                &macro_release &kp LSHFT &kp LCTRL
+                &macro_tap &kp N0 &kp N0 &kp B &kp B &kp SPACE
+            >;
+        };
+
         rgb_red_tog: rgb_red_toggle {
             label = "RGB_RED_TOG";
             compatible = "zmk,behavior-macro";
@@ -485,12 +515,12 @@
             // |  \   |  &  |  @  |  €  |  $  |  £  | LCTRL | RCTRL |  _  |  '  |  (  |  )  |  ~  | BSPC |
             // | ··   |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ··   |
             // |      |  ^  | ¨/ß |  `  |     |     |       |       |     |     |  `  |  ¨  |  ^  |      |
-            // | ··   | "|" |  #  |  ç  |     |     |               |  ñ  |  +  |  {  |  }  |  ¿  |  ··  |
+            // | ··   | "|" |  #  |  ç  |  «  |  »  |               |  ñ  |  +  |  {  |  }  |  ¿  |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp DA_POUND_SIGN &trans    &trans    &kp DA_UNDER &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
                 &none     &core_hrm_l LALT DA_CARET &sym_s_umlaut_ss &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UMLAUT &core_hrm_r RALT DA_CARET &none
-                &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
+                &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &guillemet_left &guillemet_right          &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };

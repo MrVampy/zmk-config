@@ -74,6 +74,8 @@ parse_config:
     "&c_cedilla_morph": "ç/Ç"
     "&oe_ligature": "œ"
     "&oe_ligature_morph": "œ/Œ"
+    "&guillemet_left": "«"
+    "&guillemet_right": "»"
     "&s_sharp_morph": "ß/ẞ"
     "&sym_s_umlaut_ss":
       t: |-
