@@ -292,7 +292,7 @@
 
         combo_dqt {
             timeout-ms = <50>;
-            key-positions = <25 26>; // SYMBOL ^ + '
+            key-positions = <9 10>; // SYMBOL U + I
             bindings = <&kp DA_DQT>;
             layers = <2>;
         };
@@ -393,14 +393,14 @@
         raise_layer {
             display-name = "SYMBOL";
             // -----------------------------------------------------------------------------------------
-            // | ··   |  &  |  @  |  €  |  $  |  £  | LCTRL | RCTRL |  _  | ··  |  (  |  )  |  ~  | BSPC |
+            // |  \   |  &  |  @  |  €  |  $  |  £  | LCTRL | RCTRL |  _  |  '  |  (  |  )  |  ~  | BSPC |
             // | ··   |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ··   |
-            // |      |  \  | ¨/ß |  `  |     |     |       |       |     |     |  `  |  ^  |  '  |      |
+            // |      |  ^  | ¨/ß |  `  |     |     |       |       |     |     |  `  |  ¨  |  ^  |      |
             // | ··   | "|" |  #  |  ç  |     |     |               |  ñ  |  +  |  {  |  }  |  ¿  |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
-                &none     &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp DA_POUND_SIGN &trans    &trans    &kp DA_UNDER &none  &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
-                &none     &core_hrm_l LALT DA_BSLH &sym_s_umlaut_ss &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_CARET &core_hrm_r RALT DA_APOS &none
+                &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp DA_POUND_SIGN &trans    &trans    &kp DA_UNDER &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
+                &none     &core_hrm_l LALT DA_CARET &sym_s_umlaut_ss &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UMLAUT &core_hrm_r RALT DA_CARET &none
                 &none     &kp DA_PIPE &kp DA_HASH &c_cedilla &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;

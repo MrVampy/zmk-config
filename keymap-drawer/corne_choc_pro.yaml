@@ -95,7 +95,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   SYMBOL:
-  - ''
+  - \
   - '&'
   - '@'
   - €
@@ -104,13 +104,13 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - _
-  - ''
+  - ''''
   - (
   - )
   - '~'
   - ''
   - ''
-  - {t: \, h: LALT}
+  - {t: ^, h: LALT}
   - {t: '¨
 
       ß', h: LCTRL}
@@ -122,8 +122,8 @@ layers:
   - ']'
   - ´
   - {t: '`', h: RSHFT}
-  - {t: ^, h: RCTRL}
-  - {t: '''', h: RALT}
+  - {t: ¨, h: RCTRL}
+  - {t: ^, h: RALT}
   - ''
   - ''
   - '|'
@@ -435,7 +435,7 @@ combos:
 - p: [37, 38]
   k: '!'
   l: [QWERTY]
-- p: [25, 26]
+- p: [9, 10]
   k: '"'
   l: [SYMBOL]
 - p: [37, 38]
