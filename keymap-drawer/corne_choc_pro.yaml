@@ -14,8 +14,8 @@ layers:
   - I
   - O
   - P
-  - {t: å, h: RALT}
-  - {t: DEL, h: LCTRL}
+  - {t: DEL, h: RALT}
+  - {t: HOME, h: LCTRL}
   - {t: A, h: LALT}
   - {t: S, h: LCTRL}
   - {t: D, h: LSHFT}
@@ -28,7 +28,7 @@ layers:
   - {t: K, h: RSHFT}
   - {t: L, h: RCTRL}
   - {t: æ, h: RALT}
-  - {t: ø, h: RCTRL}
+  - {t: END, h: RCTRL}
   - {t: Sft+TAB, h: LSHFT}
   - Z
   - X
