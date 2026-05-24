@@ -1,8 +1,8 @@
 # keymap-drawer configuration for the Corne Choc Pro keymap.
 #
-# Maps the joelspadin/zmk-locales DA_* macros and our custom mod-morph /
-# macro behaviors to their natural rendered characters, so the generated
-# SVG/PNG shows `!` not `DA_EXCL`, `'/"` not the macro reference, etc.
+# Maps the joelspadin/zmk-locales DA_* aliases and our custom behaviors to
+# their natural rendered characters, so the generated
+# SVG/PNG shows `!` not `DA_EXCL`, `'/"` not the raw key binding, etc.
 #
 # Applied via `keymap -c keymap-drawer/config.yaml parse ...` during the
 # parse step (NOT at draw time — the labels need to be set before the
@@ -62,28 +62,31 @@ parse_config:
     DA_O_SLASH: "ø"
     DA_A_RING: "å"
 
-  # Custom behaviors — mod-morph and macros defined in the keymap.
+    # Native AltGr chords from Linux/XKB Danish.
+    RA(COMMA): "¸"
+    RA(N1): "¡"
+    RA(LS(MINUS)): "¿"
+    RA(LS(N8)): "«"
+    RA(LS(N9)): "»"
+
+  # Custom behaviors and direct native chords.
   # raw_binding_map applies at parse-time and overrides whatever the
   # parser would have written for these &-prefixed identifiers.
   raw_binding_map:
     "&top_alt_l": {t: "Caps Word", h: LALT}
-    "&inv_excl": "¡"
-    "&inv_ques": "¿"
-    "&n_tilde": "ñ"
-    "&c_cedilla": "ç"
-    "&c_cedilla_morph": "ç/Ç"
-    "&oe_ligature": "œ"
+    "&kp RA(COMMA)": "¸"
+    "&kp RA(N1)": "¡"
+    "&kp RA(LS(MINUS))": "¿"
+    "&kp RA(LS(N8))": "«"
+    "&kp RA(LS(N9))": "»"
     "&oe_ligature_morph": "œ/Œ"
-    "&n_tilde_morph": "ñ/Ñ"
-    "&guillemet_left": "«"
-    "&guillemet_right": "»"
     "&s_sharp_morph": "ß/ẞ"
-    "&os_linux": "LIN"
-    "&os_windows": "WIN"
-    "&os_macos": "MAC"
+    "&to 0": "LIN"
+    "&to 4": "WIN"
+    "&to 5": "MAC"
     "&sym_s_umlaut_ss":
       t: |-
         ¨
         ß/ẞ
       h: LCTRL
-    "&rgb_red_tog": "RGB"
+    "&rgb_ug RGB_TOG": "RGB"
