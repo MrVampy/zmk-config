@@ -260,7 +260,7 @@
             wait-ms = <0>;
             tap-ms = <0>;
             bindings = <
-                &macro_tap &rgb_ug RGB_COLOR_HSB(0,100,100)
+                &macro_tap &rgb_ug RGB_COLOR_HSB(0,100,20)
                 &macro_tap &rgb_ug RGB_TOG
             >;
         };
