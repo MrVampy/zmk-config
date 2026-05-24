@@ -66,3 +66,4 @@ parse_config:
     "&hyp_qm": {t: "-", s: "?"}
     "&inv_excl": "¡"
     "&inv_ques": "¿"
+    "&rgb_red_tog": "RGB"

@@ -27,12 +27,6 @@
 
 / {
     behaviors {
-        rrgb: reactive_rgb {
-            compatible = "zmk,behavior-reactive-rgb";
-            #binding-cells = <2>;
-            display-name = "Reactive RGB";
-        };
-
         // Mod-morph for the QWERTY hyphen-key (position 38, FSLH scancode).
         //
         //   tap          → DA_MINUS  → `-` on dk
@@ -258,6 +252,18 @@
                 &macro_release &kp LSHFT &kp RALT
             >;
         };
+
+        rgb_red_tog: rgb_red_toggle {
+            label = "RGB_RED_TOG";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings = <
+                &macro_tap &rgb_ug RGB_COLOR_HSB(0,100,100)
+                &macro_tap &rgb_ug RGB_TOG
+            >;
+        };
     };
 };
 
@@ -347,7 +353,7 @@
             //              | ESC    |  RET     | BSPC   |   | SPACE  |  RET     | ESC    |
             //
             // Layout notes:
-            //   * Settings cluster (BT_SEL 0..4, BT_CLR, RGB_TOG, sys_reset,
+            //   * Settings cluster (BT_SEL 0..4, BT_CLR, RGB red toggle, sys_reset,
             //     bootloader, studio_unlock) moved off this layer to the
             //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3).
             //   * Pos 15 (A): keeps LALT HRM (cross-hand trigger preserved for
@@ -398,7 +404,7 @@
             bindings = <
                 &none &none        &none           &none        &none        &none          &none &none &none &none &none &none &none &none
                 &none &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &none &none &none &none &none &none &none &none
-                &none &bt BT_CLR   &rrgb RGB_TOG   &sys_reset   &bootloader  &studio_unlock              &none &none &none &none &none &none
+                &none &bt BT_CLR   &rgb_red_tog    &sys_reset   &bootloader  &studio_unlock              &none &none &none &none &none &none
                                                    &none        &none        &none                       &none &none &none
             >;
         };

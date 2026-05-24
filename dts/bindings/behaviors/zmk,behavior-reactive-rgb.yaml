@@ -1,8 +1,0 @@
-# Copyright (c) 2026 MrVampy
-# SPDX-License-Identifier: MIT
-
-description: Reactive RGB Action
-
-compatible: "zmk,behavior-reactive-rgb"
-
-include: two_param.yaml
