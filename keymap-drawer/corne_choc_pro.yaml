@@ -438,6 +438,9 @@ combos:
 - p: [9, 10]
   k: '"'
   l: [SYMBOL]
+- p: [3, 4]
+  k: œ
+  l: [SYMBOL]
 - p: [37, 38]
   k: ¡
   l: [SYMBOL]

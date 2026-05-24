@@ -249,6 +249,20 @@
             >;
         };
 
+        // Linux/XKB Danish: AltGr+O -> œ through latin(type2).
+        oe_ligature: oe_ligature {
+            label = "OE_LIGATURE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp RALT
+                &macro_tap &kp O
+                &macro_release &kp RALT
+            >;
+        };
+
         rgb_red_tog: rgb_red_toggle {
             label = "RGB_RED_TOG";
             compatible = "zmk,behavior-macro";
@@ -294,6 +308,13 @@
             timeout-ms = <50>;
             key-positions = <9 10>; // SYMBOL U + I
             bindings = <&kp DA_DQT>;
+            layers = <2>;
+        };
+
+        combo_oe_ligature {
+            timeout-ms = <50>;
+            key-positions = <3 4>; // SYMBOL E + R
+            bindings = <&oe_ligature>;
             layers = <2>;
         };
 

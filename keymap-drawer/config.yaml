@@ -71,6 +71,7 @@ parse_config:
     "&inv_ques": "¿"
     "&n_tilde": "ñ"
     "&c_cedilla": "ç"
+    "&oe_ligature": "œ"
     "&sym_s_umlaut_ss":
       t: |-
         ¨
