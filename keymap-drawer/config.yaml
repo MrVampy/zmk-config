@@ -73,4 +73,5 @@ parse_config:
     "&inv_excl": "¡"
     "&inv_ques": "¿"
     "&umlaut_u": "ü"
+    "&n_tilde": "ñ"
     "&rgb_red_tog": "RGB"
