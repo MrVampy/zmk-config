@@ -63,10 +63,10 @@ layers:
   - '0'
   - {t: +, h: RALT}
   - ''
-  - {t: HOME, h: LALT}
+  - {t: LALT, h: LALT}
   - {t: PG DN, h: LCTRL}
   - {t: PG UP, h: LSHFT}
-  - END
+  - ''
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
