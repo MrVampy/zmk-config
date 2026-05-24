@@ -173,47 +173,6 @@
             bindings = <&kp>, <&caps_word>;
         };
 
-        // Outer-left Ctrl mirror. Tap is DEL rather than a typing letter, so it
-        // keeps the same instant/retro-tap utility-key behavior as mt_thumb.
-        outer_ctrl_l: outer_ctrl_left {
-            compatible = "zmk,behavior-hold-tap";
-            label = "OUTER_CTRL_L";
-            #binding-cells = <2>;
-            tapping-term-ms = <0>;
-            quick-tap-ms = <300>;
-            flavor = "tap-preferred";
-            retro-tap;
-            hold-trigger-key-positions = <
-                 0  1  2  3  4  5  6  7  8  9 10 11 12 13
-                14 15 16 17 18 19 20 21 22 23 24 25 26 27
-                28 29 30 31 32 33       34 35 36 37 38 39
-            >;
-            bindings = <&kp>, <&kp>;
-        };
-
-        // Outer-right Ctrl mirror. Tap is Ø, a real typing letter, so this uses
-        // the same release-deferred positional timing as the core home-row mods
-        // rather than the instant utility-key behavior above. Trigger covers
-        // both halves so RCTRL+right-hand-key chords work (e.g., RCTRL+J);
-        // require-prior-idle-ms guards against false triggers from rolling
-        // typing into Ø.
-        outer_ctrl_r: outer_ctrl_right {
-            compatible = "zmk,behavior-hold-tap";
-            label = "OUTER_CTRL_R";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <125>;
-            bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <
-                 0  1  2  3  4  5  6  7  8  9 10 11 12 13
-                14 15 16 17 18 19 20 21 22 23 24 25 26 27
-                28 29 30 31 32 33       34 35 36 37 38 39
-            >;
-            hold-trigger-on-release;
-        };
-
         // Core home-row mods. These are intentionally different from mt_thumb:
         // letter keys participate in normal rolling typing, so they use
         // release-deferred positional hold-tap and no retro-tap.
@@ -337,9 +296,9 @@
             display-name = "QWERTY";
             // --------------------------------------------------------------------------------
             // | LALT/ |  Q  |  W  |  E  |  R  |  T  | MUTE  | PP    |  Y  |  U   |  I  |  O  |  P  | RALT/ |
-            // | CAPS  |     |     |     |     |     |       |       |     |      |     |     |     |  Å    |
+            // | CAPS  |     |     |     |     |     |       |       |     |      |     |     |     | DEL   |
             // | LCTL/ | LALT/| LCTL/|LSFT/|  F  |  G  | Vol-  | Vol+  |  H  |  J   |RSFT/|RCTL/| RALT/| RCTL/ |
-            // | DEL   |  A  |  S   | D   |     |     |       |       |     |      | K   | L   |  Æ   |  Ø    |
+            // | HOME  |  A  |  S   | D   |     |     |       |       |     |      | K   | L   |  Æ   | END   |
             // | LSFT/ |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  | -/? | RSFT/ |
             // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB / |
             // |       |     |     |     |     |     |               |     |      |     |     |     | ls_!  |
@@ -347,21 +306,23 @@
             //              | ESC    |  RET     | BSPC   |   | SPACE  |  RET     | ESC    |
             //
             // Notes:
-            //   * pos 0: &top_alt_l LALT 0. Hold/chord → LAlt using the
-            //     same timing as mt_thumb; tap → Caps Word. Caps Word shifts
-            //     the next word's alphanumeric/_/-/BSPC keys and auto-ends on
-            //     space/punctuation. Replaces ESC, which moved to both outer
-            //     thumb taps in the previous commit.
+            //   * Å and Ø removed from base layer; accessible only via combos
+            //     (A+W → Å, Æ+O → Ø). The freed outer-pinky positions now
+            //     carry utility taps while keeping their modifier holds.
+            //   * pos 0: &top_alt_l LALT 0. Hold/chord → LAlt; tap → Caps Word.
+            //   * pos 13: &mt_thumb RALT DEL. Hold → RAlt (AltGr); tap → forward
+            //     delete. DEL moved here from pos 14.
+            //   * pos 14: &mt_thumb LCTRL HOME. Hold → LCtrl; tap → HOME.
+            //   * pos 27: &mt_thumb RCTRL END. Hold → RCtrl; tap → END. Pairs
+            //     with HOME on pos 14 for line-jump navigation on base layer.
             //   * pos 39: &ls_excl. Composite mod-morph wrapping
             //     &mt_thumb RSHFT TAB so the pinky still does TAB on tap
             //     and RSHFT on hold/chord; ALSO sends `!` (DA_EXCL) when
-            //     LShift is held when this key is pressed. The earlier
-            //     "we lost ! to the nav swap" was wrong — nesting fixes
-            //     it without giving up the tap action.
+            //     LShift is held when this key is pressed.
             //   * Outer thumbs: tap = ESC on both halves (mirrored).
             bindings = <
-                &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &core_hrm_r RALT DA_A_RING
-                &outer_ctrl_l LCTRL DEL &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &outer_ctrl_r RCTRL DA_O_SLASH
+                &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &mt_thumb RALT DEL
+                &mt_thumb LCTRL HOME    &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &mt_thumb RCTRL END
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &hyp_qm   &ls_excl
                                   &layer_thumb 2 ESC &layer_thumb 1 RET &text_thumb LGUI BSPC        &text_thumb RGUI SPACE &layer_thumb 1 RET &layer_thumb 2 ESC
             >;
