@@ -128,7 +128,7 @@ layers:
   - ''
   - '|'
   - '#'
-  - ç
+  - {t: ç, s: '&c_cedilla_upper'}
   - ''
   - ''
   - ñ
@@ -439,7 +439,7 @@ combos:
   k: '"'
   l: [SYMBOL]
 - p: [3, 4]
-  k: œ
+  k: {t: œ, s: '&oe_ligature_upper'}
   l: [SYMBOL]
 - p: [37, 38]
   k: ¡
