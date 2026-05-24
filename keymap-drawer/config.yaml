@@ -71,4 +71,10 @@ parse_config:
     "&inv_ques": "¿"
     "&umlaut_u": "ü"
     "&n_tilde": "ñ"
+    "&c_cedilla": "ç"
+    "&sym_s_bslh_ss":
+      t: |-
+        \
+        ß
+      h: LCTRL
     "&rgb_red_tog": "RGB"

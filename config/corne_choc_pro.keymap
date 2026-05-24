@@ -161,6 +161,14 @@
             hold-trigger-on-release;
         };
 
+        sym_s_bslh_ss: symbol_s_backslash_sharp_s {
+            compatible = "zmk,behavior-tap-dance";
+            label = "SYM_S_BSLH_SS";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&core_hrm_l LCTRL DA_BSLH>, <&s_sharp>;
+        };
+
     };
 
     macros {
@@ -217,6 +225,38 @@
             tap-ms = <10>;
             bindings = <
                 &macro_tap &kp DA_TILDE &kp N
+            >;
+        };
+
+        // Linux/XKB Danish-only: Ctrl+Shift+U 00e7 Enter -> ç.
+        // Danish XKB exposes cedilla as a standalone symbol, not a dead
+        // cedilla suitable for composing c/ç.
+        c_cedilla: c_cedilla {
+            label = "C_CEDILLA";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp LCTRL &kp LSHFT
+                &macro_tap &kp U
+                &macro_release &kp LSHFT &kp LCTRL
+                &macro_tap &kp N0 &kp N0 &kp E &kp N7 &kp RET
+            >;
+        };
+
+        // Linux/XKB Danish: AltGr+S -> ß. Windows Danish does not expose
+        // this on the standard KBDDA layout.
+        s_sharp: s_sharp {
+            label = "S_SHARP";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_press &kp RALT
+                &macro_tap &kp S
+                &macro_release &kp RALT
             >;
         };
 
@@ -366,13 +406,13 @@
             // -----------------------------------------------------------------------------------------
             // | ··   |  &  |  @  |  €  |  $  |  £  | LCTRL | RCTRL |  ^  |  ü  |  (  |  )  |  ~  | BSPC |
             // | ··   |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ··   |
-            // |      |  /  |  \  |  `  |     |     |       |       |     |     |  `  |  _  |  '  |      |
-            // | ··   | "|" |  #  |     |     |     |               |  ñ  |  +  |  {  |  }  |  ¿  |  ··  |
+            // |      |  /  |\ /ß |  `  |     |     |       |       |     |     |  `  |  _  |  '  |      |
+            // | ··   | "|" |  #  |  ç  |     |     |               |  ñ  |  +  |  {  |  }  |  ¿  |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &none     &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp DA_POUND_SIGN &trans    &trans    &kp DA_CARET &umlaut_u  &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
-                &none     &core_hrm_l LALT DA_SLASH &core_hrm_l LCTRL DA_BSLH &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UNDER &core_hrm_r RALT DA_APOS &none
-                &none     &kp DA_PIPE &kp DA_HASH &none &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
+                &none     &core_hrm_l LALT DA_SLASH &sym_s_bslh_ss &core_hrm_l LSHFT DA_GRAVE &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UNDER &core_hrm_r RALT DA_APOS &none
+                &none     &kp DA_PIPE &kp DA_HASH &c_cedilla &none  &none                            &n_tilde &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &inv_ques &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
