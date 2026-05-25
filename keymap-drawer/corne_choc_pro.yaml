@@ -19,7 +19,7 @@ layers:
   - {t: A, h: LALT}
   - {t: S, h: LCTRL}
   - {t: D, h: LSHFT}
-  - F
+  - {t: F, s: F}
   - G
   - VOL DN
   - VOL UP
