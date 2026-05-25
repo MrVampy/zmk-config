@@ -332,6 +332,13 @@
             layers = <0>;
         };
 
+        combo_asterisk {
+            timeout-ms = <50>;
+            key-positions = <3 4>; // E + R
+            bindings = <&kp DA_ASTRK>;
+            layers = <0>;
+        };
+
         combo_plus {
             timeout-ms = <50>;
             key-positions = <35 36>; // M + ,
