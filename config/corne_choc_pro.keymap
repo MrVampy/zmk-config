@@ -376,8 +376,15 @@
 
         combo_acute {
             timeout-ms = <50>;
-            key-positions = <10 11>; // I + O
+            key-positions = <9 10>; // U + I
             bindings = <&kp DA_ACUTE>;
+            layers = <0>;
+        };
+
+        combo_equal {
+            timeout-ms = <50>;
+            key-positions = <10 11>; // I + O
+            bindings = <&kp DA_EQUAL>;
             layers = <0>;
         };
 
