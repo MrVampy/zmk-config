@@ -221,6 +221,24 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
+        f_ctrl_copy_morph: f_ctrl_copy_morph {
+            compatible = "zmk,behavior-mod-morph";
+            label = "F_CTRL_COPY_MORPH";
+            #binding-cells = <0>;
+            bindings = <&kp F>, <&kp C>;
+            mods = <(MOD_LCTL|MOD_RCTL)>;
+            keep-mods = <(MOD_LCTL|MOD_RCTL)>;
+        };
+
+        f_ctrl_shift_copy_morph: f_ctrl_shift_copy_morph {
+            compatible = "zmk,behavior-mod-morph";
+            label = "F_CTRL_SHIFT_COPY_MORPH";
+            #binding-cells = <0>;
+            bindings = <&kp F>, <&f_ctrl_copy_morph>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
     };
 };
 
@@ -388,7 +406,7 @@
             //   * Outer thumbs: tap = ESC on both halves (mirrored).
             bindings = <
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &mt_thumb RALT DEL
-                &mt_thumb LCTRL HOME    &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &mt_thumb RCTRL END
+                &mt_thumb LCTRL HOME    &core_hrm_l LALT A &core_hrm_l LCTRL S &core_hrm_l LSHFT D &f_ctrl_shift_copy_morph &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &mt_thumb RCTRL END
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &kp DA_QMARK &mt_thumb RSHFT TAB
                                   &layer_thumb 2 ESC &layer_thumb 1 RET &text_thumb LGUI BSPC        &text_thumb RGUI SPACE &layer_thumb 1 RET &layer_thumb 2 ESC
             >;
