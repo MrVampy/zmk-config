@@ -332,6 +332,13 @@
             layers = <0>;
         };
 
+        combo_plus {
+            timeout-ms = <50>;
+            key-positions = <35 36>; // M + ,
+            bindings = <&kp DA_PLUS>;
+            layers = <0>;
+        };
+
         combo_tab {
             timeout-ms = <50>;
             key-positions = <15 16>; // A + S
