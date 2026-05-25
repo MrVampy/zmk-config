@@ -360,6 +360,27 @@
             layers = <0>;
         };
 
+        combo_lpar {
+            timeout-ms = <50>;
+            key-positions = <29 30>; // Z + X
+            bindings = <&kp DA_LPAR>;
+            layers = <0>;
+        };
+
+        combo_rpar {
+            timeout-ms = <50>;
+            key-positions = <30 31>; // X + C
+            bindings = <&kp DA_RPAR>;
+            layers = <0>;
+        };
+
+        combo_acute {
+            timeout-ms = <50>;
+            key-positions = <31 32>; // C + V
+            bindings = <&kp DA_ACUTE>;
+            layers = <0>;
+        };
+
         combo_dqt {
             timeout-ms = <50>;
             key-positions = <9 10>; // SYMBOL U + I
