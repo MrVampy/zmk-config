@@ -434,6 +434,15 @@ combos:
 - p: [25, 26]
   k: ø
   l: [QWERTY]
+- p: [15, 2]
+  k: ''''
+  l: [QWERTY]
+- p: [2, 3]
+  k: '"'
+  l: [QWERTY]
+- p: [35, 36]
+  k: +
+  l: [QWERTY]
 - p: [15, 16]
   k: TAB
   l: [QWERTY]
@@ -442,6 +451,15 @@ combos:
   l: [QWERTY]
 - p: [37, 38]
   k: '!'
+  l: [QWERTY]
+- p: [29, 30]
+  k: (
+  l: [QWERTY]
+- p: [30, 31]
+  k: )
+  l: [QWERTY]
+- p: [31, 32]
+  k: ´
   l: [QWERTY]
 - p: [9, 10]
   k: '"'
