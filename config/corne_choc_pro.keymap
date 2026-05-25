@@ -376,8 +376,15 @@
 
         combo_acute {
             timeout-ms = <50>;
-            key-positions = <31 32>; // C + V
+            key-positions = <10 11>; // I + O
             bindings = <&kp DA_ACUTE>;
+            layers = <0>;
+        };
+
+        combo_slash {
+            timeout-ms = <50>;
+            key-positions = <31 32>; // C + V
+            bindings = <&kp DA_SLASH>;
             layers = <0>;
         };
 
