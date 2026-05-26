@@ -434,6 +434,9 @@ combos:
 - p: [25, 26]
   k: ø
   l: [QWERTY]
+- p: [1, 2]
+  k: TAB
+  l: [QWERTY]
 - p: [15, 2]
   k: ''''
   l: [QWERTY]
@@ -445,9 +448,6 @@ combos:
   l: [QWERTY]
 - p: [35, 36]
   k: +
-  l: [QWERTY]
-- p: [15, 16]
-  k: TAB
   l: [QWERTY]
 - p: [36, 37]
   k: '-'
