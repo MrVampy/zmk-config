@@ -206,7 +206,7 @@
             label = "SYM_S_UMLAUT_SS";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&core_hrm_l LCTRL DA_UMLAUT>, <&s_sharp_morph>;
+            bindings = <&shift_hrm_l LSHFT DA_UMLAUT>, <&s_sharp_morph>;
         };
 
         sym_d_grave_dstroke: symbol_d_grave_dstroke {
@@ -214,7 +214,7 @@
             label = "SYM_D_GRAVE_DSTROKE";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&shift_hrm_l LSHFT DA_GRAVE>, <&kp RA(F)>;
+            bindings = <&core_hrm_l LALT DA_GRAVE>, <&kp RA(F)>;
         };
 
         // Native-layout language helpers. The one-shot entries below only
@@ -485,7 +485,7 @@
             // --------------------------------------------------------------------------------
             // | LALT/ |  Q  |  W  |  E  |  R  |  T  | MUTE  | PP    |  Y  |  U   |  I  |  O  |  P  | RALT/ |
             // | CAPS  |     |     |     |     |     |       |       |     |      |     |     |     | DEL   |
-            // | LCTL/ | LALT/| LCTL/|LSFT/|  F  |  G  | Vol-  | Vol+  |  H  |  J   |RSFT/|RCTL/| RALT/| RCTL/ |
+            // | LCTL/ | LCTL/|LSFT/|LALT/|  F  |  G  | Vol-  | Vol+  |  H  |  J   |RALT/|RSFT/|RCTL/| RCTL/ |
             // | HOME  |  A  |  S   | D   |     |     |       |       |     |      | K   | L   |  Æ   | END   |
             // | LSFT/ |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  | ?/! | RSFT/ |
             // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB / |
@@ -509,7 +509,7 @@
             //   * Outer thumbs: tap = ESC on both halves (mirrored).
             bindings = <
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &mt_thumb RALT DEL
-                &mt_thumb LCTRL HOME    &core_hrm_l LALT A &core_hrm_l LCTRL S &shift_hrm_l LSHFT D &f_ctrl_shift_copy_morph &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &shift_hrm_r RSHFT K &core_hrm_r RCTRL L &core_hrm_r RALT DA_AE &mt_thumb RCTRL END
+                &mt_thumb LCTRL HOME    &core_hrm_l LCTRL A &shift_hrm_l LSHFT S &core_hrm_l LALT D &f_ctrl_shift_copy_morph &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RALT K &shift_hrm_r RSHFT L &core_hrm_r RCTRL DA_AE &mt_thumb RCTRL END
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &kp DA_QMARK &mt_thumb RSHFT TAB
                                   &layer_thumb 2 ESC &layer_thumb 1 RET &text_thumb LGUI BSPC        &text_thumb RGUI SPACE &layer_thumb 1 RET &layer_thumb 2 ESC
             >;
@@ -521,7 +521,7 @@
             // -----------------------------------------------------------------------------------------
             // |  /   |  1  |  2  |  3  |  4  |  5  | MUTE  |  PP   |  6  |  7  |  8  |  9  |  0  |  *   |
             // |      |     |     |     |     |     |       |       |     |     |     |     |     |      |
-            // |  -   |LALT/| LCTL/|LSFT/|  =  |  <  | Vol-  | Vol+  |  >  | LFT |RSFT/|RCTL/| RALT/|  +   |
+            // |  -   |LCTL/|LSFT/|LALT/|  =  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/|  +   |
             // |      |  %  | PgDn | PgUp|     |     |       |       |     |     | DWN | UP  | RGT |      |
             // | F1   | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | F12  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
@@ -531,19 +531,19 @@
             //   * Settings cluster (BT_SEL 0..4, BT_CLR, RGB red toggle, sys_reset,
             //     bootloader, studio_unlock) moved off this layer to the
             //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3).
-            //   * Pos 15 (A): keeps LALT HRM; tap is now `%`.
+            //   * Pos 15 (A): keeps LCtrl HRM; tap is now `%`.
             //   * Row 1 adds paired math/programming symbols around the existing
             //     nav HRM cluster: -/%/=/</> on the left/inner side and + on the
             //     right outer edge.
             //   * Top row keeps cross-platform Danish-layout keycodes only:
             //     `/` and `*`, not OS-specific Unicode division/multiply signs
             //     and not dual-role modifiers.
-            //   * Row 1 right = arrow cluster on J/K/L/Æ with HRMs for
-            //     Shift/Ctrl/Alt chording on arrow keys.
+            //   * Row 1 right = arrow cluster on J/K/L/Æ with mirrored HRMs
+            //     for Alt/Shift/Ctrl chording on arrow keys.
             //   * Row 3 = F1..F12 spread across both halves.
             bindings = <
                 &kp DA_SLASH &kp N1   &kp N2    &kp N3    &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &kp DA_ASTRK
-                &kp DA_MINUS    &core_hrm_l LALT DA_PRCNT &core_hrm_l LCTRL PG_DN &shift_hrm_l LSHFT PG_UP &kp DA_EQUAL &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &shift_hrm_r RSHFT DOWN &core_hrm_r RCTRL UP &core_hrm_r RALT RIGHT &kp DA_PLUS
+                &kp DA_MINUS    &core_hrm_l LCTRL DA_PRCNT &shift_hrm_l LSHFT PG_DN &core_hrm_l LALT PG_UP &kp DA_EQUAL &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &kp DA_PLUS
                 &kp F1   &kp F2   &kp F3    &kp F4    &kp F5   &kp F6                       &kp F7   &kp F8   &kp F9   &kp F10   &kp F11   &kp F12
                                             &trans    &trans   &trans                       &trans   &trans   &trans
             >;
@@ -553,13 +553,13 @@
             display-name = "SYMBOL";
             // -----------------------------------------------------------------------------------------
             // |  \   |  &  |  @  |  €  |  $  |  «  | LCTRL | RCTRL |  »  |  '  |  (  |  )  |  ~  | BSPC |
-            // | ˇ    |LALT/|LCTRL|LSHFT|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RSFT/|RCTRL|RALT/| ˇ    |
+            // | ˇ    |LCTRL|LSHFT|LALT/|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RALT/|RSFT/|RCTRL| ˇ    |
             // |      |  ^  | ¨/ß | `/đ |     |     |       |       |     |     |  `  |  ¨  |  ^  |      |
             // | ··   | "|" |  #  |  ç  |  £  |  _  |               |  ~  |  +  |  {  |  }  |  ¿  |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
-                &caron_morph &core_hrm_l LALT DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &shift_hrm_r RSHFT DA_GRAVE &core_hrm_r RCTRL DA_UMLAUT &core_hrm_r RALT DA_CARET &caron_morph
+                &caron_morph &core_hrm_l LCTRL DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RALT DA_GRAVE &shift_hrm_r RSHFT DA_UMLAUT &core_hrm_r RCTRL DA_CARET &caron_morph
                 &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde_morph &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
