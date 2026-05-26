@@ -66,7 +66,7 @@ layers:
   - {t: '%', h: LCTRL}
   - {t: PG DN, h: LSHFT}
   - {t: PG UP, h: LALT}
-  - '='
+  - ''
   - <
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -97,7 +97,7 @@ layers:
   SYMBOL:
   - ''
   - \
-  - '@'
+  - '%'
   - €
   - $
   - «
@@ -107,7 +107,7 @@ layers:
   - '&'
   - (
   - )
-  - '~'
+  - '@'
   - ''
   - ˇ
   - {t: ^, h: LCTRL}
@@ -134,7 +134,7 @@ layers:
   - £
   - _
   - ñ/Ñ
-  - +
+  - '~'
   - '{'
   - '}'
   - ¿
