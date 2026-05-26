@@ -117,17 +117,21 @@
             bindings = <&kp>, <&caps_word>;
         };
 
-        // Core home-row mods. These are intentionally different from mt_thumb:
+        // Home-row modifier behaviors. These are intentionally different from mt_thumb:
         // letter keys participate in normal rolling typing, so they use
         // release-deferred positional hold-tap and no retro-tap.
         //
         // Shift gets its own behavior with a much smaller prior-idle guard and
         // a more eager flavor: Shift is part of normal typing flow, so fast
         // release order should not block capitalization, while immediate rolls
-        // still get a small false-positive filter. Ctrl/Alt keep the stronger
-        // idle guard and balanced flavor below.
+        // still get a small false-positive filter.
         //
-        // Left-hand core HRMs can resolve early through a tapped right-hand
+        // Shift and Ctrl use hold-while-undecided so simultaneous modifier
+        // chords like Ctrl+Shift+V are visible to the host before the
+        // hold-tap resolver has fully settled. Alt deliberately does not use
+        // that property because bare Alt press/release can activate app menus.
+        //
+        // Left-hand HRMs can resolve early through a tapped right-hand
         // main-field key. Same-hand keys, thumbs, and center utility keys do not
         // trigger early hold; if the HRM is held past the tapping term, it
         // becomes a normal modifier for any later chord.
@@ -140,6 +144,7 @@
             quick-tap-ms = <175>;
             require-prior-idle-ms = <50>;
             bindings = <&kp>, <&kp>;
+            hold-while-undecided;
             hold-trigger-key-positions = <
                  8  9 10 11 12 13
                 22 23 24 25 26 27
@@ -157,6 +162,7 @@
             quick-tap-ms = <175>;
             require-prior-idle-ms = <50>;
             bindings = <&kp>, <&kp>;
+            hold-while-undecided;
             hold-trigger-key-positions = <
                  0  1  2  3  4  5
                 14 15 16 17 18 19
@@ -165,9 +171,45 @@
             hold-trigger-on-release;
         };
 
-        core_hrm_l: core_home_row_mod_left {
+        ctrl_hrm_l: ctrl_home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
-            label = "CORE_HRM_L";
+            label = "CTRL_HRM_L";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+            hold-while-undecided;
+            hold-trigger-key-positions = <
+                 8  9 10 11 12 13
+                22 23 24 25 26 27
+                34 35 36 37 38 39
+            >;
+            hold-trigger-on-release;
+        };
+
+        ctrl_hrm_r: ctrl_home_row_mod_right {
+            compatible = "zmk,behavior-hold-tap";
+            label = "CTRL_HRM_R";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+            hold-while-undecided;
+            hold-trigger-key-positions = <
+                 0  1  2  3  4  5
+                14 15 16 17 18 19
+                28 29 30 31 32 33
+            >;
+            hold-trigger-on-release;
+        };
+
+        alt_hrm_l: alt_home_row_mod_left {
+            compatible = "zmk,behavior-hold-tap";
+            label = "ALT_HRM_L";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
@@ -182,11 +224,9 @@
             hold-trigger-on-release;
         };
 
-        // Right-hand core HRMs mirror the left: only left-hand main-field keys
-        // trigger early hold.
-        core_hrm_r: core_home_row_mod_right {
+        alt_hrm_r: alt_home_row_mod_right {
             compatible = "zmk,behavior-hold-tap";
-            label = "CORE_HRM_R";
+            label = "ALT_HRM_R";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <280>;
@@ -214,7 +254,7 @@
             label = "SYM_D_GRAVE_DSTROKE";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&core_hrm_l LALT DA_GRAVE>, <&kp RA(F)>;
+            bindings = <&alt_hrm_l LALT DA_GRAVE>, <&kp RA(F)>;
         };
 
         // Native-layout language helpers. The one-shot entries below only
@@ -491,7 +531,7 @@
             //   * Outer thumbs: tap = ESC on both halves (mirrored).
             bindings = <
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &mt_thumb RALT DEL
-                &mt_thumb LCTRL HOME    &core_hrm_l LCTRL A &shift_hrm_l LSHFT S &core_hrm_l LALT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RALT K &shift_hrm_r RSHFT L &core_hrm_r RCTRL DA_AE &mt_thumb RCTRL END
+                &mt_thumb LCTRL HOME    &ctrl_hrm_l LCTRL A &shift_hrm_l LSHFT S &alt_hrm_l LALT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &alt_hrm_r RALT K &shift_hrm_r RSHFT L &ctrl_hrm_r RCTRL DA_AE &mt_thumb RCTRL END
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &kp DA_QMARK &mt_thumb RSHFT TAB
                                   &layer_thumb 2 ESC &layer_thumb 1 RET &text_thumb LGUI BSPC        &text_thumb RGUI SPACE &layer_thumb 1 RET &layer_thumb 2 ESC
             >;
@@ -525,7 +565,7 @@
             //   * Row 3 = F1..F12 spread across both halves.
             bindings = <
                 &kp DA_SLASH &kp N1   &kp N2    &kp N3    &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &kp DA_ASTRK
-                &kp DA_MINUS    &core_hrm_l LCTRL DA_PRCNT &shift_hrm_l LSHFT PG_DN &core_hrm_l LALT PG_UP &kp DA_EQUAL &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &kp DA_PLUS
+                &kp DA_MINUS    &ctrl_hrm_l LCTRL DA_PRCNT &shift_hrm_l LSHFT PG_DN &alt_hrm_l LALT PG_UP &kp DA_EQUAL &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &alt_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &ctrl_hrm_r RCTRL RIGHT &kp DA_PLUS
                 &kp F1   &kp F2   &kp F3    &kp F4    &kp F5   &kp F6                       &kp F7   &kp F8   &kp F9   &kp F10   &kp F11   &kp F12
                                             &trans    &trans   &trans                       &trans   &trans   &trans
             >;
@@ -541,7 +581,7 @@
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
-                &caron_morph &core_hrm_l LCTRL DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RALT DA_GRAVE &shift_hrm_r RSHFT DA_UMLAUT &core_hrm_r RCTRL DA_CARET &caron_morph
+                &caron_morph &ctrl_hrm_l LCTRL DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &alt_hrm_r RALT DA_GRAVE &shift_hrm_r RSHFT DA_UMLAUT &ctrl_hrm_r RCTRL DA_CARET &caron_morph
                 &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde_morph &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
