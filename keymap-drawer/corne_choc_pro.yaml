@@ -48,7 +48,7 @@ layers:
   - {t: RET, h: NUMBER}
   - {t: ESC, h: SYMBOL}
   NUMBER:
-  - /
+  - ''
   - '1'
   - '2'
   - '3'
@@ -61,8 +61,8 @@ layers:
   - '8'
   - '9'
   - '0'
-  - '*'
-  - '-'
+  - ''
+  - ''
   - {t: '%', h: LCTRL}
   - {t: PG DN, h: LSHFT}
   - {t: PG UP, h: LALT}
@@ -75,7 +75,7 @@ layers:
   - {t: DOWN, h: RALT}
   - {t: UP, h: RSHFT}
   - {t: RIGHT, h: RCTRL}
-  - +
+  - ''
   - F1
   - F2
   - F3
@@ -95,8 +95,8 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   SYMBOL:
+  - ''
   - \
-  - '&'
   - '@'
   - €
   - $
@@ -104,7 +104,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - »
-  - ''''
+  - '&'
   - (
   - )
   - '~'
@@ -470,9 +470,6 @@ combos:
 - p: [31, 32]
   k: /
   l: [QWERTY]
-- p: [9, 10]
-  k: '"'
-  l: [SYMBOL]
 - p: [3, 4]
   k: œ/Œ
   l: [SYMBOL]
