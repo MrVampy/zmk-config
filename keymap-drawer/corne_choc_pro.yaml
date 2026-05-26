@@ -16,18 +16,18 @@ layers:
   - P
   - {t: DEL, h: RALT}
   - {t: HOME, h: LCTRL}
-  - {t: A, h: LALT}
-  - {t: S, h: LCTRL}
-  - {t: D, h: LSHFT}
+  - {t: A, h: LCTRL}
+  - {t: S, h: LSHFT}
+  - {t: D, h: LALT}
   - {t: F, s: F}
   - G
   - VOL DN
   - VOL UP
   - H
   - J
-  - {t: K, h: RSHFT}
-  - {t: L, h: RCTRL}
-  - {t: æ, h: RALT}
+  - {t: K, h: RALT}
+  - {t: L, h: RSHFT}
+  - {t: æ, h: RCTRL}
   - {t: END, h: RCTRL}
   - {t: Sft+TAB, h: LSHFT}
   - Z
@@ -63,18 +63,18 @@ layers:
   - '0'
   - '*'
   - '-'
-  - {t: '%', h: LALT}
-  - {t: PG DN, h: LCTRL}
-  - {t: PG UP, h: LSHFT}
+  - {t: '%', h: LCTRL}
+  - {t: PG DN, h: LSHFT}
+  - {t: PG UP, h: LALT}
   - '='
   - <
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - '>'
   - LEFT
-  - {t: DOWN, h: RSHFT}
-  - {t: UP, h: RCTRL}
-  - {t: RIGHT, h: RALT}
+  - {t: DOWN, h: RALT}
+  - {t: UP, h: RSHFT}
+  - {t: RIGHT, h: RCTRL}
   - +
   - F1
   - F2
@@ -110,7 +110,7 @@ layers:
   - '~'
   - ''
   - ˇ
-  - {t: ^, h: LALT}
+  - {t: ^, h: LCTRL}
   - {t: '¨
 
       ß/ẞ', h: LCTRL}
@@ -123,9 +123,9 @@ layers:
   - {t: ▽, type: trans}
   - ']'
   - ´
-  - {t: '`', h: RSHFT}
-  - {t: ¨, h: RCTRL}
-  - {t: ^, h: RALT}
+  - {t: '`', h: RALT}
+  - {t: ¨, h: RSHFT}
+  - {t: ^, h: RCTRL}
   - ˇ
   - ''
   - '|'
