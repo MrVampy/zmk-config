@@ -424,6 +424,20 @@
             layers = <0>;
         };
 
+        combo_caron_left {
+            timeout-ms = <50>;
+            key-positions = <15 16>; // SYMBOL A + S
+            bindings = <&caron_morph>;
+            layers = <2>;
+        };
+
+        combo_caron_right {
+            timeout-ms = <50>;
+            key-positions = <25 26>; // SYMBOL L + Æ
+            bindings = <&caron_morph>;
+            layers = <2>;
+        };
+
         combo_oe_ligature {
             timeout-ms = <50>;
             key-positions = <3 4>; // SYMBOL E + R
@@ -494,11 +508,12 @@
         lower_layer {
             display-name = "NUMBER";
             // -----------------------------------------------------------------------------------------
-            // |      |  1  |  2  |  3  |PgUp | F1  | MUTE  |  PP   | F2  | F3  | F4  | F5  | F6  |      |
-            // |      |     |     |     |     |     |       |       |     |     |     |     |     |      |
-            // |      |LCTL/|LSFT/|LALT/|  0  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/|      |
-            // |      |  4  |  5  |  6  |     |     |       |       |     |     | DWN | UP  | RGT |      |
-            // |      |  7  |  8  |  9  |PgDn | F7  |               | F8  | F9  | F10 | F11 | F12 |      |
+            // | LALT/|  1  |  2  |  3  |PgUp | F1  | MUTE  |  PP   | F2  | F3  | F4  | F5  | F6  | RALT/|
+            // | CAPS |     |     |     |     |     |       |       |     |     |     |     |     | DEL  |
+            // | LCTL/|LCTL/|LSFT/|LALT/|  0  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/| RCTL/|
+            // | HOME |  4  |  5  |  6  |     |     |       |       |     |     | DWN | UP  | RGT | END  |
+            // | LSFT/|  7  |  8  |  9  |PgDn | F7  |               | F8  | F9  | F10 | F11 | F12 | RSFT/|
+            // |S+Tab |     |     |     |     |     |               |     |     |     |     |     | TAB  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
             //              | ESC    |  RET     | BSPC   |   | SPACE  |  RET     | ESC    |
             //
@@ -508,15 +523,16 @@
             //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3).
             //   * QWE/ASD/ZXC form a left-hand number pad; F is 0.
             //   * A/S/D keep their HRM holds while tapping 4/5/6.
+            //   * Outer columns mirror the base-layer utility mod-taps.
             //   * R/V provide PgUp/PgDn near the number pad.
             //   * T-P and B-? provide F1..F12.
             //   * Arithmetic operators now live on base combos/SYMBOL.
             //   * Row 1 right = arrow cluster on J/K/L/Æ with mirrored HRMs
             //     for Alt/Shift/Ctrl chording on arrow keys.
             bindings = <
-                &none       &kp N1   &kp N2    &kp N3    &kp PG_UP &kp F1   &trans    &trans    &kp F2   &kp F3   &kp F4   &kp F5    &kp F6    &none
-                &none       &core_hrm_l LCTRL N4 &shift_hrm_l LSHFT N5 &core_hrm_l LALT N6 &kp N0 &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &none
-                &none    &kp N7   &kp N8    &kp N9    &kp PG_DN &kp F7                       &kp F8   &kp F9   &kp F10  &kp F11   &kp F12   &none
+                &top_alt_l LALT 0       &kp N1   &kp N2    &kp N3    &kp PG_UP &kp F1   &trans    &trans    &kp F2   &kp F3   &kp F4   &kp F5    &kp F6    &mt_thumb RALT DEL
+                &mt_thumb LCTRL HOME    &core_hrm_l LCTRL N4 &shift_hrm_l LSHFT N5 &core_hrm_l LALT N6 &kp N0 &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &mt_thumb RCTRL END
+                &mt_thumb LSHFT LS(TAB) &kp N7   &kp N8    &kp N9    &kp PG_DN &kp F7                       &kp F8   &kp F9   &kp F10  &kp F11   &kp F12   &mt_thumb RSHFT TAB
                                             &trans    &trans   &trans                       &trans   &trans   &trans
             >;
         };
@@ -524,15 +540,17 @@
         raise_layer {
             display-name = "SYMBOL";
             // -----------------------------------------------------------------------------------------
-            // |      |  \  |  %  |  €  |  $  |  «  | LCTRL | RCTRL |  »  |  &  |  (  |  )  |  @  | BSPC |
-            // | ˇ    |LCTRL|LSHFT|LALT/|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RALT/|RSFT/|RCTRL| ˇ    |
-            // |      |  ^  | ¨/ß | `/đ |     |     |       |       |     |     |  `  |  ¨  |  ^  |      |
-            // | ··   | "|" |  #  |  ç  |  £  |  _  |               |  ~  |  ~  |  {  |  }  |  ¿  |  ··  |
+            // | LALT/|  \  |  %  |  €  |  $  |  «  | LCTRL | RCTRL |  »  |  &  |  (  |  )  |  @  | RALT/|
+            // | CAPS |     |     |     |     |     |       |       |     |     |     |     |     | DEL  |
+            // | LCTL/|LCTRL|LSHFT|LALT/|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RALT/|RSFT/|RCTRL| RCTL/|
+            // | HOME |  ^  | ¨/ß | `/đ |     |     |       |       |     |     |  `  |  ¨  |  ^  | END  |
+            // | LSFT/| "|" |  #  |  ç  |  £  |  _  |               |  ~  |  ~  |  {  |  }  |  ¿  | RSFT/|
+            // |S+Tab |     |     |     |     |     |               |     |     |     |     |     | TAB  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
-                &none       &kp DA_BSLH &kp DA_PRCNT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_AMPS &kp DA_LPAR  &kp DA_RPAR &kp DA_AT &none
-                &caron_morph &core_hrm_l LCTRL DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RALT DA_GRAVE &shift_hrm_r RSHFT DA_UMLAUT &core_hrm_r RCTRL DA_CARET &caron_morph
-                &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde_morph &kp DA_TILDE &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &none
+                &top_alt_l LALT 0       &kp DA_BSLH &kp DA_PRCNT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_AMPS &kp DA_LPAR  &kp DA_RPAR &kp DA_AT &mt_thumb RALT DEL
+                &mt_thumb LCTRL HOME    &core_hrm_l LCTRL DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RALT DA_GRAVE &shift_hrm_r RSHFT DA_UMLAUT &core_hrm_r RCTRL DA_CARET &mt_thumb RCTRL END
+                &mt_thumb LSHFT LS(TAB) &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde_morph &kp DA_TILDE &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &mt_thumb RSHFT TAB
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;
         };
