@@ -48,7 +48,7 @@ layers:
   - {t: RET, h: NUMBER}
   - {t: ESC, h: SYMBOL}
   NUMBER:
-  - {t: Caps Word, h: LALT}
+  - {t: ▽, type: trans}
   - '1'
   - '2'
   - '3'
@@ -61,8 +61,8 @@ layers:
   - F4
   - F5
   - F6
-  - {t: DEL, h: RALT}
-  - {t: HOME, h: LCTRL}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: '4', h: LCTRL}
   - {t: '5', h: LSHFT}
   - {t: '6', h: LALT}
@@ -75,8 +75,8 @@ layers:
   - {t: DOWN, h: RALT}
   - {t: UP, h: RSHFT}
   - {t: RIGHT, h: RCTRL}
-  - {t: END, h: RCTRL}
-  - {t: Sft+TAB, h: LSHFT}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - '7'
   - '8'
   - '9'
@@ -87,7 +87,7 @@ layers:
   - F10
   - F11
   - F12
-  - {t: TAB, h: RSHFT}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
@@ -95,7 +95,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   SYMBOL:
-  - {t: Caps Word, h: LALT}
+  - {t: ▽, type: trans}
   - \
   - '%'
   - €
@@ -108,8 +108,8 @@ layers:
   - (
   - )
   - '@'
-  - {t: DEL, h: RALT}
-  - {t: HOME, h: LCTRL}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ^, h: LCTRL}
   - {t: '¨
 
@@ -126,8 +126,8 @@ layers:
   - {t: '`', h: RALT}
   - {t: ¨, h: RSHFT}
   - {t: ^, h: RCTRL}
-  - {t: END, h: RCTRL}
-  - {t: Sft+TAB, h: LSHFT}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - '|'
   - '#'
   - ç/Ç
@@ -138,7 +138,7 @@ layers:
   - '{'
   - '}'
   - ¿
-  - {t: TAB, h: RSHFT}
+  - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -435,6 +435,9 @@ combos:
   k: ø
   l: [QWERTY]
 - p: [1, 2]
+  k: Sft+TAB
+  l: [QWERTY]
+- p: [11, 12]
   k: TAB
   l: [QWERTY]
 - p: [15, 2]
