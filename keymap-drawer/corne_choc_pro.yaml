@@ -52,21 +52,21 @@ layers:
   - '1'
   - '2'
   - '3'
-  - '4'
-  - '5'
+  - PG UP
+  - F1
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - '6'
-  - '7'
-  - '8'
-  - '9'
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - ''
+  - ''
+  - {t: '4', h: LCTRL}
+  - {t: '5', h: LSHFT}
+  - {t: '6', h: LALT}
   - '0'
-  - ''
-  - ''
-  - {t: '%', h: LCTRL}
-  - {t: PG DN, h: LSHFT}
-  - {t: PG UP, h: LALT}
-  - ''
   - <
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -76,18 +76,18 @@ layers:
   - {t: UP, h: RSHFT}
   - {t: RIGHT, h: RCTRL}
   - ''
-  - F1
-  - F2
-  - F3
-  - F4
-  - F5
-  - F6
+  - ''
+  - '7'
+  - '8'
+  - '9'
+  - PG DN
   - F7
   - F8
   - F9
   - F10
   - F11
   - F12
+  - ''
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
