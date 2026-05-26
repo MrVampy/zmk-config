@@ -121,9 +121,10 @@
         // letter keys participate in normal rolling typing, so they use
         // release-deferred positional hold-tap and no retro-tap.
         //
-        // Shift gets its own behavior without require-prior-idle-ms: Shift is
-        // part of normal typing flow, so a previous keypress should not block
-        // deliberate capitalization. Ctrl/Alt keep the idle guard below.
+        // Shift gets its own behavior without require-prior-idle-ms and with a
+        // more eager flavor: Shift is part of normal typing flow, so a previous
+        // keypress or a fast release order should not block capitalization.
+        // Ctrl/Alt keep the idle guard and balanced flavor below.
         //
         // Left-hand core HRMs can resolve early through a tapped right-hand
         // main-field key. Same-hand keys, thumbs, and center utility keys do not
@@ -133,7 +134,7 @@
             compatible = "zmk,behavior-hold-tap";
             label = "SHIFT_HRM_L";
             #binding-cells = <2>;
-            flavor = "balanced";
+            flavor = "hold-preferred";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
@@ -149,7 +150,7 @@
             compatible = "zmk,behavior-hold-tap";
             label = "SHIFT_HRM_R";
             #binding-cells = <2>;
-            flavor = "balanced";
+            flavor = "hold-preferred";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
