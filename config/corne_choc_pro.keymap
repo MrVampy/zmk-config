@@ -340,6 +340,13 @@
             layers = <0>;
         };
 
+        combo_tab {
+            timeout-ms = <50>;
+            key-positions = <1 2>; // Q + W
+            bindings = <&kp TAB>;
+            layers = <0>;
+        };
+
         combo_apos {
             timeout-ms = <50>;
             key-positions = <15 2>; // A + W
@@ -365,13 +372,6 @@
             timeout-ms = <50>;
             key-positions = <35 36>; // M + ,
             bindings = <&kp DA_PLUS>;
-            layers = <0>;
-        };
-
-        combo_tab {
-            timeout-ms = <50>;
-            key-positions = <15 16>; // A + S
-            bindings = <&kp TAB>;
             layers = <0>;
         };
 
