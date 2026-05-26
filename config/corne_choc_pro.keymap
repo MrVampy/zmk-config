@@ -424,13 +424,6 @@
             layers = <0>;
         };
 
-        combo_dqt {
-            timeout-ms = <50>;
-            key-positions = <9 10>; // SYMBOL U + I
-            bindings = <&kp DA_DQT>;
-            layers = <2>;
-        };
-
         combo_oe_ligature {
             timeout-ms = <50>;
             key-positions = <3 4>; // SYMBOL E + R
@@ -501,9 +494,9 @@
         lower_layer {
             display-name = "NUMBER";
             // -----------------------------------------------------------------------------------------
-            // |  /   |  1  |  2  |  3  |  4  |  5  | MUTE  |  PP   |  6  |  7  |  8  |  9  |  0  |  *   |
+            // |      |  1  |  2  |  3  |  4  |  5  | MUTE  |  PP   |  6  |  7  |  8  |  9  |  0  |      |
             // |      |     |     |     |     |     |       |       |     |     |     |     |     |      |
-            // |  -   |LCTL/|LSFT/|LALT/|  =  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/|  +   |
+            // |      |LCTL/|LSFT/|LALT/|  =  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/|      |
             // |      |  %  | PgDn | PgUp|     |     |       |       |     |     | DWN | UP  | RGT |      |
             // | F1   | F2  | F3  | F4  | F5  | F6  |               | F7  | F8  | F9  | F10 | F11 | F12  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
@@ -514,18 +507,14 @@
             //     bootloader, studio_unlock) moved off this layer to the
             //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3).
             //   * Pos 15 (A): keeps LCtrl HRM; tap is now `%`.
-            //   * Row 1 adds paired math/programming symbols around the existing
-            //     nav HRM cluster: -/%/=/</> on the left/inner side and + on the
-            //     right outer edge.
-            //   * Top row keeps cross-platform Danish-layout keycodes only:
-            //     `/` and `*`, not OS-specific Unicode division/multiply signs
-            //     and not dual-role modifiers.
+            //   * Row 1 keeps %/=/</> around the existing nav HRM cluster.
+            //   * Arithmetic operators now live on base combos/SYMBOL.
             //   * Row 1 right = arrow cluster on J/K/L/Æ with mirrored HRMs
             //     for Alt/Shift/Ctrl chording on arrow keys.
             //   * Row 3 = F1..F12 spread across both halves.
             bindings = <
-                &kp DA_SLASH &kp N1   &kp N2    &kp N3    &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &kp DA_ASTRK
-                &kp DA_MINUS    &core_hrm_l LCTRL DA_PRCNT &shift_hrm_l LSHFT PG_DN &core_hrm_l LALT PG_UP &kp DA_EQUAL &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &kp DA_PLUS
+                &none       &kp N1   &kp N2    &kp N3    &kp N4   &kp N5   &trans    &trans    &kp N6   &kp N7   &kp N8   &kp N9    &kp N0    &none
+                &none       &core_hrm_l LCTRL DA_PRCNT &shift_hrm_l LSHFT PG_DN &core_hrm_l LALT PG_UP &kp DA_EQUAL &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &none
                 &kp F1   &kp F2   &kp F3    &kp F4    &kp F5   &kp F6                       &kp F7   &kp F8   &kp F9   &kp F10   &kp F11   &kp F12
                                             &trans    &trans   &trans                       &trans   &trans   &trans
             >;
@@ -534,13 +523,13 @@
         raise_layer {
             display-name = "SYMBOL";
             // -----------------------------------------------------------------------------------------
-            // |  \   |  &  |  @  |  €  |  $  |  «  | LCTRL | RCTRL |  »  |  '  |  (  |  )  |  ~  | BSPC |
+            // |      |  \  |  @  |  €  |  $  |  «  | LCTRL | RCTRL |  »  |  &  |  (  |  )  |  ~  | BSPC |
             // | ˇ    |LCTRL|LSHFT|LALT/|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RALT/|RSFT/|RCTRL| ˇ    |
             // |      |  ^  | ¨/ß | `/đ |     |     |       |       |     |     |  `  |  ¨  |  ^  |      |
             // | ··   | "|" |  #  |  ç  |  £  |  _  |               |  ~  |  +  |  {  |  }  |  ¿  |  ··  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
-                &kp DA_BSLH &kp DA_AMPS &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_APOS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
+                &none       &kp DA_BSLH &kp DA_AT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_AMPS &kp DA_LPAR  &kp DA_RPAR &kp DA_TILDE &none
                 &caron_morph &core_hrm_l LCTRL DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RALT DA_GRAVE &shift_hrm_r RSHFT DA_UMLAUT &core_hrm_r RCTRL DA_CARET &caron_morph
                 &none     &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde_morph &kp DA_PLUS  &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &none
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
