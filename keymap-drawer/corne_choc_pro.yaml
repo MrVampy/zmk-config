@@ -449,6 +449,18 @@ combos:
 - p: [3, 4]
   k: '*'
   l: [QWERTY]
+- p: [4, 5]
+  k: '&caps_word'
+  l: [QWERTY]
+- p: [18, 19]
+  k: HOME
+  l: [QWERTY]
+- p: [8, 9]
+  k: DEL
+  l: [QWERTY]
+- p: [22, 23]
+  k: END
+  l: [QWERTY]
 - p: [35, 36]
   k: +
   l: [QWERTY]
