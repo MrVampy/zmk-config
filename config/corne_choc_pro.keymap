@@ -121,30 +121,25 @@
         // letter keys participate in normal rolling typing, so they use
         // release-deferred positional hold-tap and no retro-tap.
         //
-        // Shift gets its own behavior with a much smaller prior-idle guard and
-        // a more eager flavor: Shift is part of normal typing flow, so fast
-        // release order should not block capitalization, while immediate rolls
-        // still get a small false-positive filter. Ctrl/Alt keep the stronger
-        // idle guard and balanced flavor below.
+        // Shift gets its own behavior with a much smaller prior-idle guard:
+        // Shift is part of normal typing flow, so we keep the false-positive
+        // filter short. Ctrl/Alt keep the stronger idle guard below.
         //
-        // Left-hand core HRMs can resolve early through a tapped right-hand
-        // main-field key. Same-hand keys, thumbs, and center utility keys do not
-        // trigger early hold; if the HRM is held past the tapping term, it
-        // becomes a normal modifier for any later chord.
+        // The dummy trigger position keeps positional hold-tap enabled while
+        // ensuring no real key (0-45 on this board) can promote HRM to hold
+        // inside the tapping-term window. Normal rolling typing therefore wins
+        // on both halves; deliberate modifier use starts by holding past the
+        // tapping term.
         shift_hrm_l: shift_home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
             label = "SHIFT_HRM_L";
             #binding-cells = <2>;
-            flavor = "hold-preferred";
+            flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
             require-prior-idle-ms = <50>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <
-                 8  9 10 11 12 13
-                22 23 24 25 26 27
-                34 35 36 37 38 39
-            >;
+            hold-trigger-key-positions = <46>;
             hold-trigger-on-release;
         };
 
@@ -152,16 +147,12 @@
             compatible = "zmk,behavior-hold-tap";
             label = "SHIFT_HRM_R";
             #binding-cells = <2>;
-            flavor = "hold-preferred";
+            flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
             require-prior-idle-ms = <50>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <
-                 0  1  2  3  4  5
-                14 15 16 17 18 19
-                28 29 30 31 32 33
-            >;
+            hold-trigger-key-positions = <46>;
             hold-trigger-on-release;
         };
 
@@ -174,16 +165,11 @@
             quick-tap-ms = <175>;
             require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <
-                 8  9 10 11 12 13
-                22 23 24 25 26 27
-                34 35 36 37 38 39
-            >;
+            hold-trigger-key-positions = <46>;
             hold-trigger-on-release;
         };
 
-        // Right-hand core HRMs mirror the left: only left-hand main-field keys
-        // trigger early hold.
+        // Right-hand core HRMs use the same tap-safe timing as the left.
         core_hrm_r: core_home_row_mod_right {
             compatible = "zmk,behavior-hold-tap";
             label = "CORE_HRM_R";
@@ -193,11 +179,7 @@
             quick-tap-ms = <175>;
             require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <
-                 0  1  2  3  4  5
-                14 15 16 17 18 19
-                28 29 30 31 32 33
-            >;
+            hold-trigger-key-positions = <46>;
             hold-trigger-on-release;
         };
 
