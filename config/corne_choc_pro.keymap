@@ -447,14 +447,14 @@
 
         combo_plus {
             timeout-ms = <50>;
-            key-positions = <35 36>; // M + ,
+            key-positions = <9 10>; // U + I
             bindings = <&kp DA_PLUS>;
             layers = <0>;
         };
 
         combo_minus {
             timeout-ms = <50>;
-            key-positions = <36 37>; // , + .
+            key-positions = <35 36>; // M + ,
             bindings = <&kp DA_MINUS>;
             layers = <0>;
         };
@@ -482,7 +482,7 @@
 
         combo_acute {
             timeout-ms = <50>;
-            key-positions = <9 10>; // U + I
+            key-positions = <36 37>; // , + .
             bindings = <&kp DA_ACUTE>;
             layers = <0>;
         };
