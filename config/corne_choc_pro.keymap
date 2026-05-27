@@ -125,11 +125,9 @@
         // Shift is part of normal typing flow, so we keep the false-positive
         // filter short. Ctrl/Alt keep the stronger idle guard below.
         //
-        // The dummy trigger position keeps positional hold-tap enabled while
-        // ensuring no real key (0-45 on this board) can promote HRM to hold
-        // inside the tapping-term window. Normal rolling typing therefore wins
-        // on both halves; deliberate modifier use starts by holding past the
-        // tapping term.
+        // Shift keeps real opposite-half trigger positions so fast capitals can
+        // resolve inside the tapping-term window. The prior-idle guard is kept
+        // short because Shift is part of normal typing flow.
         shift_hrm_l: shift_home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
             label = "SHIFT_HRM_L";
@@ -137,9 +135,13 @@
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <25>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <46>;
+            hold-trigger-key-positions = <
+                8 9 10 11 12 13
+                22 23 24 25 26 27
+                34 35 36 37 38 39
+            >;
             hold-trigger-on-release;
         };
 
@@ -150,12 +152,19 @@
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <25>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <46>;
+            hold-trigger-key-positions = <
+                0 1 2 3 4 5
+                14 15 16 17 18 19
+                28 29 30 31 32 33
+            >;
             hold-trigger-on-release;
         };
 
+        // Ctrl/Alt keep the conservative tap-safe shape: no real key (0-45 on
+        // this board) can promote HRM to hold inside the tapping-term window.
+        // Deliberate modifier use starts by holding past the tapping term.
         core_hrm_l: core_home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
             label = "CORE_HRM_L";
