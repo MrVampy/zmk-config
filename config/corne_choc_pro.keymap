@@ -403,6 +403,48 @@
             layers = <0>;
         };
 
+        combo_number_mute {
+            timeout-ms = <50>;
+            key-positions = <4 5>; // NUMBER R + T
+            bindings = <&kp C_MUTE>;
+            layers = <1>;
+        };
+
+        combo_number_vol_down {
+            timeout-ms = <50>;
+            key-positions = <18 19>; // NUMBER F + G
+            bindings = <&kp C_VOL_DN>;
+            layers = <1>;
+        };
+
+        combo_number_pp {
+            timeout-ms = <50>;
+            key-positions = <8 9>; // NUMBER Y + U
+            bindings = <&kp C_PP>;
+            layers = <1>;
+        };
+
+        combo_number_vol_up {
+            timeout-ms = <50>;
+            key-positions = <22 23>; // NUMBER H + J
+            bindings = <&kp C_VOL_UP>;
+            layers = <1>;
+        };
+
+        combo_number_prev {
+            timeout-ms = <50>;
+            key-positions = <32 33>; // NUMBER V + B
+            bindings = <&kp C_PREV>;
+            layers = <1>;
+        };
+
+        combo_number_next {
+            timeout-ms = <50>;
+            key-positions = <34 35>; // NUMBER N + M
+            bindings = <&kp C_NEXT>;
+            layers = <1>;
+        };
+
         combo_plus {
             timeout-ms = <50>;
             key-positions = <35 36>; // M + ,
