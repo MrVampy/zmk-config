@@ -613,6 +613,34 @@ path.combo {
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
+<g class="combo combopos-0">
+<rect rx="6" ry="6" x="266" y="25" width="28" height="26" class="combo"/>
+<text x="280" y="38" class="combo tap">MUTE</text>
+</g>
+<g class="combo combopos-1">
+<rect rx="6" ry="6" x="266" y="81" width="28" height="26" class="combo"/>
+<text x="280" y="94" class="combo tap">
+<tspan x="280" dy="-0.6em">VOL</tspan><tspan x="280" dy="1.2em">DN</tspan>
+</text>
+</g>
+<g class="combo combopos-2">
+<rect rx="6" ry="6" x="546" y="25" width="28" height="26" class="combo"/>
+<text x="560" y="38" class="combo tap">PP</text>
+</g>
+<g class="combo combopos-3">
+<rect rx="6" ry="6" x="546" y="81" width="28" height="26" class="combo"/>
+<text x="560" y="94" class="combo tap">
+<tspan x="560" dy="-0.6em">VOL</tspan><tspan x="560" dy="1.2em">UP</tspan>
+</text>
+</g>
+<g class="combo combopos-4">
+<rect rx="6" ry="6" x="266" y="137" width="28" height="26" class="combo"/>
+<text x="280" y="150" class="combo tap">PREV</text>
+</g>
+<g class="combo combopos-5">
+<rect rx="6" ry="6" x="546" y="137" width="28" height="26" class="combo"/>
+<text x="560" y="150" class="combo tap">NEXT</text>
+</g>
 </g>
 </g>
 <g transform="translate(30, 643)" class="layer-SYMBOL">

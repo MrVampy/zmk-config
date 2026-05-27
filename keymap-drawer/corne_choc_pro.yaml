@@ -461,6 +461,24 @@ combos:
 - p: [22, 23]
   k: END
   l: [QWERTY]
+- p: [4, 5]
+  k: MUTE
+  l: [NUMBER]
+- p: [18, 19]
+  k: VOL DN
+  l: [NUMBER]
+- p: [8, 9]
+  k: PP
+  l: [NUMBER]
+- p: [22, 23]
+  k: VOL UP
+  l: [NUMBER]
+- p: [32, 33]
+  k: PREV
+  l: [NUMBER]
+- p: [34, 35]
+  k: NEXT
+  l: [NUMBER]
 - p: [35, 36]
   k: +
   l: [QWERTY]
