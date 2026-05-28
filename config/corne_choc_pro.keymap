@@ -576,11 +576,11 @@
         lower_layer {
             display-name = "NUMBER";
             // -----------------------------------------------------------------------------------------
-            // | LALT/|  1  |  2  |  3  |PgUp | F1  | MUTE  |  PP   | F2  | F3  | F4  | F5  | F6  | RALT/|
+            // | LALT/|PgUp |  1  |  2  |  3  | F1  | MUTE  |  PP   | F2  | F3  | F4  | F5  | F6  | RALT/|
             // | CAPS |     |     |     |     |     |       |       |     |     |     |     |     | DEL  |
-            // | LCTL/|LCTL/|LSFT/|LALT/|  0  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/| RCTL/|
-            // | HOME |  4  |  5  |  6  |     |     |       |       |     |     | DWN | UP  | RGT | END  |
-            // | LSFT/|  7  |  8  |  9  |PgDn | F7  |               | F8  | F9  | F10 | F11 | F12 | RSFT/|
+            // | LCTL/|LCTL/|LSFT/|LALT/|  6  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/| RCTL/|
+            // | HOME |  0  |  4  |  5  |     |     |       |       |     |     | DWN | UP  | RGT | END  |
+            // | LSFT/|PgDn |  7  |  8  |  9  | F7  |               | F8  | F9  | F10 | F11 | F12 | RSFT/|
             // |S+Tab |     |     |     |     |     |               |     |     |     |     |     | TAB  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
             //              | ESC    |  RET     | BSPC   |   | SPACE  |  RET     | ESC    |
@@ -589,18 +589,18 @@
             //   * Settings cluster (BT_SEL 0..4, BT_CLR, RGB red toggle, sys_reset,
             //     bootloader, studio_unlock) moved off this layer to the
             //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3).
-            //   * QWE/ASD/ZXC form a left-hand number pad; F is 0.
-            //   * A/S/D keep their HRM holds while tapping 4/5/6.
+            //   * WER/SDF/XCV form a left-hand number pad; A is 0.
+            //   * A/S/D keep their HRM holds while tapping 0/4/5.
             //   * Outer columns inherit the base-layer utility mod-taps.
-            //   * R/V provide PgUp/PgDn near the number pad.
+            //   * Q/Z provide PgUp/PgDn beside the number pad.
             //   * T-P and B-? provide F1..F12.
             //   * Arithmetic operators now live on base combos/SYMBOL.
             //   * Row 1 right = arrow cluster on J/K/L/Æ with mirrored HRMs
             //     for Alt/Shift/Ctrl chording on arrow keys.
             bindings = <
-                &trans      &kp N1   &kp N2    &kp N3    &kp PG_UP &kp F1   &trans    &trans    &kp F2   &kp F3   &kp F4   &kp F5    &kp F6    &trans
-                &trans      &core_hrm_l LCTRL N4 &shift_hrm_l LSHFT N5 &core_hrm_l LALT N6 &kp N0 &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &trans
-                &trans      &kp N7   &kp N8    &kp N9    &kp PG_DN &kp F7                       &kp F8   &kp F9   &kp F10  &kp F11   &kp F12   &trans
+                &trans      &kp PG_UP &kp N1    &kp N2    &kp N3    &kp F1   &trans    &trans    &kp F2   &kp F3   &kp F4   &kp F5    &kp F6    &trans
+                &trans      &core_hrm_l LCTRL N0 &shift_hrm_l LSHFT N4 &core_hrm_l LALT N5 &kp N6 &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &trans
+                &trans      &kp PG_DN &kp N7    &kp N8    &kp N9    &kp F7                       &kp F8   &kp F9   &kp F10  &kp F11   &kp F12   &trans
                                             &trans    &trans   &trans                       &trans   &trans   &trans
             >;
         };
