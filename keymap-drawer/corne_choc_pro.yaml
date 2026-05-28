@@ -49,10 +49,10 @@ layers:
   - {t: ESC, h: SYMBOL}
   NUMBER:
   - {t: ▽, type: trans}
+  - PG UP
   - '1'
   - '2'
   - '3'
-  - PG UP
   - F1
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -63,10 +63,10 @@ layers:
   - F6
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: '4', h: LCTRL}
-  - {t: '5', h: LSHFT}
-  - {t: '6', h: LALT}
-  - '0'
+  - {t: '0', h: LCTRL}
+  - {t: '4', h: LSHFT}
+  - {t: '5', h: LALT}
+  - '6'
   - <
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -77,10 +77,10 @@ layers:
   - {t: RIGHT, h: RCTRL}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - PG DN
   - '7'
   - '8'
   - '9'
-  - PG DN
   - F7
   - F8
   - F9
