@@ -121,21 +121,20 @@
         // letter keys participate in normal rolling typing, so they use
         // release-deferred positional hold-tap and no retro-tap.
         //
-        // Shift gets its own behavior with a much smaller prior-idle guard:
-        // Shift is part of normal typing flow, so we keep the false-positive
-        // filter short. Ctrl/Alt keep the stronger idle guard below.
+        // Shift gets its own behavior: after a short pause it should resolve
+        // eagerly as hold, while fast in-flow rolls still force tap.
         //
         // Shift keeps real opposite-half trigger positions so fast capitals can
-        // resolve inside the tapping-term window. The prior-idle guard is kept
-        // short because Shift is part of normal typing flow.
+        // resolve inside the tapping-term window, but only after the prior-idle
+        // threshold has passed.
         shift_hrm_l: shift_home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
             label = "SHIFT_HRM_L";
             #binding-cells = <2>;
-            flavor = "balanced";
+            flavor = "hold-preferred";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <25>;
+            require-prior-idle-ms = <325>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <
                 8 9 10 11 12 13
@@ -149,10 +148,10 @@
             compatible = "zmk,behavior-hold-tap";
             label = "SHIFT_HRM_R";
             #binding-cells = <2>;
-            flavor = "balanced";
+            flavor = "hold-preferred";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <25>;
+            require-prior-idle-ms = <325>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <
                 0 1 2 3 4 5
