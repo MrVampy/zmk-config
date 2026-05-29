@@ -134,7 +134,7 @@
             flavor = "hold-preferred";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <325>;
+            require-prior-idle-ms = <200>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <
                 8 9 10 11 12 13
@@ -151,7 +151,7 @@
             flavor = "hold-preferred";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <325>;
+            require-prior-idle-ms = <200>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <
                 0 1 2 3 4 5
