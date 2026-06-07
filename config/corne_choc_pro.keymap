@@ -8,6 +8,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/modifiers.h>
 #include <locale/keys_da.h>
 
@@ -287,6 +288,18 @@
             bindings = <
                 &macro_tap &kp DA_TILDE
                 &macro_tap &kp LS(N)
+            >;
+        };
+
+        rgb_power_off: rgb_power_off {
+            label = "RGB_POWER_OFF";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <10>;
+            bindings = <
+                &macro_tap &rgb_ug RGB_OFF
+                &macro_tap &ext_power EP_OFF
             >;
         };
     };
@@ -609,7 +622,7 @@
             // -----------------------------------------------------------------------------------------
             // |      | LIN | WIN | MAC |     |       |       |       |     |     |     |     |     |      |
             // |      | BT1 | BT2 | BT3 | BT4 | BT5   |       |       |     |     |     |     |     |      |
-            // |      | BTCR| RGB | RST | BOOT| Unlock|       |       |     |     |     |     |     |      |
+            // |      | BTCR| RGB- | RST | BOOT| Unlock|       |       |     |     |     |     |     |      |
             //                    |     |     |       |       |       |     |     |
             //
             // Activated by the tri-layer rule: hold NUMBER (inner thumb) and
@@ -619,7 +632,7 @@
             bindings = <
                 &none &to 0        &to 4           &to 5        &none        &none          &none &none &none &none &none &none &none &none
                 &none &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &none &none &none &none &none &none &none &none
-                &none &bt BT_CLR   &rgb_ug RGB_TOG &sys_reset   &bootloader  &studio_unlock              &none &none &none &none &none &none
+                &none &bt BT_CLR   &rgb_power_off  &sys_reset   &bootloader  &studio_unlock              &none &none &none &none &none &none
                                                    &none        &none        &none                       &none &none &none
             >;
         };

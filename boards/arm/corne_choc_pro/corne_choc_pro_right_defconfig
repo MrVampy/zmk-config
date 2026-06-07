@@ -31,10 +31,6 @@ CONFIG_I2C=y
 CONFIG_I2C_NRFX=y
 CONFIG_PINCTRL=y
 
-# Enable encoder
-CONFIG_EC11=y
-CONFIG_EC11_TRIGGER_GLOBAL_THREAD=y
-
 # Enable WS2812 LED strip hardware. The active lighting behavior is selected
 # from config/corne_choc_pro.conf.
 CONFIG_WS2812_STRIP=y
