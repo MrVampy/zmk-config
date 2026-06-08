@@ -491,9 +491,6 @@ combos:
 - p: [36, 37]
   k: ´
   l: [QWERTY]
-- p: [10, 11]
-  k: '='
-  l: [QWERTY]
 - p: [31, 32]
   k: /
   l: [QWERTY]
