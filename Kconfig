@@ -12,6 +12,16 @@ config ZMK_CORNE_HOTPATH_SI_TIMEOUT_MS
     default 100
     range 1 500
 
+config ZMK_CORNE_HOTPATH_COMBO_TIMEOUT_MS
+    int "Guarded combo press window"
+    default 50
+    range 1 500
+
+config ZMK_CORNE_HOTPATH_COMBO_IDLE_MS
+    int "Guarded combo physical prior idle"
+    default 220
+    range 0 1000
+
 endif # ZMK_CORNE_HOTPATHS
 
 endmenu

@@ -353,22 +353,6 @@
             layers = <0>;
         };
 
-        combo_asterisk {
-            timeout-ms = <50>;
-            require-prior-idle-ms = <125>;
-            key-positions = <3 4>; // E + R
-            bindings = <&kp DA_ASTRK>;
-            layers = <0>;
-        };
-
-        combo_caps_word {
-            timeout-ms = <50>;
-            require-prior-idle-ms = <125>;
-            key-positions = <4 5>; // R + T
-            bindings = <&caps_word>;
-            layers = <0>;
-        };
-
         combo_home {
             timeout-ms = <50>;
             key-positions = <18 19>; // F + G
