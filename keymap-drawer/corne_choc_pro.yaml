@@ -446,12 +446,6 @@ combos:
 - p: [2, 3]
   k: '"'
   l: [QWERTY]
-- p: [3, 4]
-  k: '*'
-  l: [QWERTY]
-- p: [4, 5]
-  k: '&caps_word'
-  l: [QWERTY]
 - p: [18, 19]
   k: HOME
   l: [QWERTY]
