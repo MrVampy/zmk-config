@@ -458,13 +458,6 @@
             layers = <0>;
         };
 
-        combo_equal {
-            timeout-ms = <50>;
-            key-positions = <10 11>; // I + O
-            bindings = <&kp DA_EQUAL>;
-            layers = <0>;
-        };
-
         combo_slash {
             timeout-ms = <50>;
             key-positions = <31 32>; // C + V

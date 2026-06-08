@@ -31,6 +31,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define HOTPATH_T_POSITION 5
 #define HOTPATH_S_POSITION 16
 #define HOTPATH_I_POSITION 10
+#define HOTPATH_O_POSITION 11
 #define KEY_PRESS DEVICE_DT_NAME(DT_INST(0, zmk_behavior_key_press))
 #define CAPS_WORD DEVICE_DT_NAME(DT_NODELABEL(caps_word))
 
@@ -38,6 +39,7 @@ enum guarded_combo {
     GUARDED_COMBO_NONE,
     GUARDED_COMBO_ASTERISK,
     GUARDED_COMBO_CAPS_WORD,
+    GUARDED_COMBO_EQUAL,
 };
 
 static struct zmk_position_state_changed_event pending_s_event;
@@ -55,6 +57,7 @@ static bool pending_guarded;
 static uint32_t pending_guarded_position;
 static bool pending_guarded_allows_asterisk;
 static bool pending_guarded_allows_caps_word;
+static bool pending_guarded_allows_equal;
 static bool suppress_s_release;
 static bool suppress_i_release;
 
@@ -71,6 +74,12 @@ static const struct zmk_behavior_binding asterisk = {
 
 static const struct zmk_behavior_binding caps_word = {
     .behavior_dev = CAPS_WORD,
+};
+
+// Danish-layout equals is DA_EQUAL in the keymap, equivalent to Shift+0.
+static const struct zmk_behavior_binding equal = {
+    .behavior_dev = KEY_PRESS,
+    .param1 = LS(N0),
 };
 
 static bool base_layer_active(void) {
@@ -154,6 +163,8 @@ static int tap_guarded_combo(enum guarded_combo combo, int64_t timestamp) {
         return tap_binding(&asterisk, pending_guarded_position, timestamp);
     case GUARDED_COMBO_CAPS_WORD:
         return tap_binding(&caps_word, pending_guarded_position, timestamp);
+    case GUARDED_COMBO_EQUAL:
+        return tap_binding(&equal, pending_guarded_position, timestamp);
     default:
         return -EINVAL;
     }
@@ -186,7 +197,8 @@ static void pending_guarded_timeout_handler(struct k_work *work) {
 
 static bool is_guarded_combo_position(uint32_t position) {
     return position == HOTPATH_E_POSITION || position == HOTPATH_R_POSITION ||
-           position == HOTPATH_T_POSITION;
+           position == HOTPATH_T_POSITION || position == HOTPATH_I_POSITION ||
+           position == HOTPATH_O_POSITION;
 }
 
 static void start_guarded_combo(const struct zmk_position_state_changed *ev) {
@@ -197,6 +209,8 @@ static void start_guarded_combo(const struct zmk_position_state_changed *ev) {
         ev->position == HOTPATH_E_POSITION || ev->position == HOTPATH_R_POSITION;
     pending_guarded_allows_caps_word =
         ev->position == HOTPATH_R_POSITION || ev->position == HOTPATH_T_POSITION;
+    pending_guarded_allows_equal =
+        ev->position == HOTPATH_I_POSITION || ev->position == HOTPATH_O_POSITION;
 
     k_work_reschedule(&pending_guarded_timeout, K_MSEC(CONFIG_ZMK_CORNE_HOTPATH_COMBO_TIMEOUT_MS));
 }
@@ -214,6 +228,13 @@ static enum guarded_combo completed_guarded_combo(uint32_t second_position) {
                                              (pending_guarded_position == HOTPATH_T_POSITION &&
                                               second_position == HOTPATH_R_POSITION))) {
         return GUARDED_COMBO_CAPS_WORD;
+    }
+
+    if (pending_guarded_allows_equal && ((pending_guarded_position == HOTPATH_I_POSITION &&
+                                          second_position == HOTPATH_O_POSITION) ||
+                                         (pending_guarded_position == HOTPATH_O_POSITION &&
+                                          second_position == HOTPATH_I_POSITION))) {
+        return GUARDED_COMBO_EQUAL;
     }
 
     return GUARDED_COMBO_NONE;
