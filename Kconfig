@@ -1,1 +1,17 @@
-# Intentionally empty. Kept because zephyr/module.yml points at this Kconfig.
+menu "Corne custom firmware"
+
+config ZMK_CORNE_HOTPATHS
+    bool "Corne typing hot-path overrides"
+    default y if BOARD_CORNE_CHOC_PRO_LEFT
+    depends on BOARD_CORNE_CHOC_PRO_LEFT && ZMK_SPLIT_ROLE_CENTRAL
+
+if ZMK_CORNE_HOTPATHS
+
+config ZMK_CORNE_HOTPATH_SI_TIMEOUT_MS
+    int "S then I uppercase hot-path timeout"
+    default 100
+    range 1 500
+
+endif # ZMK_CORNE_HOTPATHS
+
+endmenu

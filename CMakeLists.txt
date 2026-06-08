@@ -1,2 +1,1 @@
-# Intentionally empty. This repo is still a Zephyr module for custom boards,
-# but the Corne RGB lighting uses stock ZMK underglow.
+target_sources_ifdef(CONFIG_ZMK_CORNE_HOTPATHS app PRIVATE src/corne_hotpaths.c)
