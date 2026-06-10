@@ -32,6 +32,12 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define HOTPATH_S_POSITION 16
 #define HOTPATH_I_POSITION 10
 #define HOTPATH_O_POSITION 11
+#define HOTPATH_LEFT_TAB_POSITION 28
+#define HOTPATH_RIGHT_TAB_POSITION 39
+#define HOTPATH_LEFT_RET_POSITION 41
+#define HOTPATH_SPACE_POSITION 43
+#define HOTPATH_RIGHT_RET_POSITION 44
+#define HOTPATH_INVALID_POSITION UINT32_MAX
 #define KEY_PRESS DEVICE_DT_NAME(DT_INST(0, zmk_behavior_key_press))
 #define CAPS_WORD DEVICE_DT_NAME(DT_NODELABEL(caps_word))
 
@@ -52,6 +58,7 @@ static bool physical_position_down[ZMK_KEYMAP_LEN];
 static bool suppress_position_release[ZMK_KEYMAP_LEN];
 static uint8_t physical_down_count;
 static int64_t last_physical_activity = INT32_MIN;
+static uint32_t last_released_position = HOTPATH_INVALID_POSITION;
 
 static bool pending_s;
 static bool pending_si_i;
@@ -89,6 +96,19 @@ static bool base_layer_active(void) {
 
 static bool position_in_keymap(uint32_t position) { return position < ZMK_KEYMAP_LEN; }
 
+static bool si_hotpath_after_text_boundary(void) {
+    switch (last_released_position) {
+    case HOTPATH_SPACE_POSITION:
+    case HOTPATH_LEFT_RET_POSITION:
+    case HOTPATH_RIGHT_RET_POSITION:
+    case HOTPATH_LEFT_TAB_POSITION:
+    case HOTPATH_RIGHT_TAB_POSITION:
+        return true;
+    default:
+        return false;
+    }
+}
+
 static bool physical_idle_before_event(const struct zmk_position_state_changed *ev) {
     return physical_down_count == 0 &&
            (ev->timestamp - last_physical_activity) >= CONFIG_ZMK_CORNE_HOTPATH_COMBO_IDLE_MS;
@@ -104,6 +124,10 @@ static void record_physical_activity(const struct zmk_position_state_changed *ev
         } else if (!ev->state && was_down) {
             physical_position_down[ev->position] = false;
             physical_down_count--;
+        }
+
+        if (!ev->state) {
+            last_released_position = ev->position;
         }
     }
 
@@ -353,7 +377,8 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
         return ZMK_EV_EVENT_CAPTURED;
     }
 
-    if (ev->state && ev->position == HOTPATH_S_POSITION && base_layer_active()) {
+    if (ev->state && ev->position == HOTPATH_S_POSITION && base_layer_active() &&
+        si_hotpath_after_text_boundary()) {
         pending_s_event = copy_raised_zmk_position_state_changed(ev);
         pending_s = true;
 
