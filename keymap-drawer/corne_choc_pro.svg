@@ -210,6 +210,7 @@ path.combo {
 <g transform="translate(252, 91)" class="key keypos-18">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">F</text>
+<text x="0" y="24" class="key hold">LSHFT</text>
 </g>
 <g transform="translate(308, 97)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -234,6 +235,7 @@ path.combo {
 <g transform="translate(588, 91)" class="key keypos-23">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">J</text>
+<text x="0" y="24" class="key hold">RSHFT</text>
 </g>
 <g transform="translate(644, 84)" class="key keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -488,6 +490,7 @@ path.combo {
 <g transform="translate(252, 91)" class="key keypos-18">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">6</text>
+<text x="0" y="24" class="key hold">LSHFT</text>
 </g>
 <g transform="translate(308, 97)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -508,6 +511,7 @@ path.combo {
 <g transform="translate(588, 91)" class="key keypos-23">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">LEFT</text>
+<text x="0" y="24" class="key hold">RSHFT</text>
 </g>
 <g transform="translate(644, 84)" class="key keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -716,6 +720,7 @@ path.combo {
 <g transform="translate(252, 91)" class="key keypos-18">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">´</text>
+<text x="0" y="24" class="key hold">LSHFT</text>
 </g>
 <g transform="translate(308, 97)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -736,6 +741,7 @@ path.combo {
 <g transform="translate(588, 91)" class="key keypos-23">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">´</text>
+<text x="0" y="24" class="key hold">RSHFT</text>
 </g>
 <g transform="translate(644, 84)" class="key keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>

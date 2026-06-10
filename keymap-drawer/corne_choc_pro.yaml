@@ -19,12 +19,12 @@ layers:
   - {t: A, h: LCTRL}
   - {t: S, h: LSHFT}
   - {t: D, h: LALT}
-  - F
+  - {t: F, h: LSHFT}
   - G
   - VOL DN
   - VOL UP
   - H
-  - J
+  - {t: J, h: RSHFT}
   - {t: K, h: RALT}
   - {t: L, h: RSHFT}
   - {t: æ, h: RCTRL}
@@ -66,12 +66,12 @@ layers:
   - {t: '0', h: LCTRL}
   - {t: '4', h: LSHFT}
   - {t: '5', h: LALT}
-  - '6'
+  - {t: '6', h: LSHFT}
   - <
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - '>'
-  - LEFT
+  - {t: LEFT, h: RSHFT}
   - {t: DOWN, h: RALT}
   - {t: UP, h: RSHFT}
   - {t: RIGHT, h: RCTRL}
@@ -117,12 +117,12 @@ layers:
   - {t: '`
 
       đ', h: LSHFT}
-  - ´
+  - {t: ´, h: LSHFT}
   - '['
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ']'
-  - ´
+  - {t: ´, h: RSHFT}
   - {t: '`', h: RALT}
   - {t: ¨, h: RSHFT}
   - {t: ^, h: RCTRL}
