@@ -8,7 +8,7 @@ config ZMK_CORNE_HOTPATHS
 if ZMK_CORNE_HOTPATHS
 
 config ZMK_CORNE_HOTPATH_SI_TIMEOUT_MS
-    int "S then I uppercase hot-path timeout"
+    int "Left Shift-HRM then I uppercase hot-path timeout"
     default 100
     range 1 500
 

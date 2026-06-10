@@ -515,8 +515,8 @@
             // --------------------------------------------------------------------------------
             // | LALT/ |  Q  |  W  |  E  |  R  |  T  | MUTE  | PP    |  Y  |  U   |  I  |  O  |  P  | RALT/ |
             // | CAPS  |     |     |     |     |     |       |       |     |      |     |     |     | DEL   |
-            // | LCTL/ | LCTL/|LSFT/|LALT/|  F  |  G  | Vol-  | Vol+  |  H  |  J   |RALT/|RSFT/|RCTL/| RCTL/ |
-            // | HOME  |  A  |  S   | D   |     |     |       |       |     |      | K   | L   |  Æ   | END   |
+            // | LCTL/ | LCTL/|LSFT/|LALT/|LSFT/|  G  | Vol-  | Vol+  |  H  |RSFT/ |RALT/|RSFT/|RCTL/| RCTL/ |
+            // | HOME  |  A  |  S   | D   |  F  |     |       |       |     | J    | K   | L   |  Æ   | END   |
             // | LSFT/ |  Z  |  X  |  C  |  V  |  B  |               |  N  |  M   |  ,  |  .  | ?/! | RSFT/ |
             // | S+Tab |     |     |     |     |     |               |     |      |     |     |     | TAB / |
             // |       |     |     |     |     |     |               |     |      |     |     |     |       |
@@ -539,7 +539,7 @@
             //   * Outer thumbs: tap = ESC on both halves (mirrored).
             bindings = <
                 &top_alt_l LALT 0       &kp Q &kp W &kp E &kp R &kp T &kp C_MUTE             &kp C_PP               &kp Y &kp U  &kp I     &kp O   &kp P     &mt_thumb RALT DEL
-                &mt_thumb LCTRL HOME    &core_hrm_l LCTRL A &shift_hrm_l LSHFT S &core_hrm_l LALT D &kp F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &kp J &core_hrm_r RALT K &shift_hrm_r RSHFT L &core_hrm_r RCTRL DA_AE &mt_thumb RCTRL END
+                &mt_thumb LCTRL HOME    &core_hrm_l LCTRL A &shift_hrm_l LSHFT S &core_hrm_l LALT D &shift_hrm_l LSHFT F &kp G &kp C_VOL_DN &kp C_VOL_UP &kp H &shift_hrm_r RSHFT J &core_hrm_r RALT K &shift_hrm_r RSHFT L &core_hrm_r RCTRL DA_AE &mt_thumb RCTRL END
                 &mt_thumb LSHFT LS(TAB) &kp Z &kp X &kp C &kp V &kp B                                               &kp N &kp M  &kp COMMA &kp DOT &kp DA_QMARK &mt_thumb RSHFT TAB
                                   &layer_thumb 2 ESC &layer_thumb 1 RET &text_thumb LGUI BSPC        &text_thumb RGUI SPACE &layer_thumb 1 RET &layer_thumb 2 ESC
             >;
@@ -551,8 +551,8 @@
             // -----------------------------------------------------------------------------------------
             // | LALT/|PgUp |  1  |  2  |  3  | F1  | MUTE  |  PP   | F2  | F3  | F4  | F5  | F6  | RALT/|
             // | CAPS |     |     |     |     |     |       |       |     |     |     |     |     | DEL  |
-            // | LCTL/|LCTL/|LSFT/|LALT/|  6  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/| RCTL/|
-            // | HOME |  0  |  4  |  5  |     |     |       |       |     |     | DWN | UP  | RGT | END  |
+            // | LCTL/|LCTL/|LSFT/|LALT/|LSFT/|  <  | Vol-  | Vol+  |  >  |RSFT/|RALT/|RSFT/|RCTL/| RCTL/|
+            // | HOME |  0  |  4  |  5  |  6  |     |       |       |     | LFT | DWN | UP  | RGT | END  |
             // | LSFT/|PgDn |  7  |  8  |  9  | F7  |               | F8  | F9  | F10 | F11 | F12 | RSFT/|
             // |S+Tab |     |     |     |     |     |               |     |     |     |     |     | TAB  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
@@ -563,7 +563,8 @@
             //     bootloader, studio_unlock) moved off this layer to the
             //     SETTINGS sub-layer (tri-layer NUMBER + SYMBOL → layer 3).
             //   * WER/SDF/XCV form a left-hand number pad; A is 0.
-            //   * A/S/D keep their HRM holds while tapping 0/4/5.
+            //   * A/S/D/F and J/K/L/Æ keep their HRM holds while tapping
+            //     numbers/arrows.
             //   * Outer columns inherit the base-layer utility mod-taps.
             //   * Q/Z provide PgUp/PgDn beside the number pad.
             //   * T-P and B-? provide F1..F12.
@@ -572,7 +573,7 @@
             //     for Alt/Shift/Ctrl chording on arrow keys.
             bindings = <
                 &trans      &kp PG_UP &kp N1    &kp N2    &kp N3    &kp F1   &trans    &trans    &kp F2   &kp F3   &kp F4   &kp F5    &kp F6    &trans
-                &trans      &core_hrm_l LCTRL N0 &shift_hrm_l LSHFT N4 &core_hrm_l LALT N5 &kp N6 &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &trans
+                &trans      &core_hrm_l LCTRL N0 &shift_hrm_l LSHFT N4 &core_hrm_l LALT N5 &shift_hrm_l LSHFT N6 &kp DA_LT &trans &trans &kp DA_GT &shift_hrm_r RSHFT LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &trans
                 &trans      &kp PG_DN &kp N7    &kp N8    &kp N9    &kp F7                       &kp F8   &kp F9   &kp F10  &kp F11   &kp F12   &trans
                                             &trans    &trans   &trans                       &trans   &trans   &trans
             >;
@@ -583,14 +584,14 @@
             // -----------------------------------------------------------------------------------------
             // | LALT/|  \  |  %  |  €  |  $  |  «  | LCTRL | RCTRL |  »  |  &  |  (  |  )  |  @  | RALT/|
             // | CAPS |     |     |     |     |     |       |       |     |     |     |     |     | DEL  |
-            // | LCTL/|LCTRL|LSHFT|LALT/|  ´  |  [  |  LALT | RALT  |  ]  |  ´  |RALT/|RSFT/|RCTRL| RCTL/|
-            // | HOME |  ^  | ¨/ß | `/đ |     |     |       |       |     |     |  `  |  ¨  |  ^  | END  |
+            // | LCTL/|LCTRL|LSHFT|LALT/|LSFT/|  [  |  LALT | RALT  |  ]  |RSFT/|RALT/|RSFT/|RCTRL| RCTL/|
+            // | HOME |  ^  | ¨/ß | `/đ |  ´  |     |       |       |     |  ´  |  `  |  ¨  |  ^  | END  |
             // | LSFT/| "|" |  #  |  ç  |  £  |  _  |               |  ~  |  ~  |  {  |  }  |  ¿  | RSFT/|
             // |S+Tab |     |     |     |     |     |               |     |     |     |     |     | TAB  |
             //                    | GUI |     | SPC |               | ENT |     | ALT |
             bindings = <
                 &trans      &kp DA_BSLH &kp DA_PRCNT &kp DA_EURO &kp DA_DLLR &kp RA(LS(N8)) &trans    &trans    &kp RA(LS(N9)) &kp DA_AMPS &kp DA_LPAR  &kp DA_RPAR &kp DA_AT &trans
-                &trans      &core_hrm_l LCTRL DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &kp DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &kp DA_ACUTE &core_hrm_r RALT DA_GRAVE &shift_hrm_r RSHFT DA_UMLAUT &core_hrm_r RCTRL DA_CARET &trans
+                &trans      &core_hrm_l LCTRL DA_CARET &sym_s_umlaut_ss &sym_d_grave_dstroke &shift_hrm_l LSHFT DA_ACUTE &kp DA_LBKT &trans &trans &kp DA_RBKT &shift_hrm_r RSHFT DA_ACUTE &core_hrm_r RALT DA_GRAVE &shift_hrm_r RSHFT DA_UMLAUT &core_hrm_r RCTRL DA_CARET &trans
                 &trans      &kp DA_PIPE &kp DA_HASH &c_cedilla_morph &kp DA_POUND_SIGN &kp DA_UNDER          &n_tilde_morph &kp DA_TILDE &kp DA_LBRC  &kp DA_RBRC &kp RA(LS(MINUS)) &trans
                                                 &trans      &trans      &trans                           &trans       &trans       &trans
             >;

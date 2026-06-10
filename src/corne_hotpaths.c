@@ -30,8 +30,10 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define HOTPATH_R_POSITION 4
 #define HOTPATH_T_POSITION 5
 #define HOTPATH_S_POSITION 16
+#define HOTPATH_F_POSITION 18
 #define HOTPATH_I_POSITION 10
 #define HOTPATH_O_POSITION 11
+#define HOTPATH_INVALID_POSITION UINT32_MAX
 #define KEY_PRESS DEVICE_DT_NAME(DT_INST(0, zmk_behavior_key_press))
 #define CAPS_WORD DEVICE_DT_NAME(DT_NODELABEL(caps_word))
 
@@ -42,10 +44,10 @@ enum guarded_combo {
     GUARDED_COMBO_EQUAL,
 };
 
-static struct zmk_position_state_changed_event pending_s_event;
-static struct zmk_position_state_changed_event pending_si_i_event;
+static struct zmk_position_state_changed_event pending_left_shift_i_event;
+static struct zmk_position_state_changed_event pending_left_shift_i_i_event;
 static struct zmk_position_state_changed_event pending_guarded_event;
-static struct k_work_delayable pending_s_timeout;
+static struct k_work_delayable pending_left_shift_i_timeout;
 static struct k_work_delayable pending_guarded_timeout;
 
 static bool physical_position_down[ZMK_KEYMAP_LEN];
@@ -53,14 +55,15 @@ static bool suppress_position_release[ZMK_KEYMAP_LEN];
 static uint8_t physical_down_count;
 static int64_t last_physical_activity = INT32_MIN;
 
-static bool pending_s;
-static bool pending_si_i;
+static bool pending_left_shift_i;
+static bool pending_left_shift_i_i;
 static bool pending_guarded;
+static uint32_t pending_left_shift_i_position;
 static uint32_t pending_guarded_position;
 static bool pending_guarded_allows_asterisk;
 static bool pending_guarded_allows_caps_word;
 static bool pending_guarded_allows_equal;
-static bool suppress_s_release;
+static uint32_t suppress_left_shift_i_release_position = HOTPATH_INVALID_POSITION;
 
 static const struct zmk_behavior_binding shifted_i = {
     .behavior_dev = KEY_PRESS,
@@ -89,6 +92,10 @@ static bool base_layer_active(void) {
 
 static bool position_in_keymap(uint32_t position) { return position < ZMK_KEYMAP_LEN; }
 
+static bool is_left_shift_i_hotpath_position(uint32_t position) {
+    return position == HOTPATH_S_POSITION || position == HOTPATH_F_POSITION;
+}
+
 static bool physical_idle_before_event(const struct zmk_position_state_changed *ev) {
     return physical_down_count == 0 &&
            (ev->timestamp - last_physical_activity) >= CONFIG_ZMK_CORNE_HOTPATH_COMBO_IDLE_MS;
@@ -110,29 +117,29 @@ static void record_physical_activity(const struct zmk_position_state_changed *ev
     last_physical_activity = ev->timestamp;
 }
 
-static int release_pending_s(void) {
-    if (!pending_s) {
+static int release_pending_left_shift_i(void) {
+    if (!pending_left_shift_i) {
         return 0;
     }
 
-    struct zmk_position_state_changed_event ev = pending_s_event;
+    struct zmk_position_state_changed_event ev = pending_left_shift_i_event;
 
-    pending_s = false;
-    k_work_cancel_delayable(&pending_s_timeout);
+    pending_left_shift_i = false;
+    k_work_cancel_delayable(&pending_left_shift_i_timeout);
 
     return ZMK_EVENT_RELEASE(ev);
 }
 
-static int release_pending_si_roll(void) {
-    int ret = release_pending_s();
+static int release_pending_left_shift_i_roll(void) {
+    int ret = release_pending_left_shift_i();
 
-    if (!pending_si_i) {
+    if (!pending_left_shift_i_i) {
         return ret;
     }
 
-    struct zmk_position_state_changed_event ev = pending_si_i_event;
+    struct zmk_position_state_changed_event ev = pending_left_shift_i_i_event;
 
-    pending_si_i = false;
+    pending_left_shift_i_i = false;
 
     int i_ret = ZMK_EVENT_RELEASE(ev);
     return ret < 0 ? ret : i_ret;
@@ -186,10 +193,10 @@ static int tap_guarded_combo(enum guarded_combo combo, int64_t timestamp) {
     }
 }
 
-static void pending_s_timeout_handler(struct k_work *work) {
+static void pending_left_shift_i_timeout_handler(struct k_work *work) {
     ARG_UNUSED(work);
 
-    release_pending_s();
+    release_pending_left_shift_i();
 }
 
 static int release_pending_guarded_combo(void) {
@@ -273,48 +280,48 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
         return ZMK_EV_EVENT_HANDLED;
     }
 
-    if (!ev->state && suppress_s_release && ev->position == HOTPATH_S_POSITION) {
-        suppress_s_release = false;
+    if (!ev->state && ev->position == suppress_left_shift_i_release_position) {
+        suppress_left_shift_i_release_position = HOTPATH_INVALID_POSITION;
         return ZMK_EV_EVENT_HANDLED;
     }
 
-    if (pending_s) {
-        if (pending_si_i) {
+    if (pending_left_shift_i) {
+        if (pending_left_shift_i_i) {
             if (!ev->state && ev->position == HOTPATH_I_POSITION) {
-                pending_s = false;
-                pending_si_i = false;
+                pending_left_shift_i = false;
+                pending_left_shift_i_i = false;
 
-                suppress_s_release = true;
+                suppress_left_shift_i_release_position = pending_left_shift_i_position;
 
                 int ret = tap_shifted_i(ev->timestamp);
                 return ret < 0 ? ret : ZMK_EV_EVENT_HANDLED;
             }
 
-            if (!ev->state && ev->position == HOTPATH_S_POSITION) {
-                release_pending_si_roll();
+            if (!ev->state && ev->position == pending_left_shift_i_position) {
+                release_pending_left_shift_i_roll();
                 return ZMK_EV_EVENT_BUBBLE;
             }
 
             if (ev->state) {
-                release_pending_si_roll();
+                release_pending_left_shift_i_roll();
                 return ZMK_EV_EVENT_BUBBLE;
             }
         }
 
-        if (!ev->state && ev->position == HOTPATH_S_POSITION) {
-            release_pending_s();
+        if (!ev->state && ev->position == pending_left_shift_i_position) {
+            release_pending_left_shift_i();
             return ZMK_EV_EVENT_BUBBLE;
         }
 
         if (ev->state && ev->position == HOTPATH_I_POSITION && base_layer_active()) {
-            pending_si_i_event = copy_raised_zmk_position_state_changed(ev);
-            pending_si_i = true;
-            k_work_cancel_delayable(&pending_s_timeout);
+            pending_left_shift_i_i_event = copy_raised_zmk_position_state_changed(ev);
+            pending_left_shift_i_i = true;
+            k_work_cancel_delayable(&pending_left_shift_i_timeout);
             return ZMK_EV_EVENT_CAPTURED;
         }
 
         if (ev->state) {
-            release_pending_s();
+            release_pending_left_shift_i();
             return ZMK_EV_EVENT_BUBBLE;
         }
     }
@@ -353,11 +360,13 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
         return ZMK_EV_EVENT_CAPTURED;
     }
 
-    if (ev->state && ev->position == HOTPATH_S_POSITION && base_layer_active()) {
-        pending_s_event = copy_raised_zmk_position_state_changed(ev);
-        pending_s = true;
+    if (ev->state && is_left_shift_i_hotpath_position(ev->position) && base_layer_active()) {
+        pending_left_shift_i_event = copy_raised_zmk_position_state_changed(ev);
+        pending_left_shift_i = true;
+        pending_left_shift_i_position = ev->position;
 
-        k_work_reschedule(&pending_s_timeout, K_MSEC(CONFIG_ZMK_CORNE_HOTPATH_SI_TIMEOUT_MS));
+        k_work_reschedule(&pending_left_shift_i_timeout,
+                          K_MSEC(CONFIG_ZMK_CORNE_HOTPATH_SI_TIMEOUT_MS));
 
         return ZMK_EV_EVENT_CAPTURED;
     }
@@ -369,7 +378,7 @@ ZMK_LISTENER(corne_hotpaths, corne_hotpaths_listener);
 ZMK_SUBSCRIPTION(corne_hotpaths, zmk_position_state_changed);
 
 static int corne_hotpaths_init(void) {
-    k_work_init_delayable(&pending_s_timeout, pending_s_timeout_handler);
+    k_work_init_delayable(&pending_left_shift_i_timeout, pending_left_shift_i_timeout_handler);
     k_work_init_delayable(&pending_guarded_timeout, pending_guarded_timeout_handler);
     return 0;
 }
