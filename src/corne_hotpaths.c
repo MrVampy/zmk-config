@@ -44,7 +44,6 @@ enum guarded_combo {
 static struct zmk_position_state_changed_event pending_left_shift_i_event;
 static struct zmk_position_state_changed_event pending_left_shift_i_i_event;
 static struct zmk_position_state_changed_event pending_guarded_event;
-static struct k_work_delayable pending_left_shift_i_timeout;
 static struct k_work_delayable pending_guarded_timeout;
 
 static bool physical_position_down[ZMK_KEYMAP_LEN];
@@ -117,7 +116,6 @@ static int release_pending_left_shift_i(void) {
     struct zmk_position_state_changed_event ev = pending_left_shift_i_event;
 
     pending_left_shift_i = false;
-    k_work_cancel_delayable(&pending_left_shift_i_timeout);
 
     return ZMK_EVENT_RELEASE(ev);
 }
@@ -183,12 +181,6 @@ static int tap_guarded_combo(enum guarded_combo combo, int64_t timestamp) {
     }
 }
 
-static void pending_left_shift_i_timeout_handler(struct k_work *work) {
-    ARG_UNUSED(work);
-
-    release_pending_left_shift_i();
-}
-
 static int release_pending_guarded_combo(void) {
     if (!pending_guarded) {
         return 0;
@@ -243,6 +235,14 @@ static enum guarded_combo completed_guarded_combo(uint32_t second_position) {
     return GUARDED_COMBO_NONE;
 }
 
+// Keep the S/F->I window synchronous. A delayed work timeout can race with
+// the I-release success path and forward the HRM press while its release is
+// still suppressed, which looks like a temporarily stuck Shift.
+static bool pending_left_shift_i_expired(const struct zmk_position_state_changed *ev) {
+    return (ev->timestamp - pending_left_shift_i_event.data.timestamp) >
+           CONFIG_ZMK_CORNE_HOTPATH_SI_TIMEOUT_MS;
+}
+
 static int corne_hotpaths_listener(const zmk_event_t *eh) {
     struct zmk_position_state_changed *ev = as_zmk_position_state_changed(eh);
 
@@ -266,6 +266,11 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
     }
 
     if (pending_left_shift_i) {
+        if (!pending_left_shift_i_i && pending_left_shift_i_expired(ev)) {
+            release_pending_left_shift_i();
+            return ZMK_EV_EVENT_BUBBLE;
+        }
+
         if (pending_left_shift_i_i) {
             if (!ev->state && ev->position == HOTPATH_I_POSITION) {
                 pending_left_shift_i = false;
@@ -296,7 +301,6 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
         if (ev->state && ev->position == HOTPATH_I_POSITION && base_layer_active()) {
             pending_left_shift_i_i_event = copy_raised_zmk_position_state_changed(ev);
             pending_left_shift_i_i = true;
-            k_work_cancel_delayable(&pending_left_shift_i_timeout);
             return ZMK_EV_EVENT_CAPTURED;
         }
 
@@ -345,9 +349,6 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
         pending_left_shift_i = true;
         pending_left_shift_i_position = ev->position;
 
-        k_work_reschedule(&pending_left_shift_i_timeout,
-                          K_MSEC(CONFIG_ZMK_CORNE_HOTPATH_SI_TIMEOUT_MS));
-
         return ZMK_EV_EVENT_CAPTURED;
     }
 
@@ -358,7 +359,6 @@ ZMK_LISTENER(corne_hotpaths, corne_hotpaths_listener);
 ZMK_SUBSCRIPTION(corne_hotpaths, zmk_position_state_changed);
 
 static int corne_hotpaths_init(void) {
-    k_work_init_delayable(&pending_left_shift_i_timeout, pending_left_shift_i_timeout_handler);
     k_work_init_delayable(&pending_guarded_timeout, pending_guarded_timeout_handler);
     return 0;
 }
