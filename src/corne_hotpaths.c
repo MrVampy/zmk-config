@@ -29,7 +29,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define HOTPATH_E_POSITION 3
 #define HOTPATH_R_POSITION 4
 #define HOTPATH_S_POSITION 16
-#define HOTPATH_F_POSITION 18
 #define HOTPATH_I_POSITION 10
 #define HOTPATH_O_POSITION 11
 #define HOTPATH_INVALID_POSITION UINT32_MAX
@@ -84,7 +83,7 @@ static bool base_layer_active(void) {
 static bool position_in_keymap(uint32_t position) { return position < ZMK_KEYMAP_LEN; }
 
 static bool is_left_shift_i_hotpath_position(uint32_t position) {
-    return position == HOTPATH_S_POSITION || position == HOTPATH_F_POSITION;
+    return position == HOTPATH_S_POSITION;
 }
 
 static bool physical_idle_before_event(const struct zmk_position_state_changed *ev) {
@@ -235,7 +234,7 @@ static enum guarded_combo completed_guarded_combo(uint32_t second_position) {
     return GUARDED_COMBO_NONE;
 }
 
-// Keep the S/F->I window synchronous. A delayed work timeout can race with
+// Keep the S->I window synchronous. A delayed work timeout can race with
 // the I-release success path and forward the HRM press while its release is
 // still suppressed, which looks like a temporarily stuck Shift.
 static bool pending_left_shift_i_expired(const struct zmk_position_state_changed *ev) {
