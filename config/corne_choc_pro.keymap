@@ -498,7 +498,7 @@
 
         combo_key_lock {
             timeout-ms = <400>;
-            key-positions = <22 23 24 25 26 27>; // SETTINGS/LOCK right home row
+            key-positions = <23 24 25 26>; // SETTINGS/LOCK J + K + L + Æ
             bindings = <&tog LAYER_LOCK>;
             layers = <LAYER_SETTINGS LAYER_LOCK>;
         };
