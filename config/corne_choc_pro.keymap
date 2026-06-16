@@ -12,6 +12,9 @@
 #include <dt-bindings/zmk/modifiers.h>
 #include <locale/keys_da.h>
 
+#define LAYER_SETTINGS 3
+#define LAYER_LOCK 9
+
 // dk OS layout reinterprets US scancodes — most symbols on the SYMBOL layer
 // don't produce what their ZMK keycode names say. We use DA_* aliases from the
 // zmk-locales module (wired in via config/west.yml) so the keymap source
@@ -492,6 +495,13 @@
             bindings = <&kp RA(N1)>;
             layers = <2>;
         };
+
+        combo_key_lock {
+            timeout-ms = <400>;
+            key-positions = <22 23 24 25 26 27>; // SETTINGS/LOCK right home row
+            bindings = <&tog LAYER_LOCK>;
+            layers = <LAYER_SETTINGS LAYER_LOCK>;
+        };
     };
 
     // Tri-layer: NUMBER (1) + SYMBOL (2) held together → SETTINGS (3).
@@ -669,6 +679,19 @@
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
                 &trans &trans &trans &trans &trans &trans               &trans &trans &trans &trans &trans &trans
                                      &trans &trans &trans               &trans &trans &trans       
+            >;
+        };
+
+        lock_layer {
+            display-name = "LOCK";
+            // All positions are muted. The only live input is combo_key_lock,
+            // which listens to the physical right home-row positions and
+            // toggles this layer back off.
+            bindings = <
+                &none &none &none &none &none &none &none &none &none &none &none &none &none &none
+                &none &none &none &none &none &none &none &none &none &none &none &none &none &none
+                &none &none &none &none &none &none             &none &none &none &none &none &none
+                                  &none &none &none             &none &none &none
             >;
         };
     };
