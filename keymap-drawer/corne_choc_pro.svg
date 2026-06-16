@@ -1007,13 +1007,11 @@ path.combo {
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 </g>
 <g class="combo combopos-0">
-<path d="M672,95 l-121,2" class="combo"/>
-<path d="M672,95 l-65,-4" class="combo"/>
-<path d="M672,95 l65,7" class="combo"/>
-<path d="M672,95 l121,8" class="combo"/>
-<rect rx="6" ry="6" x="658" y="82" width="28" height="26" class="combo"/>
-<text x="672" y="95" class="combo tap">LOCK</text>
-<text x="672" y="106" class="combo hold">toggle</text>
+<path d="M672,93 l-65,-1" class="combo"/>
+<path d="M672,93 l66,10" class="combo"/>
+<rect rx="6" ry="6" x="658" y="80" width="28" height="26" class="combo"/>
+<text x="672" y="93" class="combo tap">LOCK</text>
+<text x="672" y="104" class="combo hold">toggle</text>
 </g>
 </g>
 </g>
