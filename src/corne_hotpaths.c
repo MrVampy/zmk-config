@@ -9,19 +9,19 @@
 #include <errno.h>
 #include <stdint.h>
 
-#include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/sys/util.h>
 
-#include <zmk/behavior.h>
+#include <zmk/endpoints.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/position_state_changed.h>
+#include <zmk/hid.h>
 #include <zmk/keymap.h>
 #include <zmk/matrix.h>
 
+#include <dt-bindings/zmk/hid_usage_pages.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/modifiers.h>
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
@@ -32,7 +32,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define HOTPATH_I_POSITION 10
 #define HOTPATH_O_POSITION 11
 #define HOTPATH_INVALID_POSITION UINT32_MAX
-#define KEY_PRESS DEVICE_DT_NAME(DT_INST(0, zmk_behavior_key_press))
+#define HOTPATH_LSHIFT_MODIFIER 1
 
 enum guarded_combo {
     GUARDED_COMBO_NONE,
@@ -58,23 +58,6 @@ static uint32_t pending_guarded_position;
 static bool pending_guarded_allows_asterisk;
 static bool pending_guarded_allows_equal;
 static uint32_t suppress_left_shift_i_release_position = HOTPATH_INVALID_POSITION;
-
-static const struct zmk_behavior_binding shifted_i = {
-    .behavior_dev = KEY_PRESS,
-    .param1 = LS(I),
-};
-
-// Danish-layout asterisk is DA_ASTRK in the keymap, equivalent to Shift+BSLH.
-static const struct zmk_behavior_binding asterisk = {
-    .behavior_dev = KEY_PRESS,
-    .param1 = LS(BSLH),
-};
-
-// Danish-layout equals is DA_EQUAL in the keymap, equivalent to Shift+0.
-static const struct zmk_behavior_binding equal = {
-    .behavior_dev = KEY_PRESS,
-    .param1 = LS(N0),
-};
 
 static bool base_layer_active(void) {
     return zmk_keymap_highest_layer_active() == HOTPATH_LAYER_BASE;
@@ -134,47 +117,70 @@ static int release_pending_left_shift_i_roll(void) {
     return ret < 0 ? ret : i_ret;
 }
 
-static int tap_shifted_i(int64_t timestamp) {
-    struct zmk_behavior_binding_event event = {
-        .position = HOTPATH_I_POSITION,
-        .timestamp = timestamp,
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-        .source = ZMK_POSITION_STATE_CHANGE_SOURCE_LOCAL,
-#endif
-    };
-
-    int ret = zmk_behavior_invoke_binding(&shifted_i, event, true);
-    if (ret < 0) {
-        return ret;
-    }
-
-    return zmk_behavior_invoke_binding(&shifted_i, event, false);
+static int keep_first_error(int first_error, int ret) {
+    return first_error < 0 ? first_error : (ret < 0 ? ret : first_error);
 }
 
-static int tap_binding(const struct zmk_behavior_binding *binding, uint32_t position,
-                       int64_t timestamp) {
-    struct zmk_behavior_binding_event event = {
-        .position = position,
-        .timestamp = timestamp,
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-        .source = ZMK_POSITION_STATE_CHANGE_SOURCE_LOCAL,
-#endif
-    };
+static int send_keyboard_report(void) {
+    int ret = zmk_endpoints_send_report(HID_USAGE_KEY);
 
-    int ret = zmk_behavior_invoke_binding(binding, event, true);
+    if (ret < 0) {
+        LOG_ERR("Failed to send keyboard report (%d)", ret);
+    }
+
+    return ret;
+}
+
+static int tap_lshift_key(uint32_t key_usage) {
+    zmk_key_t key = ZMK_HID_USAGE_ID(key_usage);
+    int first_error = 0;
+    bool mod_registered = false;
+    bool key_pressed = false;
+
+    // Avoid ZMK's implicit-modifier path for these synthetic hotpath taps.
+    // The implicit path stores one global modifier bit and clears it only on
+    // the paired key-release event; if that release is ever captured/reordered,
+    // Shift can appear stuck. Explicit modifiers are refcounted, so the cleanup
+    // below is local to this synthetic tap even if physical Shift is also held.
+    int ret = zmk_hid_register_mod(HOTPATH_LSHIFT_MODIFIER);
     if (ret < 0) {
         return ret;
     }
+    mod_registered = true;
+    first_error = keep_first_error(first_error, send_keyboard_report());
 
-    return zmk_behavior_invoke_binding(binding, event, false);
+    ret = zmk_hid_keyboard_press(key);
+    if (ret < 0) {
+        first_error = keep_first_error(first_error, ret);
+    } else {
+        key_pressed = true;
+        first_error = keep_first_error(first_error, send_keyboard_report());
+    }
+
+    if (key_pressed) {
+        first_error = keep_first_error(first_error, zmk_hid_keyboard_release(key));
+        first_error = keep_first_error(first_error, send_keyboard_report());
+    }
+
+    if (mod_registered) {
+        first_error =
+            keep_first_error(first_error, zmk_hid_unregister_mod(HOTPATH_LSHIFT_MODIFIER));
+        first_error = keep_first_error(first_error, send_keyboard_report());
+    }
+
+    return first_error;
 }
 
 static int tap_guarded_combo(enum guarded_combo combo, int64_t timestamp) {
+    ARG_UNUSED(timestamp);
+
     switch (combo) {
     case GUARDED_COMBO_ASTERISK:
-        return tap_binding(&asterisk, pending_guarded_position, timestamp);
+        // Danish-layout asterisk is DA_ASTRK in the keymap, equivalent to Shift+BSLH.
+        return tap_lshift_key(BSLH);
     case GUARDED_COMBO_EQUAL:
-        return tap_binding(&equal, pending_guarded_position, timestamp);
+        // Danish-layout equals is DA_EQUAL in the keymap, equivalent to Shift+0.
+        return tap_lshift_key(N0);
     default:
         return -EINVAL;
     }
@@ -277,7 +283,7 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
 
                 suppress_left_shift_i_release_position = pending_left_shift_i_position;
 
-                int ret = tap_shifted_i(ev->timestamp);
+                int ret = tap_lshift_key(I);
                 return ret < 0 ? ret : ZMK_EV_EVENT_HANDLED;
             }
 
