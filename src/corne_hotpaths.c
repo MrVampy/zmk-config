@@ -28,10 +28,8 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define HOTPATH_LAYER_BASE 0
 #define HOTPATH_E_POSITION 3
 #define HOTPATH_R_POSITION 4
-#define HOTPATH_S_POSITION 16
 #define HOTPATH_I_POSITION 10
 #define HOTPATH_O_POSITION 11
-#define HOTPATH_INVALID_POSITION UINT32_MAX
 #define HOTPATH_LSHIFT_MODIFIER 1
 
 enum guarded_combo {
@@ -40,8 +38,6 @@ enum guarded_combo {
     GUARDED_COMBO_EQUAL,
 };
 
-static struct zmk_position_state_changed_event pending_left_shift_i_event;
-static struct zmk_position_state_changed_event pending_left_shift_i_i_event;
 static struct zmk_position_state_changed_event pending_guarded_event;
 static struct k_work_delayable pending_guarded_timeout;
 
@@ -50,24 +46,16 @@ static bool suppress_position_release[ZMK_KEYMAP_LEN];
 static uint8_t physical_down_count;
 static int64_t last_physical_activity = INT32_MIN;
 
-static bool pending_left_shift_i;
-static bool pending_left_shift_i_i;
 static bool pending_guarded;
-static uint32_t pending_left_shift_i_position;
 static uint32_t pending_guarded_position;
 static bool pending_guarded_allows_asterisk;
 static bool pending_guarded_allows_equal;
-static uint32_t suppress_left_shift_i_release_position = HOTPATH_INVALID_POSITION;
 
 static bool base_layer_active(void) {
     return zmk_keymap_highest_layer_active() == HOTPATH_LAYER_BASE;
 }
 
 static bool position_in_keymap(uint32_t position) { return position < ZMK_KEYMAP_LEN; }
-
-static bool is_left_shift_i_hotpath_position(uint32_t position) {
-    return position == HOTPATH_S_POSITION;
-}
 
 static bool physical_idle_before_event(const struct zmk_position_state_changed *ev) {
     return physical_down_count == 0 &&
@@ -88,33 +76,6 @@ static void record_physical_activity(const struct zmk_position_state_changed *ev
     }
 
     last_physical_activity = ev->timestamp;
-}
-
-static int release_pending_left_shift_i(void) {
-    if (!pending_left_shift_i) {
-        return 0;
-    }
-
-    struct zmk_position_state_changed_event ev = pending_left_shift_i_event;
-
-    pending_left_shift_i = false;
-
-    return ZMK_EVENT_RELEASE(ev);
-}
-
-static int release_pending_left_shift_i_roll(void) {
-    int ret = release_pending_left_shift_i();
-
-    if (!pending_left_shift_i_i) {
-        return ret;
-    }
-
-    struct zmk_position_state_changed_event ev = pending_left_shift_i_i_event;
-
-    pending_left_shift_i_i = false;
-
-    int i_ret = ZMK_EVENT_RELEASE(ev);
-    return ret < 0 ? ret : i_ret;
 }
 
 static int keep_first_error(int first_error, int ret) {
@@ -240,14 +201,6 @@ static enum guarded_combo completed_guarded_combo(uint32_t second_position) {
     return GUARDED_COMBO_NONE;
 }
 
-// Keep the S->I window synchronous. A delayed work timeout can race with
-// the I-release success path and forward the HRM press while its release is
-// still suppressed, which looks like a temporarily stuck Shift.
-static bool pending_left_shift_i_expired(const struct zmk_position_state_changed *ev) {
-    return (ev->timestamp - pending_left_shift_i_event.data.timestamp) >
-           CONFIG_ZMK_CORNE_HOTPATH_SI_TIMEOUT_MS;
-}
-
 static int corne_hotpaths_listener(const zmk_event_t *eh) {
     struct zmk_position_state_changed *ev = as_zmk_position_state_changed(eh);
 
@@ -263,56 +216,6 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
     if (!ev->state && position_in_keymap(ev->position) && suppress_position_release[ev->position]) {
         suppress_position_release[ev->position] = false;
         return ZMK_EV_EVENT_HANDLED;
-    }
-
-    if (!ev->state && ev->position == suppress_left_shift_i_release_position) {
-        suppress_left_shift_i_release_position = HOTPATH_INVALID_POSITION;
-        return ZMK_EV_EVENT_HANDLED;
-    }
-
-    if (pending_left_shift_i) {
-        if (!pending_left_shift_i_i && pending_left_shift_i_expired(ev)) {
-            release_pending_left_shift_i();
-            return ZMK_EV_EVENT_BUBBLE;
-        }
-
-        if (pending_left_shift_i_i) {
-            if (!ev->state && ev->position == HOTPATH_I_POSITION) {
-                pending_left_shift_i = false;
-                pending_left_shift_i_i = false;
-
-                suppress_left_shift_i_release_position = pending_left_shift_i_position;
-
-                int ret = tap_lshift_key(I);
-                return ret < 0 ? ret : ZMK_EV_EVENT_HANDLED;
-            }
-
-            if (!ev->state && ev->position == pending_left_shift_i_position) {
-                release_pending_left_shift_i_roll();
-                return ZMK_EV_EVENT_BUBBLE;
-            }
-
-            if (ev->state) {
-                release_pending_left_shift_i_roll();
-                return ZMK_EV_EVENT_BUBBLE;
-            }
-        }
-
-        if (!ev->state && ev->position == pending_left_shift_i_position) {
-            release_pending_left_shift_i();
-            return ZMK_EV_EVENT_BUBBLE;
-        }
-
-        if (ev->state && ev->position == HOTPATH_I_POSITION && base_layer_active()) {
-            pending_left_shift_i_i_event = copy_raised_zmk_position_state_changed(ev);
-            pending_left_shift_i_i = true;
-            return ZMK_EV_EVENT_CAPTURED;
-        }
-
-        if (ev->state) {
-            release_pending_left_shift_i();
-            return ZMK_EV_EVENT_BUBBLE;
-        }
     }
 
     if (pending_guarded) {
@@ -346,14 +249,6 @@ static int corne_hotpaths_listener(const zmk_event_t *eh) {
 
     if (may_start_guarded_combo && is_guarded_combo_position(ev->position)) {
         start_guarded_combo(ev);
-        return ZMK_EV_EVENT_CAPTURED;
-    }
-
-    if (ev->state && is_left_shift_i_hotpath_position(ev->position) && base_layer_active()) {
-        pending_left_shift_i_event = copy_raised_zmk_position_state_changed(ev);
-        pending_left_shift_i = true;
-        pending_left_shift_i_position = ev->position;
-
         return ZMK_EV_EVENT_CAPTURED;
     }
 
