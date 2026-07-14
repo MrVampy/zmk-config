@@ -559,11 +559,11 @@
         lower_layer {
             display-name = "NUMBER";
             // -----------------------------------------------------------------------------------------
-            // | LALT/|PgUp |  1  |  2  |  3  | F1  | MUTE  |  PP   | F2  | F3  | F4  | F5  | F6  | RALT/|
+            // | LALT/|  ,  |  1  |  2  |  3  | F1  | MUTE  |  PP   | F2  | F3  | F4  | F5  | F6  | RALT/|
             // | CAPS |     |     |     |     |     |       |       |     |     |     |     |     | DEL  |
             // | LCTL/|LCTL/|LSFT/|LALT/|  6  |  <  | Vol-  | Vol+  |  >  | LFT |RALT/|RSFT/|RCTL/| RCTL/|
             // | HOME |  0  |  4  |  5  |     |     |       |       |     |     | DWN | UP  | RGT | END  |
-            // | LSFT/|PgDn |  7  |  8  |  9  | F7  |               | F8  | F9  | F10 | F11 | F12 | RSFT/|
+            // | LSFT/|  .  |  7  |  8  |  9  | F7  |               | F8  | F9  | F10 | F11 | F12 | RSFT/|
             // |S+Tab |     |     |     |     |     |               |     |     |     |     |     | TAB  |
             //              | L2/    | L1/      | LGUI/  |   | RGUI/  | L1/      | L2/    |
             //              | ESC    |  RET     | BSPC   |   | SPACE  |  RET     | ESC    |
@@ -576,15 +576,15 @@
             //   * A/S/D and K/L/Æ keep their HRM holds while tapping
             //     numbers/arrows; F and J are plain taps on this layer.
             //   * Outer columns inherit the base-layer utility mod-taps.
-            //   * Q/Z provide PgUp/PgDn beside the number pad.
+            //   * Q/Z provide comma/dot beside the number pad for numeric entry.
             //   * T-P and B-? provide F1..F12.
             //   * Arithmetic operators now live on base combos/SYMBOL.
             //   * Row 1 right = arrow cluster on J/K/L/Æ; K/L/Æ keep
             //     Alt/Shift/Ctrl chording on arrow keys.
             bindings = <
-                &trans      &kp PG_UP &kp N1    &kp N2    &kp N3    &kp F1   &trans    &trans    &kp F2   &kp F3   &kp F4   &kp F5    &kp F6    &trans
+                &trans      &kp COMMA &kp N1    &kp N2    &kp N3    &kp F1   &trans    &trans    &kp F2   &kp F3   &kp F4   &kp F5    &kp F6    &trans
                 &trans      &core_hrm_l LCTRL N0 &shift_hrm_l LSHFT N4 &core_hrm_l LALT N5 &kp N6 &kp DA_LT &trans &trans &kp DA_GT &kp LEFT &core_hrm_r RALT DOWN &shift_hrm_r RSHFT UP &core_hrm_r RCTRL RIGHT &trans
-                &trans      &kp PG_DN &kp N7    &kp N8    &kp N9    &kp F7                       &kp F8   &kp F9   &kp F10  &kp F11   &kp F12   &trans
+                &trans      &kp DOT   &kp N7    &kp N8    &kp N9    &kp F7                       &kp F8   &kp F9   &kp F10  &kp F11   &kp F12   &trans
                                             &trans    &trans   &trans                       &trans   &trans   &trans
             >;
         };
