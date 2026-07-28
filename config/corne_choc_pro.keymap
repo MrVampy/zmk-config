@@ -33,28 +33,24 @@
     behaviors {
         // Layer-entry thumb hold-tap for ESC/SYMBOL and RET/NUMBER.
         //
-        // This intentionally keeps the aggressive utility-thumb timing:
-        // chording with a main-field key opens the layer immediately, while
-        // thumb-thumb chords do not trigger the hold. Released alone, retro-tap
-        // preserves the tap side even after a longer press.
+        // A release within 300 ms produces ESC/RET. Pressing a main-field key
+        // or another layer thumb commits the layer hold immediately. Holding
+        // past the tapping term without using the layer releases silently.
+        // The shorter quick-tap window preserves deliberate tap-then-hold
+        // repeat without delaying layer entry for a full 300 ms after a tap.
         layer_thumb: layer_thumb_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <0>;
-            quick-tap-ms = <300>;
-            flavor = "tap-preferred";
-            retro-tap;
-            // Only main-field positions (0-39) chord-trigger the layer hold.
-            // Pressing another thumb-cluster key while layer_thumb is held does
-            // NOT activate the layer — useful when tapping both layer thumbs
-            // simultaneously (both fire their tap side, no accidental layer
-            // activation).
-            // Also covers chord-with-SPACE/RET/LGUI/RGUI which have no
-            // meaningful layer bindings anyway.
+            tapping-term-ms = <300>;
+            quick-tap-ms = <175>;
+            flavor = "hold-preferred";
+            // Main-field positions and the four layer thumbs trigger the hold.
+            // The two text thumbs (zero-based positions 42 and 43) stay excluded.
             hold-trigger-key-positions = <
                  0  1  2  3  4  5  6  7  8  9 10 11 12 13
                 14 15 16 17 18 19 20 21 22 23 24 25 26 27
                 28 29 30 31 32 33       34 35 36 37 38 39
+                40 41                         44 45
             >;
             bindings = <&mo>, <&kp>;
         };
